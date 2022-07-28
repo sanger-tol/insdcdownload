@@ -9,11 +9,6 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 // Validate input parameters
 WorkflowInsdcdownload.initialise(params, log)
 
-// TODO nf-core: Add all file path parameters for the pipeline to the list below
-// Check input path parameters to see if they exist
-def checkPathParamList = [ params.fasta ]
-for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
-
 // Check mandatory parameters
 // if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 
@@ -27,6 +22,8 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { PREPARE_GENOME                } from '../subworkflows/local/prepare_genome'
+include { DOWNLOAD_GENOME               } from '../subworkflows/local/download_genome'
+include { PREPARE_REPEATS               } from '../subworkflows/local/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,14 +46,36 @@ workflow INSDCDOWNLOAD {
 
     ch_versions = Channel.empty()
 
-    //
-    // SUBWORKFLOW: Read in samplesheet, validate and stage input files
-    //
+    // actual download -> all files (incl. masked fasta)
+    // remove masking -> unmasked fasta
+    DOWNLOAD_GENOME (
+        params.assembly_accession,
+        params.assembly_name
+    )
+    ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
+
+    // bwamem2 index
+    // minimap2 index
+    // bgzip
+    // samtools faidx
+    // samtools dict
+    // chrom.sizes
     PREPARE_GENOME (
-        ch_input
+        DOWNLOAD_GENOME.out.fasta_unmasked
     )
     ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
 
+    //DOWNLOAD_GENOME.out.fasta_masked.view()
+    // masking bed
+    // bgzip
+    // samtools faidx
+    // samtools dict
+    PREPARE_REPEATS (
+        DOWNLOAD_GENOME.out.fasta_masked
+    )
+    ch_versions = ch_versions.mix(PREPARE_REPEATS.out.versions)
+
+    // TODO: Add Slack notification in main workflow
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
