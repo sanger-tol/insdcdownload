@@ -6,6 +6,7 @@ include { MASKING_TO_BED          } from '../../modules/local/masking_to_bed'
 include { SAMTOOLS_FAIDX          } from '../../modules/nf-core/modules/samtools/faidx/main'
 include { SAMTOOLS_DICT           } from '../../modules/nf-core/modules/samtools/dict/main'
 include { TABIX_BGZIP             } from '../../modules/nf-core/modules/tabix/bgzip/main'
+include { TABIX_BGZIPTABIX        } from '../../modules/nf-core/modules/tabix/bgziptabix/main'
 
 
 workflow PREPARE_REPEATS {
@@ -19,6 +20,10 @@ workflow PREPARE_REPEATS {
     // BED file
     ch_masking_bed      = MASKING_TO_BED ( fasta ).bed
     ch_versions         = ch_versions.mix(MASKING_TO_BED.out.versions)
+
+    // Compress the BEDfile
+    ch_compressed_bed   = TABIX_BGZIPTABIX ( ch_masking_bed ).gz_tbi
+    ch_versions         = ch_versions.mix(TABIX_BGZIPTABIX.out.versions)
 
     // Compress the Fasta file
     ch_compressed_fasta = TABIX_BGZIP (fasta).output
@@ -34,7 +39,8 @@ workflow PREPARE_REPEATS {
     ch_versions         = ch_versions.mix(SAMTOOLS_DICT.out.versions)
 
     emit:
-    bed      = ch_masking_bed            // path: genome.bed
+    bed_gz   = ch_compressed_bed.map { [it[0], it[1]] }         // path: genome.bed
+    bed_tbi  = ch_compressed_bed.map { [it[0], it[2]] }         // path: genome.bed
     fasta_gz = ch_compressed_fasta       // path: genome.fasta.gz
     faidx    = ch_samtools_faidx         // path: samtools/faidx/
     dict     = ch_samtools_dict          // path: samtools/dict/
