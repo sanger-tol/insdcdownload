@@ -15,9 +15,6 @@
                 "gunzip": {
                     "git_sha": "fa37e0662690c4ec4260dae282fbce08777503e6"
                 },
-                "minimap2/index": {
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
                 "samtools/dict": {
                     "git_sha": "31409f5e727ec932f0b3a399c7a3847d70b21374"
                 },
