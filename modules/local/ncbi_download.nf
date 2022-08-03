@@ -11,11 +11,11 @@ process NCBI_DOWNLOAD {
     val assembly_name
 
     output:
-    tuple val(meta), path(filename_fasta), emit: fasta
-    path filename_assembly_report        , emit: assembly_report
-    path filename_assembly_stats         , emit: assembly_stats
-    path filename_accession              , emit: accession
-    path  "versions.yml"                 , emit: versions
+    tuple val(meta), path(filename_fasta)          , emit: fasta
+    tuple val(meta), path(filename_assembly_report), emit: assembly_report
+    tuple val(meta), path(filename_assembly_stats) , emit: assembly_stats
+    tuple val(meta), path(filename_accession)      , emit: accession
+    path  "versions.yml"                           , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
