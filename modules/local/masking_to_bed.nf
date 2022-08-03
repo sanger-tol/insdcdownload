@@ -24,7 +24,7 @@ process MASKING_TO_BED {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        masking_to_bed: c9745041e9512d9531efc1f470f8bd01
+        masking_to_bed: \$(md5sum \$(which masking_to_bed.py) | cut -d' ' -f1)
     END_VERSIONS
     """
 }
