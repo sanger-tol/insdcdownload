@@ -11,7 +11,7 @@ process REMOVE_MASKING {
     tuple val(meta), path(genome)
 
     output:
-    tuple val(meta), path ("*.fasta"), emit: fasta
+    tuple val(meta), path ("upper/*"), emit: fasta
     path "versions.yml"              , emit: versions
 
     when:
@@ -20,7 +20,8 @@ process REMOVE_MASKING {
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    awk '{if (!/>/) {print toupper(\$0)} else {print \$0}}' $genome > ${prefix}.fasta
+    mkdir upper
+    awk '{if (!/>/) {print toupper(\$0)} else {print \$0}}' $genome > upper/${prefix}.${genome.extension}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
