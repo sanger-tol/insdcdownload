@@ -5,8 +5,9 @@
 include { MASKING_TO_BED          } from '../../modules/local/masking_to_bed'
 include { SAMTOOLS_FAIDX          } from '../../modules/nf-core/modules/samtools/faidx/main'
 include { SAMTOOLS_DICT           } from '../../modules/nf-core/modules/samtools/dict/main'
-include { TABIX_BGZIP             } from '../../modules/nf-core/modules/tabix/bgzip/main'
-include { TABIX_BGZIPTABIX        } from '../../modules/nf-core/modules/tabix/bgziptabix/main'
+include { TABIX_BGZIP as TABIX_BGZIP_BED   } from '../../modules/local/tabix_bgzip'
+include { TABIX_BGZIP as TABIX_BGZIP_FASTA } from '../../modules/local/tabix_bgzip'
+include { TABIX_TABIX             } from '../../modules/nf-core/modules/tabix/tabix/main'
 
 
 workflow PREPARE_REPEATS {
@@ -21,13 +22,17 @@ workflow PREPARE_REPEATS {
     ch_masking_bed      = MASKING_TO_BED ( fasta ).bed
     ch_versions         = ch_versions.mix(MASKING_TO_BED.out.versions)
 
-    // Compress the BEDfile
-    ch_compressed_bed   = TABIX_BGZIPTABIX ( ch_masking_bed ).gz_tbi
-    ch_versions         = ch_versions.mix(TABIX_BGZIPTABIX.out.versions)
+    // Compress the BED file
+    ch_compressed_bed   = TABIX_BGZIP_BED ( ch_masking_bed ).output
+    ch_versions         = ch_versions.mix(TABIX_BGZIP_BED.out.versions)
+
+    // Index the BED file
+    ch_indexed_bed      = TABIX_TABIX ( ch_compressed_bed ).tbi
+    ch_versions         = ch_versions.mix(TABIX_TABIX.out.versions)
 
     // Compress the Fasta file
-    ch_compressed_fasta = TABIX_BGZIP (fasta).output
-    ch_versions         = ch_versions.mix(TABIX_BGZIP.out.versions)
+    ch_compressed_fasta = TABIX_BGZIP_FASTA (fasta).output
+    ch_versions         = ch_versions.mix(TABIX_BGZIP_FASTA.out.versions)
 
     // Generate Samtools index
     ch_samtools_faidx   = SAMTOOLS_FAIDX (ch_compressed_fasta).fai
@@ -39,8 +44,8 @@ workflow PREPARE_REPEATS {
     ch_versions         = ch_versions.mix(SAMTOOLS_DICT.out.versions)
 
     emit:
-    bed_gz   = ch_compressed_bed.map { [it[0], it[1]] }         // path: genome.bed
-    bed_tbi  = ch_compressed_bed.map { [it[0], it[2]] }         // path: genome.bed
+    bed_gz   = ch_compressed_bed         // path: genome.bed.gz
+    bed_tbi  = ch_indexed_bed            // path: genome.bed.tbi
     fasta_gz = ch_compressed_fasta       // path: genome.fasta.gz
     faidx    = ch_samtools_faidx         // path: samtools/faidx/
     dict     = ch_samtools_dict          // path: samtools/dict/
