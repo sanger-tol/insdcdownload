@@ -29,12 +29,13 @@ process NCBI_DOWNLOAD {
     def ftp_path = params.ftp_root + "/" + ftp_id_1 + "/" + ftp_id_2 + "/" + ftp_id_3 + "/" + assembly_accession + "_" + assembly_name
     def remote_filename_stem = assembly_accession + "_" + assembly_name
 
-    filename_assembly_report = assembly_accession + ".assembly_report.txt"
-    filename_assembly_stats = assembly_accession + ".assembly_stats.txt"
-    filename_fasta = assembly_accession + ".masked.fasta"
+    meta = [ id : assembly_accession, accession : assembly_accession, name : assembly_name ]
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    filename_assembly_report = "${prefix}.assembly_report.txt"
+    filename_assembly_stats = "${prefix}.assembly_stats.txt"
+    filename_fasta = "${prefix}.masked.fasta"
     filename_accession = "ACCESSION"
 
-    meta = [ id : assembly_accession, accession : assembly_accession, name : assembly_name ]
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128
     #export http_proxy=http://wwwcache.sanger.ac.uk:3128
