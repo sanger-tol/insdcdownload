@@ -33,7 +33,7 @@ process NCBI_DOWNLOAD {
     def prefix = task.ext.prefix ?: "${meta.id}"
     filename_assembly_report = "${prefix}.assembly_report.txt"
     filename_assembly_stats = "${prefix}.assembly_stats.txt"
-    filename_fasta = "${prefix}.masked.fasta"
+    filename_fasta = "${prefix}.masked.ncbi.fasta"  // NOTE: this channel eventually acquires meta.id="${accession}.masked.ncbi" to match this name
     filename_accession = "ACCESSION"
 
     """
