@@ -25,6 +25,6 @@ workflow DOWNLOAD_GENOME {
 
     emit:
     fasta_unmasked  = ch_unmasked_fasta         // path: genome.unmasked.fasta
-    fasta_masked    = ch_masked_fasta           // path: genome.unmasked.fasta
+    fasta_masked    = ch_masked_fasta.map { [it[0] + [id: it[0]["id"] + ".masked.ncbi"], it[1]] }  // path: genome.unmasked.fasta
     versions        = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
 }

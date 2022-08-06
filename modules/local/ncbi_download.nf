@@ -34,7 +34,7 @@ process NCBI_DOWNLOAD {
     filename_fasta = assembly_accession + ".masked.fasta"
     filename_accession = "ACCESSION"
 
-    meta = [ id : assembly_accession, name : assembly_name ]
+    meta = [ id : assembly_accession, accession : assembly_accession, name : assembly_name ]
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128
     #export http_proxy=http://wwwcache.sanger.ac.uk:3128
