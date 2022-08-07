@@ -1,4 +1,5 @@
 process NCBI_DOWNLOAD {
+    tag "$assembly_accession"
     label 'process_single'
 
     conda (params.enable_conda ? "bioconda::wget=1.18" : null)
