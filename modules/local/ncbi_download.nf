@@ -1,5 +1,5 @@
 process NCBI_DOWNLOAD {
-    label 'process_low'
+    label 'process_single'
 
     conda (params.enable_conda ? "bioconda::wget=1.18" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
