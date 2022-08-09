@@ -11,15 +11,16 @@ process MASKING_TO_BED {
     tuple val(meta), path(genome)
 
     output:
-    tuple val(meta), path("masking.bed") , emit: bed
-    path "versions.yml"                  , emit: versions
+    tuple val(meta), path("*.bed"), emit: bed
+    path "versions.yml"           , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    masking_to_bed.py $genome > masking.bed
+    masking_to_bed.py $genome > ${prefix}.bed
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
