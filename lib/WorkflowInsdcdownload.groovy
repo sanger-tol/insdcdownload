@@ -9,13 +9,18 @@ class WorkflowInsdcdownload {
     //
     public static void initialise(params, log) {
 
-        if (!params.assembly_accession) {
-            log.error "Assemly accession (GCA_*) not specified with e.g. '--assembly_accession GCA_XXXXXX.X' or via a detectable config file."
-            System.exit(1)
-        }
-        if (!params.assembly_name) {
-            log.error "Assemly name not specified with e.g. '--assembly_name <str>' or via a detectable config file."
-            System.exit(1)
+        // Check input has been provided
+        if (params.input) {
+            def f = new File(params.input);
+            if (!f.exists()) {
+                log.error "'${params.input}' doesn't exist"
+                System.exit(1)
+            }
+        } else {
+            if (!params.assembly_accession || !params.assembly_name || !params.outdir) {
+                log.error "Either --input, or --assembly_accession, --assembly_name, and --outdir must be provided"
+                System.exit(1)
+            }
         }
     }
 

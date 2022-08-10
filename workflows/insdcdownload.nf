@@ -9,14 +9,13 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 // Validate input parameters
 WorkflowInsdcdownload.initialise(params, log)
 
-// Check mandatory parameters
-// if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
+include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_check'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -46,11 +45,28 @@ workflow INSDCDOWNLOAD {
 
     ch_versions = Channel.empty()
 
+    ch_inputs = Channel.empty()
+    if (params.input) {
+
+        SAMPLESHEET_CHECK ( file(params.input, checkIfExists: true) )
+            .csv
+            .splitCsv ( header:true, sep:',' )
+            .set { ch_inputs }
+
+    } else {
+
+        ch_inputs = Channel.from( [
+            [assembly_accession:params.assembly_accession, assembly_name:params.assembly_name, species_dir:params.outdir]
+        ] )
+
+    }
+
     // actual download -> all files (incl. masked fasta)
     // remove masking -> unmasked fasta
     DOWNLOAD_GENOME (
-        params.assembly_accession,
-        params.assembly_name
+        ch_inputs.map { it["assembly_accession"] },
+        ch_inputs.map { it["assembly_name"] },
+        ch_inputs.map { it["species_dir"] }
     )
     ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
 
