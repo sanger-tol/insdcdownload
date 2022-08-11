@@ -56,7 +56,7 @@ workflow INSDCDOWNLOAD {
     } else {
 
         ch_inputs = Channel.from( [
-            [assembly_accession:params.assembly_accession, assembly_name:params.assembly_name, species_dir:params.outdir]
+            [assembly_accession:params.assembly_accession, assembly_name:params.assembly_name]
         ] )
 
     }
@@ -65,8 +65,7 @@ workflow INSDCDOWNLOAD {
     // remove masking -> unmasked fasta
     DOWNLOAD_GENOME (
         ch_inputs.map { it["assembly_accession"] },
-        ch_inputs.map { it["assembly_name"] },
-        ch_inputs.map { it["species_dir"] }
+        ch_inputs.map { it["assembly_name"] }
     )
     ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
 

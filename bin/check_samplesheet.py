@@ -29,7 +29,6 @@ class RowChecker:
         self,
         accession_col="assembly_accession",
         name_col="assembly_name",
-        dir_col="species_dir",
         **kwargs,
     ):
         """
@@ -40,14 +39,11 @@ class RowChecker:
                 number (default "assembly_accession").
             name_col (str): The name of the column that contains the assembly name
                 (default "assembly_name").
-            dir_col (str): The name of the column that contains the species directory
-                (default "species_dir").
 
         """
         super().__init__(**kwargs)
         self._accession_col = accession_col
         self._name_col = name_col
-        self._dir_col = dir_col
         self._seen = set()
         self.modified = []
         self._regex_accession = re.compile(r"^GCA_[0-9]{9}\.[0-9]+$")
@@ -63,7 +59,6 @@ class RowChecker:
         """
         self._validate_accession(row)
         self._validate_name(row)
-        self._validate_dir(row)
         self._seen.add(row[self._accession_col])
         self.modified.append(row)
 
@@ -76,10 +71,6 @@ class RowChecker:
         """Assert that the assembly name is non-empty and has no space."""
         assert len(row[self._name_col]) > 0, "Accession name is required."
         assert " " not in row[self._name_col], "Accession names must not contain whitespace."
-
-    def _validate_dir(self, row):
-        """Assert that the species directory is non-empty."""
-        assert len(row[self._dir_col]) > 0, "Species directory is required."
 
     def validate_unique_accessions(self):
         """
@@ -139,12 +130,12 @@ def check_samplesheet(file_in, file_out):
         This function checks that the samplesheet follows the following structure::
 
 
-            assembly_accession,assembly_name,species_dir
-            GCA_927399515.1,gfLaeSulp1.1,/lustre/scratch124/tol/projects/darwin/data/fungi/Laetiporus_sulphureus
-            GCA_922984935.2,mMelMel3.2_paternal_haplotype,/lustre/scratch124/tol/projects/darwin/data/mammals/Meles_meles
+            assembly_accession,assembly_name
+            GCA_927399515.1,gfLaeSulp1.1
+            GCA_922984935.2,mMelMel3.2_paternal_haplotype
 
     """
-    required_columns = {"assembly_accession", "assembly_name", "species_dir"}
+    required_columns = {"assembly_accession", "assembly_name"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))

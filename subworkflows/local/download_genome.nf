@@ -11,13 +11,12 @@ workflow DOWNLOAD_GENOME {
     take:
     assembly_accession  // val: GCA_927399515.1
     assembly_name       // val: gfLaeSulp1.1
-    species_dir         // /lustre/scratch124/tol/projects/darwin/data/insects/Vanessa_atalanta
 
 
     main:
     ch_versions = Channel.empty()
 
-    ch_masked_fasta     = NCBI_DOWNLOAD ( assembly_accession, assembly_name, species_dir ).fasta
+    ch_masked_fasta     = NCBI_DOWNLOAD ( assembly_accession, assembly_name ).fasta
     ch_versions         = ch_versions.mix(NCBI_DOWNLOAD.out.versions)
 
     // Unmask the genome fasta as it is masked by default

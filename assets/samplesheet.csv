@@ -1,3 +1,3 @@
-assembly_accession,assembly_name,species_dir
-GCA_927399515.1,gfLaeSulp1.1,/lustre/scratch124/tol/projects/darwin/data/fungi/Laetiporus_sulphureus
-GCA_922984935.2,mMelMel3.2_paternal_haplotype,/lustre/scratch124/tol/projects/darwin/data/mammals/Meles_meles
+assembly_accession,assembly_name
+GCA_927399515.1,gfLaeSulp1.1
+GCA_922984935.2,mMelMel3.2_paternal_haplotype
