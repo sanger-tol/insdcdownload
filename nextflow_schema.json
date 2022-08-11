@@ -24,6 +24,7 @@
                 "assembly_name": {
                     "type": "string",
                     "description": "Name of the assembly, as on the NCBI website, e.g. gfLaeSulp1.1.",
+                    "pattern": "^\\S+$",
                     "fa_icon": "fas fa-italic"
                 },
                 "outdir": {
