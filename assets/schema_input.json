@@ -7,30 +7,17 @@
     "items": {
         "type": "object",
         "properties": {
-            "sample": {
+            "assembly_accession": {
+                "type": "string",
+                "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
+                "errorMessage": "Assembly accession number must be provided and be of the form GCA_*"
+            },
+            "assembly_name": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces"
-            },
-            "fastq_1": {
-                "type": "string",
-                "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
-            },
-            "fastq_2": {
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'",
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "pattern": "^\\S+\\.f(ast)?q\\.gz$"
-                    },
-                    {
-                        "type": "string",
-                        "maxLength": 0
-                    }
-                ]
+                "errorMessage": "Assembly name must be provided and cannot contain spaces"
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["assembly_accession", "assembly_name"]
     }
 }
