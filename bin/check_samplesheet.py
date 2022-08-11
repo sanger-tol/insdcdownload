@@ -50,7 +50,7 @@ class RowChecker:
         self._dir_col = dir_col
         self._seen = set()
         self.modified = []
-        self._regex_accession = re.compile(r"^GCA_[0-9]{9}\.[0-9]+")
+        self._regex_accession = re.compile(r"^GCA_[0-9]{9}\.[0-9]+$")
 
     def validate_and_transform(self, row):
         """
