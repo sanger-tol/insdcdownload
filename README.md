@@ -1,3 +1,5 @@
+# ![sanger-tol/readmapping](docs/images/sanger-tol-insdcdownload_logo.png)
+
 [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.6983933-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.6983933)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A521.10.3-23aa62.svg)](https://www.nextflow.io/)
