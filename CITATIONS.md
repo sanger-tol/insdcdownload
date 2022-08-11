@@ -8,6 +8,17 @@
 
 > Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C. Nextflow enables reproducible computational workflows. Nat Biotechnol. 2017 Apr 11;35(4):316-319. doi: 10.1038/nbt.3820. PubMed PMID: 28398311.
 
+## Pipelie tools
+
+* [BWA-MEM2](https://ieeexplore.ieee.org/document/8820962)
+    > Vasimuddin Md, Misra S, Li H, Aluru S. Efficient Architecture-Aware Acceleration of BWA-MEM for Multicore Systems. 2019
+
+* [Tabix](https://pubmed.ncbi.nlm.nih.gov/21208982/)
+    > Li H. Tabix: fast retrieval of sequence features from generic TAB-delimited files. Bioinformatics. 2011 Mar 1;27(5):718-9. doi: 10.1093/bioinformatics/btq671. Epub 2011 Jan 5. PMID: 21208982; PMCID: PMC3042176.
+
+* [Samtools](https://pubmed.ncbi.nlm.nih.gov/33590861/)
+    > Danecek P, Bonfield JK, Liddle J, Marshall J, Ohan V, Pollard MO, Whitwham A, Keane T, McCarthy SA, Davies RM, Li H. Twelve years of SAMtools and BCFtools. Gigascience. 2021 Feb 16;10(2):giab008. doi: 10.1093/gigascience/giab008. PMID: 33590861; PMCID: PMC7931819.
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)
