@@ -1,4 +1,7 @@
-# ![sanger-tol/readmapping](docs/images/sanger-tol-insdcdownload_logo.png)
+# ![sanger-tol/insdcdownload](docs/images/sanger-tol-insdcdownload_logo.png)
+
+[![GitHub Actions CI Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20CI/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22sanger-tol+CI%22) 
+<!-- [![GitHub Actions Linting Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20linting/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22sanger-tol+linting%22) -->
 
 [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.6983933-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.6983933)
 
@@ -6,7 +9,10 @@
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
-[![Launch on Nextflow Tower](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Nextflow%20Tower-%234256e7)](https://tower.nf/launch?pipeline=https://github.com/sanger-tol/insdcdownload)
+
+[![Get help on Slack](http://img.shields.io/badge/slack-SangerTreeofLife%20%23pipelines-4A154B?labelColor=000000&logo=slack)](https://SangerTreeofLife.slack.com/channels/pipelines)
+[![Follow on Twitter](http://img.shields.io/badge/twitter-%40sangertol-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/sangertol)
+[![Watch on YouTube](http://img.shields.io/badge/youtube-tree--of--life-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/channel/UCFeDpvjU58SA9V0ycRXejhA)
 
 ## Introduction
 
@@ -47,19 +53,23 @@ The pipeline takes an assembly accession number, as well as the assembly name, a
    nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir results
    ```
 
+## Documentation
+
+The sanger-tol/insdcdownload pipeline comes with documentation about the pipeline [usage](docs/usage.md) and [output](docs/output.md).
+
 ## Credits
 
-sanger-tol/insdcdownload was originally written by @muffato, with important borrowings from @priyanka-surana's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.
+sanger-tol/insdcdownload was mainly written by @muffato, with major borrowings from @priyanka-surana's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.
 
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
 
+For further information or help, don't hesitate to get in touch on the [Slack `#pipelines` channel](https://sangertreeoflife.slack.com/channels/pipelines). Please [create an issue](https://github.com/sanger-tol/insdcdownload/issues/new/choose) on GitHub if you are not on the Sanger slack channel.
+
 ## Citations
 
 If you use sanger-tol/insdcdownload for your analysis, please cite it using the following doi: [10.5281/zenodo.6983933](https://doi.org/10.5281/zenodo.6983933)
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
