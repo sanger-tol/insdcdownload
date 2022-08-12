@@ -49,7 +49,7 @@ The pipeline takes an assembly accession number, as well as the assembly name, a
 
 ## Credits
 
-sanger-tol/insdcdownload was originally written by @muffato.
+sanger-tol/insdcdownload was originally written by @muffato, with important borrowings from @priyanka-surana's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.
 
 ## Contributions and Support
 
