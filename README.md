@@ -57,7 +57,7 @@ If you would like to contribute to this pipeline, please see the [contributing g
 
 ## Citations
 
-If you use  sanger-tol/insdcdownload for your analysis, please cite it using the following doi: [10.5281/zenodo.6983933](https://doi.org/10.5281/zenodo.6983933)
+If you use sanger-tol/insdcdownload for your analysis, please cite it using the following doi: [10.5281/zenodo.6983933](https://doi.org/10.5281/zenodo.6983933)
 
 <!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
