@@ -98,8 +98,9 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter or Charliecloud.
 - `test`
-  - A profile with a complete configuration for automated testing
-  - Includes links to test data so needs no other parameters
+  - A profile with a complete configuration for automated testing. Corresponds to defining the assembly to download as command-line parameters
+- `test_csv`
+  - A profile with a complete, CSV-based, configuration for automated testing. Corresponds to defining the assembly to download as a CSV file
 
 ### `-resume`
 
