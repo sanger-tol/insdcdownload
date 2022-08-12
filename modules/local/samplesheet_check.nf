@@ -1,3 +1,4 @@
+// nf-core module to check the validity of a samplesheet (.csv file)
 process SAMPLESHEET_CHECK {
     tag "$samplesheet"
     label 'process_single'

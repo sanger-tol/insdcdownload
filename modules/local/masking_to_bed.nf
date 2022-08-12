@@ -1,3 +1,5 @@
+// Module that parses a repeat-masked genome (as Fasta) and extracts
+// the coordinates of the masked regions as a BED File
 process MASKING_TO_BED {
     tag "$genome"
     label 'process_single'

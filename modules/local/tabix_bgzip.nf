@@ -1,3 +1,5 @@
+// Modified version of the nf-core module tabix/bgzip that creates the .gzi
+// index as well. For simplicity, it's not able to uncompress files anymore.
 process TABIX_BGZIP {
     tag "$input"
     label 'process_single'

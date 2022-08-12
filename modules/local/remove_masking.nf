@@ -1,3 +1,4 @@
+// Module to convert a masked Fasta file to an unmasked one, i.e. making all sequences upper case
 process REMOVE_MASKING {
     tag "$genome"
     label 'process_single'

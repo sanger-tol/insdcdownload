@@ -1,3 +1,7 @@
+// Module that downloads all necessary assembly files from the NCBI.
+// The module checks that the MD5 checksums match before releasing the data.
+// It also uncompresses the fasta file, as most of the other commands require
+// an uncompressed file, and anyway we want bgzip compression.
 process NCBI_DOWNLOAD {
     tag "$assembly_accession"
     label 'process_single'

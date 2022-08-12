@@ -1,3 +1,4 @@
+// Module to create the chrom.sizes file required by many kent utils, e.g. for creating bigbed files
 process CHROM_SIZES {
     tag "$meta.id"
     label 'process_single'
