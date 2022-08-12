@@ -26,7 +26,6 @@ workflow PREPARE_GENOME {
     ch_versions         = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
     // Generate Samtools dictionary
-    // FIXME: dict includes full paths in the UR tag. Pass the --uri command-line option
     ch_samtools_dict    = SAMTOOLS_DICT (fasta).dict
     ch_versions         = ch_versions.mix(SAMTOOLS_DICT.out.versions)
 
