@@ -9,7 +9,7 @@ with open(sys.argv[1]) as fh:
         line = line[:-1]
         if line.startswith(">"):
             if in_gap:
-                print('\t'.join([chrom, str(start), str(i)]))
+                print("\t".join([chrom, str(start), str(i)]))
                 in_gap = False
             i = 0  # Start coordinate is 0-based, included
             chrom = line.split()[0][1:]
@@ -21,11 +21,11 @@ with open(sys.argv[1]) as fh:
                 elif in_gap and char.isupper():
                     in_gap = False
                     # end coordinate is 0-based, excluded
-                    print('\t'.join([chrom, str(start), str(i)]))
+                    print("\t".join([chrom, str(start), str(i)]))
                 else:
                     pass
                 i += 1
 
 # Print mask close if on the last chromosome.
 if in_gap:
-    print('\t'.join([chrom, str(start), str(i)]))
+    print("\t".join([chrom, str(start), str(i)]))
