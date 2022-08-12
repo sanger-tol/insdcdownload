@@ -1,7 +1,7 @@
 # ![sanger-tol/insdcdownload](docs/images/sanger-tol-insdcdownload_logo.png)
 
-[![GitHub Actions CI Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20CI/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22sanger-tol+CI%22) 
-<!-- [![GitHub Actions Linting Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20linting/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22sanger-tol+linting%22) -->
+[![GitHub Actions CI Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20CI/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22nf-core+CI%22)
+<!-- [![GitHub Actions Linting Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20linting/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22nf-core+linting%22) -->
 
 [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.6983933-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.6983933)
 
