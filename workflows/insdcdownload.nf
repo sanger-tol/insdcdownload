@@ -69,7 +69,6 @@ workflow INSDCDOWNLOAD {
     )
     ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
 
-    // bwamem2 index
     // bgzip
     // samtools faidx
     // samtools dict

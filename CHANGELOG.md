@@ -11,8 +11,7 @@ Initial release of sanger-tol/insdcdownload, created with the [nf-core](https://
 
 - Download from the NCBI
 - Unmasking of the NCBI assembly
-- `samtools faidx` and `samtools dict` indices, as well as `bwa-mem2` for
-  the unmasked assembly
+- `samtools faidx` and `samtools dict` indices
 - BED file with the coordinates of the masked region
 
 ### `Dependencies`
@@ -20,7 +19,6 @@ Initial release of sanger-tol/insdcdownload, created with the [nf-core](https://
 All dependencies are automatically fetched by Singularity.
 
 - bgzip
-- BWA-mem2
 - samtools
 - tabix
 - python3

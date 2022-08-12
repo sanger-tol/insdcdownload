@@ -4,7 +4,7 @@
 
 ## Introduction
 
-The pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx` or `bwa-mem2`), and extracts the repeat-masking performed by the NCBI.
+The pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx`), and extracts the repeat-masking performed by the NCBI.
 
 ## Running the pipeline
 

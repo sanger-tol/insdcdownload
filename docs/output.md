@@ -31,14 +31,7 @@ assembly
             ├── GCA_927399515.1.fasta.dict
             ├── GCA_927399515.1.fasta.gz
             ├── GCA_927399515.1.fasta.gz.fai
-            ├── GCA_927399515.1.fasta.gz.gzi
-            └── indices
-                └── bwamem2
-                    ├── GCA_927399515.1.fasta.0123
-                    ├── GCA_927399515.1.fasta.amb
-                    ├── GCA_927399515.1.fasta.ann
-                    ├── GCA_927399515.1.fasta.bwt.2bit.64
-                    └── GCA_927399515.1.fasta.pac
+            └── GCA_927399515.1.fasta.gz.gzi
 ```
 
 The directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all files are named after the assembly accession, e.g. `GCA_927399515.1`.
@@ -48,7 +41,6 @@ The directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all
 - `GCA_*.fasta.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
 - `GCA_*.fasta.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
 - `GCA_*.chrom_sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
-- `indices/bwamem2/GCA_*.`; bwa-mem2 index files, to allow rapid alignment of reads onto the assembly
 
 ### Primary analysis files
 
