@@ -35,11 +35,14 @@ workflow PREPARE_REPEATS {
     ch_versions         = ch_versions.mix(TABIX_BGZIP_FASTA.out.versions)
 
     // Generate Samtools index
+    // NOTE: this file is identical to the one of the unmasked genome but
+    //       we've decided to keep it rather than making a symbolic link
     ch_samtools_faidx   = SAMTOOLS_FAIDX (ch_compressed_fasta).fai
     ch_versions         = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
     // Generate Samtools dictionary
-    // FIXME: dict includes full paths in the UR tag. Pass the --uri command-line option
+    // NOTE: this file has the same sequence checksums as the one of the
+    //       unmasked genome but the path is different
     ch_samtools_dict    = SAMTOOLS_DICT (fasta).dict
     ch_versions         = ch_versions.mix(SAMTOOLS_DICT.out.versions)
 

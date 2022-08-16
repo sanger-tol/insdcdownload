@@ -29,6 +29,7 @@ workflow PREPARE_GENOME {
     ch_samtools_dict    = SAMTOOLS_DICT (fasta).dict
     ch_versions         = ch_versions.mix(SAMTOOLS_DICT.out.versions)
 
+    // For all UCSC tools such as bedToBigBed
     ch_chrom_sizes      = CHROM_SIZES ( ch_samtools_faidx ).chrom_sizes
     ch_versions         = ch_versions.mix(CHROM_SIZES.out.versions)
 
