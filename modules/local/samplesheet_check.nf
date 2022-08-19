@@ -23,8 +23,7 @@ process SAMPLESHEET_CHECK {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        check_samplesheet: \$(md5sum \$(which check_samplesheet.py) | cut -d' ' -f1)
-        python: \$(python --version | sed 's/Python //g')
+        check_samplesheet.py: \$(check_samplesheet.py --version | cut -d' ' -f2)
     END_VERSIONS
     """
 }
