@@ -67,7 +67,9 @@ class RowChecker:
         if not len(row[self._accession_col]):
             raise AssertionError("Accession number is required.")
         if not self._regex_accession.match(row[self._accession_col]):
-            raise AssertionError("Accession numbers must match %s." % self._regex_accession)
+            raise AssertionError(
+                "Accession numbers must match %s." % self._regex_accession
+            )
 
     def _validate_name(self, row):
         """Assert that the assembly name is non-empty and has no space."""
@@ -82,6 +84,7 @@ class RowChecker:
         """
         if len(self._seen) != len(self.modified):
             raise AssertionError("The pair of sample name and FASTQ must be unique.")
+
 
 def read_head(handle, num_lines=10):
     """Read the specified number of lines from the current position in the file."""
@@ -192,7 +195,7 @@ def parse_args(argv=None):
         choices=("CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"),
         default="WARNING",
     )
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+    parser.add_argument("--version", action="version", version="%(prog)s 1.0")
     return parser.parse_args(argv)
 
 
