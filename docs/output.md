@@ -28,18 +28,18 @@ assembly
             ├── GCA_927399515.1.assembly_report.txt
             ├── GCA_927399515.1.assembly_stats.txt
             ├── GCA_927399515.1.chrom_sizes
-            ├── GCA_927399515.1.fasta.dict
-            ├── GCA_927399515.1.fasta.gz
-            ├── GCA_927399515.1.fasta.gz.fai
-            └── GCA_927399515.1.fasta.gz.gzi
+            ├── GCA_927399515.1.fa.dict
+            ├── GCA_927399515.1.fa.gz
+            ├── GCA_927399515.1.fa.gz.fai
+            └── GCA_927399515.1.fa.gz.gzi
 ```
 
 The directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all files are named after the assembly accession, e.g. `GCA_927399515.1`.
 
 - `GCA_*.assembly_report.txt` and `GCA_*.assembly_stats.txt`: report and statistics files, straight from the NCBI FTP
-- `GCA_*.fasta.gz`: Unmasked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fasta.gz.gzi`)
-- `GCA_*.fasta.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
-- `GCA_*.fasta.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
+- `GCA_*.fa.gz`: Unmasked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
+- `GCA_*.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
+- `GCA_*.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
 - `GCA_*.chrom_sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
 
 ### Primary analysis files
@@ -54,18 +54,18 @@ analysis
             ├── GCA_927399515.1.masked.ncbi.bed.gz
             ├── GCA_927399515.1.masked.ncbi.bed.gz.gzi
             ├── GCA_927399515.1.masked.ncbi.bed.gz.tbi
-            ├── GCA_927399515.1.masked.ncbi.fasta.dict
-            ├── GCA_927399515.1.masked.ncbi.fasta.gz
-            ├── GCA_927399515.1.masked.ncbi.fasta.gz.fai
-            └── GCA_927399515.1.masked.ncbi.fasta.gz.gzi
+            ├── GCA_927399515.1.masked.ncbi.fa.dict
+            ├── GCA_927399515.1.masked.ncbi.fa.gz
+            ├── GCA_927399515.1.masked.ncbi.fa.gz.fai
+            └── GCA_927399515.1.masked.ncbi.fa.gz.gzi
 ```
 
 They all correspond to the repeat-masking analysis run by the NCBI themselves. Like for the `assembly/` sub-directory,
 the directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all files are named after the assembly accession, e.g. `GCA_927399515.1`.
 
-- `GCA_*.masked.ncbi.fasta.gz`: Masked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fasta.gz.gzi`)
-- `GCA_*.masked.ncbi.fasta.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
-- `GCA_*.masked.ncbi.fasta.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
+- `GCA_*.masked.ncbi.fa.gz`: Masked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
+- `GCA_*.masked.ncbi.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
+- `GCA_*.masked.ncbi.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
 - `GCA_*.masked.ncbi.bed.gz`: BED file with the coordinates of the regions masked by the NCBI pipeline, with accompanying `bgzip` and `tabix` indices (resp. `.gzi` and `.tbi`)
 
 ### Pipeline information
