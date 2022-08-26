@@ -29,6 +29,18 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 The pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx`), and extracts the repeat-masking performed by the NCBI.
 
+Steps involved:
+
+- Download from the NCBI the genomic sequence (Fasta) and the assembly
+  stats and reports files.
+- Turn the masked Fasta file into an unmasked one.
+- Compress and index all Fasta files with `bgzip`, `samtools faidx`, and
+  `samtools dict`.
+- Generate the `chrom.sizes` file usually required for conversion of data
+  files to UCSC's "big" formats, e.g. bigBed.
+- Extract the coordinates of the masked regions into a BED file.
+- Compress and index the BED file with `bgzip` and `tabix`.
+
 ## Quick Start
 
 1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=22.04.0`)
