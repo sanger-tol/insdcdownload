@@ -65,33 +65,24 @@ workflow INSDCDOWNLOAD {
 
     }
 
-    // actual download -> all files (incl. masked fasta)
-    // remove masking -> unmasked fasta
+    // Actual download
     DOWNLOAD_GENOME (
-        ch_inputs,
+        ch_inputs
     )
-    ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
+    ch_versions         = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
 
-    // bgzip
-    // samtools faidx
-    // samtools dict
-    // chrom.sizes
+    // Preparation of Fasta files
     PREPARE_GENOME (
         DOWNLOAD_GENOME.out.fasta_unmasked
     )
-    ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
+    ch_versions         = ch_versions.mix(PREPARE_GENOME.out.versions)
 
-    //DOWNLOAD_GENOME.out.fasta_masked.view()
-    // masking bed
-    // bgzip
-    // samtools faidx
-    // samtools dict
+    // Preparation of repeat-masking files
     PREPARE_REPEATS (
         DOWNLOAD_GENOME.out.fasta_masked
     )
-    ch_versions = ch_versions.mix(PREPARE_REPEATS.out.versions)
+    ch_versions         = ch_versions.mix(PREPARE_REPEATS.out.versions)
 
-    // TODO: Add Slack notification in main workflow
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
