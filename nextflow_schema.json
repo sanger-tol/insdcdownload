@@ -27,7 +27,7 @@
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "The output directory where the results will be saved. Not considered when running the pipeline with a .csv file as input.",
+                    "description": "The output directory (considered to be species-level) from where the assembly will be saved. Not considered when running the pipeline with a .csv file as input. Pipeline execution statistics are also stored there.",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "input": {
