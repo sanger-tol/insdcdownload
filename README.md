@@ -33,7 +33,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 3. Download the pipeline and test it on a minimal dataset with a single command:
 
-   ```console
+   ```bash
    nextflow run sanger-tol/insdcdownload -profile test,YOURPROFILE --outdir <OUTDIR>
    ```
 
@@ -48,7 +48,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
    <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
-   ```console
+   ```bash
    nextflow run sanger-tol/insdcdownload --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
