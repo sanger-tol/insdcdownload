@@ -36,7 +36,7 @@ The pipeline takes an assembly accession number, as well as the assembly name, a
 
 3. Download the pipeline and test it on a minimal dataset with a single command:
 
-   ```console
+   ```bash
    nextflow run sanger-tol/insdcdownload -profile test,YOURPROFILE --outdir <OUTDIR>
    ```
 

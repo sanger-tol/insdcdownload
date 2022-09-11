@@ -64,26 +64,24 @@ class RowChecker:
 
     def _validate_accession(self, row):
         """Assert that the accession number exists and matches the expected nomenclature."""
-        assert len(row[self._accession_col]) > 0, "Accession number is required."
-        assert self._regex_accession.match(row[self._accession_col]), (
-            "Accession numbers must match %s." % self._regex_accession
-        )
+        if not len(row[self._accession_col]):
+            raise AssertionError("Accession number is required.")
+        if not self._regex_accession.match(row[self._accession_col]):
+            raise AssertionError("Accession numbers must match %s." % self._regex_accession)
 
     def _validate_name(self, row):
         """Assert that the assembly name is non-empty and has no space."""
-        assert len(row[self._name_col]) > 0, "Accession name is required."
-        assert (
-            " " not in row[self._name_col]
-        ), "Accession names must not contain whitespace."
+        if not len(row[self._name_col]):
+            raise AssertionError("Accession name is required.")
+        if " " in row[self._name_col]:
+            raise AssertionError("Accession names must not contain whitespace.")
 
     def validate_unique_accessions(self):
         """
         Assert that the accession numbers are unique.
         """
-        assert len(self._seen) == len(
-            self.modified
-        ), "The pair of sample name and FASTQ must be unique."
-
+        if len(self._seen) != len(self.modified):
+            raise AssertionError("The pair of sample name and FASTQ must be unique.")
 
 def read_head(handle, num_lines=10):
     """Read the specified number of lines from the current position in the file."""
