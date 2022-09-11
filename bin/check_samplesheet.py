@@ -69,7 +69,7 @@ class RowChecker:
 
     def _validate_accession(self, row):
         """Assert that the accession number exists and matches the expected nomenclature."""
-        if not len(row[self._accession_col]):
+        if not row[self._accession_col]:
             raise AssertionError("Accession number is required.")
         if not self._regex_accession.match(row[self._accession_col]):
             raise AssertionError(
@@ -83,7 +83,7 @@ class RowChecker:
 
     def _validate_name(self, row):
         """Assert that the assembly name is non-empty and has no space."""
-        if not len(row[self._name_col]):
+        if not row[self._name_col]:
             raise AssertionError("Accession name is required.")
         if " " in row[self._name_col]:
             raise AssertionError("Accession names must not contain whitespace.")
