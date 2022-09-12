@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
+import argparse
 import sys
 
-# This script will generate a BED file of the masked regions a fasta file.
+__doc__ = "This script prints a BED file of the masked regions a fasta file."
+
+
 def fasta_to_bed(fasta):
 
     in_gap = None
@@ -34,4 +37,10 @@ def fasta_to_bed(fasta):
 
 
 if __name__ == "__main__":
-    fasta_to_bed(sys.argv[1])
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("fasta", help="Input Fasta file.")
+    parser.add_argument("--version", action="version", version="%(prog)s 1.0")
+    args = parser.parse_args()
+
+    fasta_to_bed(args.fasta)
