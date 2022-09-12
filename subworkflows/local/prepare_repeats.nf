@@ -5,8 +5,8 @@
 include { MASKING_TO_BED          } from '../../modules/local/masking_to_bed'
 include { SAMTOOLS_FAIDX          } from '../../modules/nf-core/modules/samtools/faidx/main'
 include { SAMTOOLS_DICT           } from '../../modules/nf-core/modules/samtools/dict/main'
-include { TABIX_BGZIP as TABIX_BGZIP_BED   } from '../../modules/local/tabix_bgzip'
-include { TABIX_BGZIP as TABIX_BGZIP_FASTA } from '../../modules/local/tabix_bgzip'
+include { TABIX_BGZIP as TABIX_BGZIP_BED   } from '../../modules/nf-core/modules/tabix/bgzip/main'
+include { TABIX_BGZIP as TABIX_BGZIP_FASTA } from '../../modules/nf-core/modules/tabix/bgzip/main'
 include { TABIX_TABIX as TABIX_TABIX_CSI   } from '../../modules/nf-core/modules/tabix/tabix/main'
 include { TABIX_TABIX as TABIX_TABIX_TBI   } from '../../modules/nf-core/modules/tabix/tabix/main'
 

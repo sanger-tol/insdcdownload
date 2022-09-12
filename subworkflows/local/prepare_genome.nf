@@ -5,7 +5,7 @@
 include { CHROM_SIZES             } from '../../modules/local/chrom_sizes'
 include { SAMTOOLS_FAIDX          } from '../../modules/nf-core/modules/samtools/faidx/main'
 include { SAMTOOLS_DICT           } from '../../modules/nf-core/modules/samtools/dict/main'
-include { TABIX_BGZIP             } from '../../modules/local/tabix_bgzip'
+include { TABIX_BGZIP             } from '../../modules/nf-core/modules/tabix/bgzip/main'
 
 
 workflow PREPARE_GENOME {
