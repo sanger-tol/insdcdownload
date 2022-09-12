@@ -35,8 +35,8 @@ workflow PREPARE_GENOME {
 
     emit:
     fasta_gz = ch_compressed_fasta       // path: genome.fa.gz
-    faidx    = ch_samtools_faidx         // path: samtools/faidx/
-    dict     = ch_samtools_dict          // path: samtools/dict/
-    sizes    = ch_chrom_sizes            // path: samtools/dict/
+    faidx    = ch_samtools_faidx         // path: genome.fa.gz.fai
+    dict     = ch_samtools_dict          // path: genome.fa.dict
+    sizes    = ch_chrom_sizes            // path: genome.chrom_sizes
     versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
 }

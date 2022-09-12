@@ -51,10 +51,10 @@ workflow PREPARE_REPEATS {
 
     emit:
     bed_gz   = ch_compressed_bed         // path: genome.bed.gz
-    bed_csi  = ch_indexed_bed_csi        // path: genome.bed.csi
-    bed_tbi  = ch_indexed_bed_tbi        // path: genome.bed.tbi
+    bed_csi  = ch_indexed_bed_csi        // path: genome.bed.gz.csi
+    bed_tbi  = ch_indexed_bed_tbi        // path: genome.bed.gz.tbi
     fasta_gz = ch_compressed_fasta       // path: genome.fa.gz
-    faidx    = ch_samtools_faidx         // path: samtools/faidx/
-    dict     = ch_samtools_dict          // path: samtools/dict/
+    faidx    = ch_samtools_faidx         // path: genome.fa.gz.fai
+    dict     = ch_samtools_dict          // path: genome.fa.dict
     versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
 }
