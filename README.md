@@ -36,7 +36,7 @@ Steps involved:
 - Turn the masked Fasta file into an unmasked one.
 - Compress and index all Fasta files with `bgzip`, `samtools faidx`, and
   `samtools dict`.
-- Generate the `chrom.sizes` file usually required for conversion of data
+- Generate the `.sizes` file usually required for conversion of data
   files to UCSC's "big" formats, e.g. bigBed.
 - Extract the coordinates of the masked regions into a BED file.
 - Compress and index the BED file with `bgzip` and `tabix`.

@@ -28,11 +28,11 @@ assembly
             ├── ACCESSION
             ├── GCA_927399515.1.assembly_report.txt
             ├── GCA_927399515.1.assembly_stats.txt
-            ├── GCA_927399515.1.chrom_sizes
             ├── GCA_927399515.1.fa.dict
             ├── GCA_927399515.1.fa.gz
             ├── GCA_927399515.1.fa.gz.fai
-            └── GCA_927399515.1.fa.gz.gzi
+            ├── GCA_927399515.1.fa.gz.gzi
+            └── GCA_927399515.1.fa.gz.sizes
 ```
 
 The directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all files are named after the assembly accession, e.g. `GCA_927399515.1`.
@@ -41,7 +41,7 @@ The directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all
 - `GCA_*.fa.gz`: Unmasked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
 - `GCA_*.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
 - `GCA_*.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
-- `GCA_*.chrom_sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
+- `GCA_*.fa.gz.sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
 
 with the exception of `ACCESSION`, which contains a single line of text: the assembly accession.
 
