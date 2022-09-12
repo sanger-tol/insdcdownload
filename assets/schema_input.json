@@ -7,6 +7,11 @@
     "items": {
         "type": "object",
         "properties": {
+            "species_dir": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Species directory must be provided and exist"
+            },
             "assembly_accession": {
                 "type": "string",
                 "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
@@ -18,6 +23,6 @@
                 "errorMessage": "Assembly name must be provided and cannot contain spaces"
             }
         },
-        "required": ["assembly_accession", "assembly_name"]
+        "required": ["species_dir", "assembly_accession", "assembly_name"]
     }
 }
