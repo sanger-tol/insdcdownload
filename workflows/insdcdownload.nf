@@ -55,13 +55,13 @@ workflow INSDCDOWNLOAD {
 
     } else {
 
-        ch_inputs = Channel.from( [
+        ch_inputs = Channel.of(
             [
                 assembly_accession: params.assembly_accession,
                 assembly_name: params.assembly_name,
                 species_dir: params.outdir,
             ]
-        ] )
+        )
 
     }
 
