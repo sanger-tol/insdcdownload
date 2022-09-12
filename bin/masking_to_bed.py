@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# This script was originally conceived by @muffato
 
 import argparse
 import sys

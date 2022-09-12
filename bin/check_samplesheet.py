@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This script is modified from nf-core's default check_samplesheet.py
 
 
 """Provide a command line tool to validate and transform tabular samplesheets."""
