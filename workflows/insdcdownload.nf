@@ -50,6 +50,7 @@ workflow INSDCDOWNLOAD {
 
         SAMPLESHEET_CHECK ( file(params.input, checkIfExists: true) )
             .csv
+            // Provides species_dir, assembly_accession, and assembly_name
             .splitCsv ( header:true, sep:',' )
             .set { ch_inputs }
 
