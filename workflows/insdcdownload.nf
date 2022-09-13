@@ -20,10 +20,10 @@ include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_che
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { DOWNLOAD_GENOME               } from '../subworkflows/local/download_genome'
-include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA        } from '../subworkflows/sanger-tol/prepare_fasta'
-include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA   } from '../subworkflows/sanger-tol/prepare_fasta'
-include { PREPARE_REPEATS                                } from '../subworkflows/sanger-tol/prepare_repeats'
+include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
+include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/sanger-tol/prepare_fasta'
+include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
+include { PREPARE_REPEATS                              } from '../subworkflows/sanger-tol/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,7 +88,6 @@ workflow INSDCDOWNLOAD {
         DOWNLOAD_GENOME.out.fasta_masked
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEATS.out.versions)
-
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
