@@ -68,6 +68,11 @@ class RowChecker:
         self._seen.add(row[self._accession_col])
         self.modified.append(row)
 
+    def _validate_dir(self, row):
+        """Assert that the species directory is non-empty."""
+        if not row[self._dir_col]:
+            raise AssertionError("Species directory is required.")
+
     def _validate_accession(self, row):
         """Assert that the accession number exists and matches the expected nomenclature."""
         if not row[self._accession_col]:
@@ -77,15 +82,10 @@ class RowChecker:
                 "Accession numbers must match %s." % self._regex_accession
             )
 
-    def _validate_dir(self, row):
-        """Assert that the species directory is non-empty."""
-        if not row[self._dir_col]:
-            raise AssertionError("Species directory is required.")
-
     def _validate_name(self, row):
         """Assert that the assembly name is non-empty and has no space."""
         if not row[self._name_col]:
-            raise AssertionError("Accession name is required.")
+            raise AssertionError("Assembly name is required.")
         if " " in row[self._name_col]:
             raise AssertionError("Accession names must not contain whitespace.")
 
@@ -94,7 +94,7 @@ class RowChecker:
         Assert that the accession numbers are unique.
         """
         if len(self._seen) != len(self.modified):
-            raise AssertionError("The pair of sample name and FASTQ must be unique.")
+            raise AssertionError("The list of accession numbers must be unique.")
 
 
 def read_head(handle, num_lines=10):
