@@ -37,4 +37,4 @@ jobs:
 
       - name: Run pipeline with multiple assemblies to download through a .csv file
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test_full,docker --outdir ./results_csv
+          nextflow run ${GITHUB_WORKSPACE} -profile test_full,docker --outdir ./results_full
