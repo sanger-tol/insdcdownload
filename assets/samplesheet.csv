@@ -1,3 +1,7 @@
 species_dir,assembly_name,assembly_accession
+25g/data/echinoderms/Asterias_rubens,eAstRub1.3,GCA_902459465.3
+25g/data/insects/Osmia_bicornis,iOsmBic2.1,GCA_907164935.1
+25g/data/insects/Osmia_bicornis,iOsmBic2.1_alternate_haplotype,GCA_907164925.1
 darwin/data/fungi/Laetiporus_sulphureus,gfLaeSulp1.1,GCA_927399515.1
+darwin/data/insects/Noctua_fimbriata,ilNocFimb1.1,GCA_905163415.1
 darwin/data/mammals/Meles_meles,mMelMel3.2_paternal_haplotype,GCA_922984935.2
