@@ -15,12 +15,11 @@ WorkflowInsdcdownload.initialise(params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_check'
-
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
+include { PARAMS_CHECK                                 } from '../subworkflows/local/params_check'
 include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/sanger-tol/prepare_fasta'
 include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
 include { PREPARE_REPEATS                              } from '../subworkflows/sanger-tol/prepare_repeats'
@@ -46,30 +45,19 @@ workflow INSDCDOWNLOAD {
 
     ch_versions = Channel.empty()
 
-    ch_inputs = Channel.empty()
-    if (params.input) {
-
-        SAMPLESHEET_CHECK ( file(params.input, checkIfExists: true) )
-            .csv
-            // Provides species_dir, assembly_accession, and assembly_name
-            .splitCsv ( header:true, sep:',' )
-            .set { ch_inputs }
-
-    } else {
-
-        ch_inputs = Channel.of(
-            [
-                assembly_accession: params.assembly_accession,
-                assembly_name: params.assembly_name,
-                species_dir: params.outdir,
-            ]
-        )
-
-    }
+    PARAMS_CHECK (
+        [
+            params.input,
+            params.assembly_accession,
+            params.assembly_name,
+            params.outdir,
+        ]
+    )
+    ch_versions         = ch_versions.mix(PARAMS_CHECK.out.versions)
 
     // Actual download
     DOWNLOAD_GENOME (
-        ch_inputs
+        PARAMS_CHECK.out.assembly_params
     )
     ch_versions         = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
 

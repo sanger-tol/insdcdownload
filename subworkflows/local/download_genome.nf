@@ -9,18 +9,13 @@ include { REMOVE_MASKING          } from '../../modules/local/remove_masking'
 workflow DOWNLOAD_GENOME {
 
     take:
-    inputs  // maps that indicate what to download (straight from the samplesheet)
+    assembly_params         // tuple(assembly_accession, assembly_name, species_dir)
 
 
     main:
     ch_versions = Channel.empty()
 
-    ch_assembly_params  = inputs.map { [
-                                it["assembly_accession"],
-                                it["assembly_name"],
-                                it["species_dir"],
-                            ] }
-    ch_masked_fasta     = NCBI_DOWNLOAD ( ch_assembly_params ).fasta
+    ch_masked_fasta     = NCBI_DOWNLOAD ( assembly_params ).fasta
     ch_versions         = ch_versions.mix(NCBI_DOWNLOAD.out.versions)
     // Fix meta.id
     ch_masked_fasta_id  = ch_masked_fasta.map { [it[0] + [id: it[0]["id"] + ".masked.ncbi"], it[1]] }
