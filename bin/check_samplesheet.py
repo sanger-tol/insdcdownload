@@ -29,8 +29,8 @@ class RowChecker:
     def __init__(
         self,
         dir_col="species_dir",
-        accession_col="assembly_accession",
         name_col="assembly_name",
+        accession_col="assembly_accession",
         **kwargs,
     ):
         """
@@ -39,16 +39,16 @@ class RowChecker:
         Args:
             dir_col (str): The name of the column that contains the species directory
                 (default "species_dir").
-            accession_col (str): The name of the column that contains the accession
-                number (default "assembly_accession").
             name_col (str): The name of the column that contains the assembly name
                 (default "assembly_name").
+            accession_col (str): The name of the column that contains the accession
+                number (default "assembly_accession").
 
         """
         super().__init__(**kwargs)
         self._dir_col = dir_col
-        self._accession_col = accession_col
         self._name_col = name_col
+        self._accession_col = accession_col
         self._seen = set()
         self.modified = []
         self._regex_accession = re.compile(r"^GCA_[0-9]{9}\.[0-9]+$")
@@ -63,8 +63,8 @@ class RowChecker:
 
         """
         self._validate_dir(row)
-        self._validate_accession(row)
         self._validate_name(row)
+        self._validate_accession(row)
         self._seen.add(row[self._accession_col])
         self.modified.append(row)
 
@@ -125,9 +125,9 @@ def sniff_format(handle):
     peek = read_head(handle)
     handle.seek(0)
     sniffer = csv.Sniffer()
-    if not sniffer.has_header(peek):
-        logger.critical(f"The given sample sheet does not appear to contain a header.")
-        sys.exit(1)
+    # if not sniffer.has_header(peek):
+    #     logger.critical(f"The given sample sheet does not appear to contain a header.")
+    #     sys.exit(1)
     dialect = sniffer.sniff(peek)
     return dialect
 
@@ -153,8 +153,8 @@ def check_samplesheet(file_in, file_out):
     """
     required_columns = {
         "species_dir",
-        "assembly_accession",
         "assembly_name",
+        "assembly_accession",
     }
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
