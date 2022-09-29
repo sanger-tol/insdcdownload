@@ -7,7 +7,7 @@ include { SAMPLESHEET_CHECK } from '../../modules/local/samplesheet_check'
 workflow PARAMS_CHECK {
 
     take:
-    inputs          // tuple(samplesheet, fasta, outdir)
+    inputs          // tuple, see below
 
 
     main:
@@ -23,6 +23,7 @@ workflow PARAMS_CHECK {
             .csv
             // Provides species_dir, assembly_accession, and assembly_name
             .splitCsv ( header:true, sep:',' )
+            // Convert to tuple, as required by the download subworkflow
             .map { [
                 it["assembly_accession"],
                 it["assembly_name"],

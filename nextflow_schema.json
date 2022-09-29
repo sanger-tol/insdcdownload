@@ -27,7 +27,7 @@
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "The output directory (considered to be species-level) from where the assembly will be saved. Not considered when running the pipeline with a .csv file as input. Pipeline execution statistics are also stored there.",
+                    "description": "The output directory where the results will be saved. Not considered when running the pipeline with a .csv file as input.",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "input": {
@@ -37,7 +37,7 @@
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the assemblies to download. Used for bulk download of many assemblies.",
-                    "help_text": "The file has to be a comma-separated file with 2 columns, and a header row. The columns names must be `assembly_accession` and `assembly_name`.",
+                    "help_text": "The file has to be a comma-separated file with three columns, and a header row. The columns names must be `species_dir`, `assembly_accession`, and `assembly_name`.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ftp_root": {
