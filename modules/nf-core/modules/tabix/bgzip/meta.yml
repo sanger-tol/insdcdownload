@@ -1,16 +1,16 @@
-name: samtools_faidx
-description: Index FASTA file
+name: tabix_bgzip
+description: Compresses/decompresses files
 keywords:
-  - index
-  - fasta
+  - compress
+  - decompress
+  - bgzip
+  - tabix
 tools:
-  - samtools:
+  - bgzip:
       description: |
-        SAMtools is a set of utilities for interacting with and post-processing
-        short DNA sequence read alignments in the SAM, BAM and CRAM formats, written by Heng Li.
-        These files are generated as output by short read aligners like BWA.
-      homepage: http://www.htslib.org/
-      documentation: http://www.htslib.org/doc/samtools.html
+        Bgzip compresses or decompresses files in a similar manner to, and compatible with, gzip.
+      homepage: https://www.htslib.org/doc/tabix.html
+      documentation: http://www.htslib.org/doc/bgzip.html
       doi: 10.1093/bioinformatics/btp352
       licence: ["MIT"]
 input:
@@ -19,20 +19,19 @@ input:
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - fasta:
+  - input:
       type: file
-      description: FASTA file
-      pattern: "*.{fa,fasta}"
+      description: file to compress or to decompress
 output:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  - fai:
+  - output:
       type: file
-      description: FASTA index file
-      pattern: "*.{fai}"
+      description: Output compressed/decompressed file
+      pattern: "*."
   - gzi:
       type: file
       description: Optional gzip index file for compressed inputs
@@ -42,6 +41,6 @@ output:
       description: File containing software versions
       pattern: "versions.yml"
 authors:
+  - "@joseespinosa"
   - "@drpatelh"
-  - "@ewels"
-  - "@phue"
+  - "@maxulysse"

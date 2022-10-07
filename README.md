@@ -1,6 +1,7 @@
 # ![sanger-tol/insdcdownload](docs/images/sanger-tol-insdcdownload_logo.png)
 
 [![GitHub Actions CI Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20CI/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22nf-core+CI%22)
+
 <!-- [![GitHub Actions Linting Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20linting/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22nf-core+linting%22) -->
 
 [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.6983933-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.6983933)
@@ -27,6 +28,18 @@ On release, automated continuous integration tests run the pipeline on a full-si
 ## Overview
 
 The pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx`), and extracts the repeat-masking performed by the NCBI.
+
+Steps involved:
+
+- Download from the NCBI the genomic sequence (Fasta) and the assembly
+  stats and reports files.
+- Turn the masked Fasta file into an unmasked one.
+- Compress and index all Fasta files with `bgzip`, `samtools faidx`, and
+  `samtools dict`.
+- Generate the `.sizes` file usually required for conversion of data
+  files to UCSC's "big" formats, e.g. bigBed.
+- Extract the coordinates of the masked regions into a BED file.
+- Compress and index the BED file with `bgzip` and `tabix`.
 
 ## Quick Start
 

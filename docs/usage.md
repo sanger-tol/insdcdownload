@@ -1,10 +1,9 @@
 # sanger-tol/insdcdownload: Usage
 
-> _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
-
 ## Introduction
 
-The pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx`), and extracts the repeat-masking performed by the NCBI.
+The pipeline takes an assembly accession number, as well as the assembly name, and downloads it in a given directory.
+It also extracts the repeat-masking performed by the NCBI, and builds a set of common indices (such as `samtools faidx`).
 
 ## Running the pipeline
 
@@ -98,9 +97,11 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter or Charliecloud.
 - `test`
-  - A profile with a complete configuration for automated testing. Corresponds to defining the assembly to download as command-line parameters
-- `test_csv`
-  - A profile with a complete, CSV-based, configuration for automated testing. Corresponds to defining the assembly to download as a CSV file
+  - A profile with a minimal configuration for automated testing
+  - Corresponds to defining the assembly to download as command-line parameters so needs no other parameters
+- `test_full`
+  - A profile with a complete configuration for automated testing
+  - Corresponds to defining the assembly to download as a CSV file so needs no other parameters
 
 ### `-resume`
 

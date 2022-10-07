@@ -1,4 +1,4 @@
-process SAMTOOLS_FAIDX {
+process CUSTOM_GETCHROMSIZES {
     tag "$fasta"
     label 'process_single'
 
@@ -11,9 +11,10 @@ process SAMTOOLS_FAIDX {
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path ("*.fai"), emit: fai
-    tuple val(meta), path ("*.gzi"), emit: gzi, optional: true
-    path "versions.yml"            , emit: versions
+    tuple val(meta), path ("*.sizes"), emit: sizes
+    tuple val(meta), path ("*.fai")  , emit: fai
+    tuple val(meta), path ("*.gzi")  , emit: gzi, optional: true
+    path  "versions.yml"             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -21,24 +22,23 @@ process SAMTOOLS_FAIDX {
     script:
     def args = task.ext.args ?: ''
     """
-    samtools \\
-        faidx \\
-        $args \\
-        $fasta
+    samtools faidx $fasta
+    cut -f 1,2 ${fasta}.fai > ${fasta}.sizes
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
+        getchromsizes: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
     END_VERSIONS
     """
 
     stub:
     """
     touch ${fasta}.fai
-    cat <<-END_VERSIONS > versions.yml
+    touch ${fasta}.sizes
 
+    cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        samtools: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
+        getchromsizes: \$(echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//')
     END_VERSIONS
     """
 }

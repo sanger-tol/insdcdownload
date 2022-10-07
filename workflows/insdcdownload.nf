@@ -15,14 +15,14 @@ WorkflowInsdcdownload.initialise(params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_check'
-
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { PREPARE_GENOME                } from '../subworkflows/local/prepare_genome'
-include { DOWNLOAD_GENOME               } from '../subworkflows/local/download_genome'
-include { PREPARE_REPEATS               } from '../subworkflows/local/prepare_repeats'
+include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
+include { PARAMS_CHECK                                 } from '../subworkflows/local/params_check'
+include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/sanger-tol/prepare_fasta'
+include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
+include { PREPARE_REPEATS                              } from '../subworkflows/sanger-tol/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,50 +45,38 @@ workflow INSDCDOWNLOAD {
 
     ch_versions = Channel.empty()
 
-    ch_inputs = Channel.empty()
-    if (params.input) {
-
-        SAMPLESHEET_CHECK ( file(params.input, checkIfExists: true) )
-            .csv
-            .splitCsv ( header:true, sep:',' )
-            .set { ch_inputs }
-
-    } else {
-
-        ch_inputs = Channel.from( [
-            [assembly_accession:params.assembly_accession, assembly_name:params.assembly_name]
-        ] )
-
-    }
-
-    // actual download -> all files (incl. masked fasta)
-    // remove masking -> unmasked fasta
-    DOWNLOAD_GENOME (
-        ch_inputs.map { it["assembly_accession"] },
-        ch_inputs.map { it["assembly_name"] }
+    PARAMS_CHECK (
+        [
+            params.input,
+            params.assembly_accession,
+            params.assembly_name,
+            params.outdir,
+        ]
     )
-    ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
+    ch_versions         = ch_versions.mix(PARAMS_CHECK.out.versions)
 
-    // bgzip
-    // samtools faidx
-    // samtools dict
-    // chrom.sizes
-    PREPARE_GENOME (
+    // Actual download
+    DOWNLOAD_GENOME (
+        PARAMS_CHECK.out.assembly_params
+    )
+    ch_versions         = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
+
+    // Preparation of Fasta files
+    PREPARE_UNMASKED_FASTA (
         DOWNLOAD_GENOME.out.fasta_unmasked
     )
-    ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
+    ch_versions         = ch_versions.mix(PREPARE_UNMASKED_FASTA.out.versions)
 
-    //DOWNLOAD_GENOME.out.fasta_masked.view()
-    // masking bed
-    // bgzip
-    // samtools faidx
-    // samtools dict
+    // Preparation of repeat-masking files
+    PREPARE_REPEAT_MASKED_FASTA (
+        DOWNLOAD_GENOME.out.fasta_masked
+    )
+    ch_versions         = ch_versions.mix(PREPARE_REPEAT_MASKED_FASTA.out.versions)
     PREPARE_REPEATS (
         DOWNLOAD_GENOME.out.fasta_masked
     )
-    ch_versions = ch_versions.mix(PREPARE_REPEATS.out.versions)
+    ch_versions         = ch_versions.mix(PREPARE_REPEATS.out.versions)
 
-    // TODO: Add Slack notification in main workflow
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )

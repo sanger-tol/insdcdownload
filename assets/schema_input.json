@@ -7,17 +7,22 @@
     "items": {
         "type": "object",
         "properties": {
-            "assembly_accession": {
+            "species_dir": {
                 "type": "string",
-                "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
-                "errorMessage": "Assembly accession number must be provided and be of the form GCA_*"
+                "pattern": "^\\S+$",
+                "errorMessage": "Species directory must be provided and exist"
             },
             "assembly_name": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Assembly name must be provided and cannot contain spaces"
+            },
+            "assembly_accession": {
+                "type": "string",
+                "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
+                "errorMessage": "Assembly accession number must be provided and be of the form GCA_*"
             }
         },
-        "required": ["assembly_accession", "assembly_name"]
+        "required": ["species_dir", "assembly_name", "assembly_accession"]
     }
 }
