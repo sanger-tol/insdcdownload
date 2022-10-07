@@ -2,7 +2,7 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: sanger-tol/insdcdownload v1.0.0 - Flaming balrog
+title: sanger-tol/insdcdownload v1.1.0 - Deciduous ent
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -18,9 +18,9 @@ authors:
     affiliation: Wellcome Sanger Institute
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.6983933
+    value: 10.5281/zenodo.7155119
 repository-code: "https://github.com/sanger-tol/insdcdownload"
 license: MIT
 commit: TODO
-version: 1.0.0
-date-released: "2022-08-16"
+version: 1.1.0
+date-released: "2022-10-07"
