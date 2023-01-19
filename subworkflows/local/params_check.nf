@@ -7,12 +7,12 @@ include { SAMPLESHEET_CHECK } from '../../modules/local/samplesheet_check'
 workflow PARAMS_CHECK {
 
     take:
-    inputs          // tuple, see below
+    samplesheet  // file
+    cli_params   // tuple, see below
+    outdir       // file output directory
 
 
     main:
-
-    def (samplesheet, assembly_accession, assembly_name, outdir) = inputs
 
     ch_versions = Channel.empty()
 
@@ -27,22 +27,16 @@ workflow PARAMS_CHECK {
             .map { [
                 it["assembly_accession"],
                 it["assembly_name"],
-                it["species_dir"],
+                it["species_dir"].startsWith("/") ? "" : outdir + "/",
             ] }
             .set { ch_inputs }
 
         ch_versions = ch_versions.mix(SAMPLESHEET_CHECK.out.versions)
 
     } else {
-
-        ch_inputs = Channel.of(
-            [
-                assembly_accession,
-                assembly_name,
-                outdir,
-            ]
-        )
-
+        // Add the other input channel in, as it's expected to have all the parameters in the right order
+        // except the output directory which must be appended
+        ch_inputs = ch_inputs.mix(cli_params.map { it + [outdir] } )
     }
 
 

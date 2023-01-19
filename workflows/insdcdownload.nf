@@ -46,12 +46,14 @@ workflow INSDCDOWNLOAD {
     ch_versions = Channel.empty()
 
     PARAMS_CHECK (
-        [
-            params.input,
-            params.assembly_accession,
-            params.assembly_name,
-            params.outdir,
-        ]
+        params.input,
+        Channel.of(
+            [
+                params.assembly_accession,
+                params.assembly_name,
+            ]
+        ),
+        params.outdir,
     )
     ch_versions         = ch_versions.mix(PARAMS_CHECK.out.versions)
 
