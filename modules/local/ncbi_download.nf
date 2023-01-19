@@ -52,7 +52,8 @@ process NCBI_DOWNLOAD {
     wget ${ftp_path}/${remote_filename_stem}_genomic.fna.gz
     wget ${ftp_path}/md5checksums.txt
 
-    grep "\\(_assembly_report\\.txt\$\\|_assembly_stats\\.txt\$\\|_genomic\\.fna\\.gz\$\\)" md5checksums.txt > md5checksums_restricted.txt
+    grep "\\(_assembly_report\\.txt\$\\|_assembly_stats\\.txt\$\\|_genomic\\.fna\\.gz\$\\)" md5checksums.txt \
+        | grep -v "\\(_from_genomic\\.fna\\.gz\$\\)"> md5checksums_restricted.txt
     md5sum -c md5checksums_restricted.txt
     mv ${remote_filename_stem}_assembly_report.txt ${filename_assembly_report}
     mv ${remote_filename_stem}_assembly_stats.txt  ${filename_assembly_stats}
