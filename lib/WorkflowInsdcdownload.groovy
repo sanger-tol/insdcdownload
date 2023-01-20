@@ -17,10 +17,14 @@ class WorkflowInsdcdownload {
                 System.exit(1)
             }
         } else {
-            if (!params.assembly_accession || !params.assembly_name || !params.outdir) {
-                log.error "Either --input, or --assembly_accession, --assembly_name, and --outdir must be provided"
+            if (!params.assembly_accession || !params.assembly_name) {
+                log.error "Either --input, or --assembly_accession and --assembly_name must be provided"
                 System.exit(1)
             }
+        }
+        if (!params.outdir) {
+            log.error "--outdir is mandatory"
+            System.exit(1)
         }
     }
 
