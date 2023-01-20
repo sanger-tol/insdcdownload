@@ -70,7 +70,7 @@ the directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all
 - `GCA_*.masked.ncbi.fa.gz`: Masked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
 - `GCA_*.masked.ncbi.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
 - `GCA_*.masked.ncbi.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
-- `GCA_*.masked.ncbi.bed.gz`: BED file with the coordinates of the regions masked by the NCBI pipeline, with accompanying `tabix` indices (`.csi` and `.tbi`)
+- `GCA_*.masked.ncbi.bed.gz`: BED file with the coordinates of the regions masked by the NCBI pipeline, with accompanying `tabix` indices (`.csi` and `.tbi`), depending on the sequence lengths
 
 ### Pipeline information
 
