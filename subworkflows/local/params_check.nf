@@ -27,7 +27,7 @@ workflow PARAMS_CHECK {
             .map { [
                 it["assembly_accession"],
                 it["assembly_name"],
-                it["species_dir"].startsWith("/") ? "" : outdir + "/",
+                (it["species_dir"].startsWith("/") ? "" : outdir + "/") + it["species_dir"],
             ] }
             .set { ch_inputs }
 
