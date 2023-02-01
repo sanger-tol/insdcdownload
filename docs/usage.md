@@ -37,17 +37,21 @@ nextflow run sanger-tol/insdcdownload --input '[path to samplesheet file]' --out
 The values in the file must correspond to the values you would add to the `--assembly_accession` and `--assembly_name` parameters.
 
 ```console
-assembly_accession,assembly_name
-GCA_927399515.1,gfLaeSulp1.1
-GCA_922984935.2,mMelMel3.2_paternal_haplotype
+species_dir,assembly_name,assembly_accession
+darwin/data/fungi/Laetiporus_sulphureus,gfLaeSulp1.1,GCA_927399515.1
+darwin/data/mammals/Meles_meles,mMelMel3.2_paternal_haplotype,GCA_922984935.2
 ```
 
 | Column               | Description                                                                    |
 | -------------------- | ------------------------------------------------------------------------------ |
-| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`. |
+| `species_dir`        | Base download directory for this species. Evaluated from `--outdir` if relative. |
 | `assembly_name`      | Name of the assembly, as on the NCBI website, e.g. `gfLaeSulp1.1`.             |
+| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`. |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+`--species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
+from Sanger Tree of Life.
 
 ### Updating the pipeline
 
