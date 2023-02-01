@@ -14,12 +14,11 @@ The pipeline accepts command-one line arguments to specify a single genome to do
 - `--outdir`: Where to download the data.
 
 ```console
-nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir <OUTDIR>
+nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir gfLaeSulp1.1_data
 ```
 
-This will launch the pipeline and download the `gfLaeSulp1.1` assembly (accession `GCA_927399515.1`) into the `<OUTDIR>/` directory,
+This will launch the pipeline and download the `gfLaeSulp1.1` assembly (accession `GCA_927399515.1`) into the `gfLaeSulp1.1_data/` directory,
 which will be created if needed.
-
 
 ## Bulk download
 
@@ -27,27 +26,33 @@ The pipeline can download multiple assemblies at once, by providing them in a `.
 It has to be a comma-separated file with three columns, and a header row as shown in the examples below.
 
 ```console
-nextflow run sanger-tol/insdcdownload --input '[path to samplesheet file]' --outdir <OUTDIR>
-```
-
-The values in the file must correspond to the values you would add to the `--assembly_accession` and `--assembly_name` parameters.
-
-```console
 species_dir,assembly_name,assembly_accession
 darwin/data/fungi/Laetiporus_sulphureus,gfLaeSulp1.1,GCA_927399515.1
 darwin/data/mammals/Meles_meles,mMelMel3.2_paternal_haplotype,GCA_922984935.2
 ```
 
-| Column               | Description                                                                    |
-| -------------------- | ------------------------------------------------------------------------------ |
+| Column               | Description                                                                      |
+| -------------------- | -------------------------------------------------------------------------------- |
 | `species_dir`        | Base download directory for this species. Evaluated from `--outdir` if relative. |
-| `assembly_name`      | Name of the assembly, as on the NCBI website, e.g. `gfLaeSulp1.1`.             |
-| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`. |
+| `assembly_name`      | Name of the assembly, as on the NCBI website, e.g. `gfLaeSulp1.1`.               |
+| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`.   |
+
+A samplesheet may contain:
+
+- multiple assemblies of the same species
+- multiple assemblies in the same output directory
+- only one row per assembly
+
+All samplesheet columns correspond exactly to their corresponding command-line parameter,
+except `species_dir` which overrides or complements `--oudir`.
+`species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
+from Sanger Tree of Life.
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-`species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
-from Sanger Tree of Life.
+```bash
+nextflow run sanger-tol/insdcdownload -profile singularity --input /path/to/samplesheet.csv --outdir /path/to/results
+```
 
 ## Nextflow outputs
 
