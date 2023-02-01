@@ -5,9 +5,13 @@
 The pipeline takes an assembly accession number, as well as the assembly name, and downloads it in a given directory.
 It also extracts the repeat-masking performed by the NCBI, and builds a set of common indices (such as `samtools faidx`).
 
-## Running the pipeline
+## One-off downloads
 
-The typical command for running the pipeline is as follows:
+The pipeline accepts command-one line arguments to specify a single genome to download:
+
+- `--assembly_name`: The name of the assembly,
+- `--assembly_accession`: The accession number of the assembly,
+- `--outdir`: Where to download the data.
 
 ```console
 nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir <OUTDIR>
@@ -16,19 +20,11 @@ nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --ass
 This will launch the pipeline and download the `gfLaeSulp1.1` assembly (accession `GCA_927399515.1`) into the `<OUTDIR>/` directory,
 which will be created if needed.
 
-Note that the pipeline will create the following files in your working directory:
-
-```bash
-work                # Directory containing the nextflow working files
-<OUTDIR>            # Finished results in specified location (defined with --outdir)
-.nextflow_log       # Log file from Nextflow
-# Other nextflow hidden files, eg. history of pipeline runs and old logs.
-```
 
 ## Bulk download
 
 The pipeline can download multiple assemblies at once, by providing them in a `.csv` file through the `--input` parameter.
-It has to be a comma-separated file with 2 columns, and a header row as shown in the examples below.
+It has to be a comma-separated file with three columns, and a header row as shown in the examples below.
 
 ```console
 nextflow run sanger-tol/insdcdownload --input '[path to samplesheet file]' --outdir <OUTDIR>
@@ -50,8 +46,20 @@ darwin/data/mammals/Meles_meles,mMelMel3.2_paternal_haplotype,GCA_922984935.2
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
-`--species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
+`species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
 from Sanger Tree of Life.
+
+## Nextflow outputs
+
+Note that the pipeline will create the following files in your working directory:
+
+```bash
+work                # Directory containing the nextflow working files
+<OUTDIR>            # Finished results in specified location (defined with --outdir)
+.nextflow_log       # Log file from Nextflow
+.nextflow           # Directory where Nextflow keeps track of jobs
+# Other nextflow hidden files, eg. history of pipeline runs and old logs.
+```
 
 ### Updating the pipeline
 
