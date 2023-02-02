@@ -46,12 +46,14 @@ workflow INSDCDOWNLOAD {
     ch_versions = Channel.empty()
 
     PARAMS_CHECK (
-        [
-            params.input,
-            params.assembly_accession,
-            params.assembly_name,
-            params.outdir,
-        ]
+        params.input,
+        Channel.of(
+            [
+                params.assembly_accession,
+                params.assembly_name,
+            ]
+        ),
+        params.outdir,
     )
     ch_versions         = ch_versions.mix(PARAMS_CHECK.out.versions)
 
@@ -73,7 +75,7 @@ workflow INSDCDOWNLOAD {
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEAT_MASKED_FASTA.out.versions)
     PREPARE_REPEATS (
-        DOWNLOAD_GENOME.out.fasta_masked
+        PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEATS.out.versions)
 

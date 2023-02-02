@@ -3,6 +3,18 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.0 - [date]
+
+### `Fixed`
+
+- Relative paths in the sample-sheet are now evaluated from the `--outdir` parameter
+- Memory usage rules for `samtools dict`
+- Appropriate use of `tabix`'s TBI and CSI indexing, depending on the sequence lengths
+
+### `Added`
+
+- `--outdir` is a _mandatory_ parameter
+
 ## v1.1.0 - [2022-10-07]
 
 Minor update that fixes a few bugs

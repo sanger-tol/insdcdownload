@@ -5,16 +5,56 @@
 The pipeline takes an assembly accession number, as well as the assembly name, and downloads it in a given directory.
 It also extracts the repeat-masking performed by the NCBI, and builds a set of common indices (such as `samtools faidx`).
 
-## Running the pipeline
+## One-off downloads
 
-The typical command for running the pipeline is as follows:
+The pipeline accepts command-one line arguments to specify a single genome to download:
+
+- `--assembly_name`: The name of the assembly,
+- `--assembly_accession`: The accession number of the assembly,
+- `--outdir`: Where to download the data.
 
 ```console
-nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir <OUTDIR>
+nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir gfLaeSulp1.1_data
 ```
 
-This will launch the pipeline and download the `gfLaeSulp1.1` assembly (accession `GCA_927399515.1`) into the `<OUTDIR>/` directory,
+This will launch the pipeline and download the `gfLaeSulp1.1` assembly (accession `GCA_927399515.1`) into the `gfLaeSulp1.1_data/` directory,
 which will be created if needed.
+
+## Bulk download
+
+The pipeline can download multiple assemblies at once, by providing them in a `.csv` file through the `--input` parameter.
+It has to be a comma-separated file with three columns, and a header row as shown in the examples below.
+
+```console
+species_dir,assembly_name,assembly_accession
+darwin/data/fungi/Laetiporus_sulphureus,gfLaeSulp1.1,GCA_927399515.1
+darwin/data/mammals/Meles_meles,mMelMel3.2_paternal_haplotype,GCA_922984935.2
+```
+
+| Column               | Description                                                                      |
+| -------------------- | -------------------------------------------------------------------------------- |
+| `species_dir`        | Base download directory for this species. Evaluated from `--outdir` if relative. |
+| `assembly_name`      | Name of the assembly, as on the NCBI website, e.g. `gfLaeSulp1.1`.               |
+| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`.   |
+
+A samplesheet may contain:
+
+- multiple assemblies of the same species
+- multiple assemblies in the same output directory
+- only one row per assembly
+
+All samplesheet columns correspond exactly to their corresponding command-line parameter,
+except `species_dir` which overrides or complements `--oudir`.
+`species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
+from Sanger Tree of Life.
+
+An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+```bash
+nextflow run sanger-tol/insdcdownload -profile singularity --input /path/to/samplesheet.csv --outdir /path/to/results
+```
+
+## Nextflow outputs
 
 Note that the pipeline will create the following files in your working directory:
 
@@ -22,32 +62,9 @@ Note that the pipeline will create the following files in your working directory
 work                # Directory containing the nextflow working files
 <OUTDIR>            # Finished results in specified location (defined with --outdir)
 .nextflow_log       # Log file from Nextflow
+.nextflow           # Directory where Nextflow keeps track of jobs
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
-
-## Bulk download
-
-The pipeline can download multiple assemblies at once, by providing them in a `.csv` file through the `--input` parameter.
-It has to be a comma-separated file with 2 columns, and a header row as shown in the examples below.
-
-```console
-nextflow run sanger-tol/insdcdownload --input '[path to samplesheet file]' --outdir <OUTDIR>
-```
-
-The values in the file must correspond to the values you would add to the `--assembly_accession` and `--assembly_name` parameters.
-
-```console
-assembly_accession,assembly_name
-GCA_927399515.1,gfLaeSulp1.1
-GCA_922984935.2,mMelMel3.2_paternal_haplotype
-```
-
-| Column               | Description                                                                    |
-| -------------------- | ------------------------------------------------------------------------------ |
-| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`. |
-| `assembly_name`      | Name of the assembly, as on the NCBI website, e.g. `gfLaeSulp1.1`.             |
-
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 ### Updating the pipeline
 
