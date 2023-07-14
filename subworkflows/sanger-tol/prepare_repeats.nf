@@ -3,10 +3,10 @@
 // and prepare indexes for it
 //
 
-include { REPEATS_BED                      } from '../../modules/sanger-tol/nf-core-pipeline/repeats_bed'
-include { TABIX_BGZIP                      } from '../../modules/nf-core/modules/tabix/bgzip/main'
-include { TABIX_TABIX as TABIX_TABIX_CSI   } from '../../modules/nf-core/modules/tabix/tabix/main'
-include { TABIX_TABIX as TABIX_TABIX_TBI   } from '../../modules/nf-core/modules/tabix/tabix/main'
+include { REPEATS_BED                      } from '../../modules/local/repeats_bed'
+include { TABIX_BGZIP                      } from '../../modules/nf-core/tabix/bgzip/main'
+include { TABIX_TABIX as TABIX_TABIX_CSI   } from '../../modules/nf-core/tabix/tabix/main'
+include { TABIX_TABIX as TABIX_TABIX_TBI   } from '../../modules/nf-core/tabix/tabix/main'
 
 
 workflow PREPARE_REPEATS {
