@@ -2,6 +2,8 @@
 // This file holds several functions specific to the workflow/insdcdownload.nf in the sanger-tol/insdcdownload pipeline
 //
 
+import groovy.text.SimpleTemplateEngine
+
 class WorkflowInsdcdownload {
 
     //

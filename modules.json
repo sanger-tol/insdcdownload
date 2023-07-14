@@ -2,12 +2,11 @@
     "name": "sanger-tol/insdcdownload",
     "homePage": "https://github.com/sanger-tol/insdcdownload",
     "repos": {
-        "nf-core/modules": {
-            "git_url": "https://github.com/nf-core/modules.git",
+        "https://github.com/nf-core/modules.git": {
             "modules": {
                 "custom/dumpsoftwareversions": {
                     "branch": "master",
-                    "git_sha": "82501fe6d0d12614db67751d30af98d16e63dc59"
+                    "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                 },
                 "custom/getchromsizes": {
                     "branch": "master",
