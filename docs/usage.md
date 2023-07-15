@@ -80,9 +80,9 @@ nextflow run sanger-tol/insdcdownload -profile docker -params-file params.yaml
 with `params.yaml` containing:
 
 ```yaml
-assembly: 'gfLaeSulp1.1'
-assembly_accession: 'GCA_927399515.1'
-outdir: './results/'
+assembly: "gfLaeSulp1.1"
+assembly_accession: "GCA_927399515.1"
+outdir: "./results/"
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
