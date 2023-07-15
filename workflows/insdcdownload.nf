@@ -20,9 +20,9 @@ WorkflowInsdcdownload.initialise(params, log)
 //
 include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
 include { PARAMS_CHECK                                 } from '../subworkflows/local/params_check'
-include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/sanger-tol/prepare_fasta'
-include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
-include { PREPARE_REPEATS                              } from '../subworkflows/sanger-tol/prepare_repeats'
+include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_REPEATS                              } from '../subworkflows/local/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
