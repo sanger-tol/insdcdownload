@@ -9,7 +9,7 @@ process NCBI_DOWNLOAD {
     conda "bioconda::wget=1.18"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gnu-wget:1.18--h7132678_6' :
-        'quay.io/biocontainers/gnu-wget:1.18--h7132678_6' }"
+        'biocontainers/gnu-wget:1.18--h7132678_6' }"
 
     input:
     tuple val(assembly_accession), val(assembly_name), val(species_dir)
