@@ -6,7 +6,7 @@ process NCBI_DOWNLOAD {
     tag "$assembly_accession"
     label 'process_single'
 
-    conda "bioconda::wget=1.18"
+    conda "bioconda::gnu-wget=1.18"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gnu-wget:1.18--h7132678_6' :
         'biocontainers/gnu-wget:1.18--h7132678_6' }"
