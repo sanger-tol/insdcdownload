@@ -3,7 +3,6 @@
 //
 
 import nextflow.Nextflow
-import groovy.text.SimpleTemplateEngine
 
 class WorkflowInsdcdownload {
 
@@ -16,18 +15,15 @@ class WorkflowInsdcdownload {
         if (params.input) {
             def f = new File(params.input);
             if (!f.exists()) {
-                log.error "'${params.input}' doesn't exist"
-                System.exit(1)
+                Nextflow.error "'${params.input}' doesn't exist"
             }
         } else {
             if (!params.assembly_accession || !params.assembly_name) {
-                log.error "Either --input, or --assembly_accession and --assembly_name must be provided"
-                System.exit(1)
+                Nextflow.error "Either --input, or --assembly_accession and --assembly_name must be provided"
             }
         }
         if (!params.outdir) {
-            log.error "--outdir is mandatory"
-            System.exit(1)
+            Nextflow.error "--outdir is mandatory"
         }
     }
 
