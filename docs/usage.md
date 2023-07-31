@@ -1,5 +1,9 @@
 # sanger-tol/insdcdownload: Usage
 
+## :warning: Please read this documentation on the nf-core website: [https://pipelines.tol.sanger.ac.uk/insdcdownload/usage](https://pipelines.tol.sanger.ac.uk/insdcdownload/usage)
+
+> _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
+
 ## Introduction
 
 The pipeline takes an assembly accession number, as well as the assembly name, and downloads it in a given directory.
