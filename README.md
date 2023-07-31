@@ -19,14 +19,6 @@
 
 **sanger-tol/insdcdownload** is a pipeline that downloads assemblies from INSDC into a Tree of Life directory structure.
 
-The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
-
-On release, automated continuous integration tests run the pipeline on a full-sized dataset on the GitHub CI infrastructure. This ensures that the pipeline runs in a third-party environment, and has sensible resource allocation defaults set to run on real-world datasets.
-
-## Pipeline summary
-
-## Overview
-
 The pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx`), and extracts the repeat-masking performed by the NCBI.
 
 Steps involved:
@@ -48,6 +40,8 @@ Steps involved:
 > to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
 > with `-profile test` before running the workflow on actual data.
 
+The easiest is to provide the exact name and accession number of the assembly like this:
+
 ```console
 nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir results
 ```
@@ -57,9 +51,8 @@ nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --ass
 > provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
 > see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-## Documentation
-
-The sanger-tol/insdcdownload pipeline comes with documentation about the pipeline [usage](docs/usage.md) and [output](docs/output.md).
+The pipeline also supports bulk downloads through a sample-sheet.
+More information about this mode on our [pipeline website](https://pipelines.tol.sanger.ac.uk/insdcdownload/usage).
 
 ## Credits
 
