@@ -56,7 +56,11 @@ More information about this mode on our [pipeline website](https://pipelines.tol
 
 ## Credits
 
-sanger-tol/insdcdownload was mainly written by @muffato, with major borrowings from @priyanka-surana's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.
+sanger-tol/insdcdownload was mainly written by [Matthieu Muffato](https://github.com/muffato), with major borrowings from a's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.
+
+We thank the following people for their assistance in the development of this pipeline:
+
+- [Priyanka Surana](https://github.com/priyanka-surana) for providing reviews.
 
 ## Contributions and Support
 
