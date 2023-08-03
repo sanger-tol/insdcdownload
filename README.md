@@ -43,7 +43,7 @@ Steps involved:
 The easiest is to provide the exact name and accession number of the assembly like this:
 
 ```console
-nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir results
+nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1
 ```
 
 > **Warning:**
