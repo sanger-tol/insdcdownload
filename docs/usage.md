@@ -30,14 +30,14 @@ The pipeline can download multiple assemblies at once, by providing them in a `.
 It has to be a comma-separated file with three columns, and a header row as shown in the examples below.
 
 ```console
-species_dir,assembly_name,assembly_accession
+outdir,assembly_name,assembly_accession
 darwin/data/fungi/Laetiporus_sulphureus,gfLaeSulp1.1,GCA_927399515.1
 darwin/data/mammals/Meles_meles,mMelMel3.2_paternal_haplotype,GCA_922984935.2
 ```
 
 | Column               | Description                                                                      |
 | -------------------- | -------------------------------------------------------------------------------- |
-| `species_dir`        | Base download directory for this species. Evaluated from `--outdir` if relative. |
+| `outdir`             | Base download directory for this species. Evaluated from `--outdir` if relative. |
 | `assembly_name`      | Name of the assembly, as on the NCBI website, e.g. `gfLaeSulp1.1`.               |
 | `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`.   |
 
@@ -48,9 +48,7 @@ A samplesheet may contain:
 - only one row per assembly
 
 All samplesheet columns correspond exactly to their corresponding command-line parameter,
-except `species_dir` which overrides or complements `--oudir`.
-`species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
-from Sanger Tree of Life.
+except `outdir` which overrides or complements `--oudir`.
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 

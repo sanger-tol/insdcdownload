@@ -4,7 +4,8 @@
 
 This document describes the output produced by the pipeline.
 
-The directories listed below will be created in the results directory (or `species_dir` when using a samplesheet) after the pipeline has finished.
+The directories listed below will be created in a directory based on the `--outdir` command-line parameter and the `outdir` column of the samplesheet.
+) after the pipeline has finished.
 All paths are relative to the top-level results directory.
 
 The directories comply with Tree of Life's canonical directory structure.
@@ -23,20 +24,17 @@ Here are the files you can expect in the `assembly/` sub-directory.
 
 ```text
 assembly
-└── release
-    └── gfLaeSulp1.1
-        └── insdc
-            ├── ACCESSION
-            ├── GCA_927399515.1.assembly_report.txt
-            ├── GCA_927399515.1.assembly_stats.txt
-            ├── GCA_927399515.1.fa.dict
-            ├── GCA_927399515.1.fa.gz
-            ├── GCA_927399515.1.fa.gz.fai
-            ├── GCA_927399515.1.fa.gz.gzi
-            └── GCA_927399515.1.fa.gz.sizes
+├── ACCESSION
+├── GCA_927399515.1.assembly_report.txt
+├── GCA_927399515.1.assembly_stats.txt
+├── GCA_927399515.1.fa.dict
+├── GCA_927399515.1.fa.gz
+├── GCA_927399515.1.fa.gz.fai
+├── GCA_927399515.1.fa.gz.gzi
+└── GCA_927399515.1.fa.gz.sizes
 ```
 
-The directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all files are named after the assembly accession, e.g. `GCA_927399515.1`.
+All files are named after the assembly accession, e.g. `GCA_927399515.1`.
 
 - `GCA_*.assembly_report.txt` and `GCA_*.assembly_stats.txt`: report and statistics files, straight from the NCBI FTP
 - `GCA_*.fa.gz`: Unmasked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
@@ -48,25 +46,23 @@ with the exception of `ACCESSION`, which contains a single line of text: the ass
 
 ### Primary analysis files
 
-Here are the files you can expect in the `analysis/` sub-directory.
+Here are the files you can expect in the `repeats/` sub-directory.
 
 ```text
-analysis
-└── gfLaeSulp1.1
-    └── repeats
-        └── ncbi
-            ├── GCA_927399515.1.masked.ncbi.bed.gz
-            ├── GCA_927399515.1.masked.ncbi.bed.gz.csi
-            ├── GCA_927399515.1.masked.ncbi.bed.gz.tbi
-            ├── GCA_927399515.1.masked.ncbi.fa.dict
-            ├── GCA_927399515.1.masked.ncbi.fa.gz
-            ├── GCA_927399515.1.masked.ncbi.fa.gz.fai
-            ├── GCA_927399515.1.masked.ncbi.fa.gz.gzi
-            └── GCA_927399515.1.masked.ncbi.fa.gz.sizes
+repeats
+└── ncbi
+    ├── GCA_927399515.1.masked.ncbi.bed.gz
+    ├── GCA_927399515.1.masked.ncbi.bed.gz.csi
+    ├── GCA_927399515.1.masked.ncbi.bed.gz.tbi
+    ├── GCA_927399515.1.masked.ncbi.fa.dict
+    ├── GCA_927399515.1.masked.ncbi.fa.gz
+    ├── GCA_927399515.1.masked.ncbi.fa.gz.fai
+    ├── GCA_927399515.1.masked.ncbi.fa.gz.gzi
+    └── GCA_927399515.1.masked.ncbi.fa.gz.sizes
 ```
 
 They all correspond to the repeat-masking analysis run by the NCBI themselves. Like for the `assembly/` sub-directory,
-the directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all files are named after the assembly accession, e.g. `GCA_927399515.1`.
+all files are named after the assembly accession, e.g. `GCA_927399515.1`.
 
 - `GCA_*.masked.ncbi.fa.gz`: Masked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
 - `GCA_*.masked.ncbi.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
