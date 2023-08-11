@@ -9,7 +9,6 @@ __doc__ = "This script prints a BED file of the masked regions a fasta file."
 
 
 def fasta_to_bed(fasta):
-
     in_gap = None
     with gzip.open(fasta, "rt") if fasta.endswith(".gz") else open(fasta) as fh:
         for line in fh:
@@ -39,7 +38,6 @@ def fasta_to_bed(fasta):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("fasta", help="Input Fasta file.")
     parser.add_argument("--version", action="version", version="%(prog)s 1.1")
