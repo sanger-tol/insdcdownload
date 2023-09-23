@@ -15,7 +15,7 @@ The pipeline accepts command-one line arguments to specify a single genome to do
 
 - `--assembly_name`: The name of the assembly,
 - `--assembly_accession`: The accession number of the assembly,
-- `--outdir`: Where to download the data.
+- `--outdir`: Where the pipeline runtime information will be stored, and where data will be downloaded (except if absolute paths are given in the samplesheet).
 
 ```console
 nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir gfLaeSulp1.1_data
