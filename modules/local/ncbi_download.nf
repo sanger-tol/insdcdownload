@@ -12,7 +12,7 @@ process NCBI_DOWNLOAD {
         'biocontainers/gnu-wget:1.18--h7132678_6' }"
 
     input:
-    tuple val(assembly_accession), val(assembly_name), val(species_dir)
+    tuple val(assembly_accession), val(assembly_name), val(outdir)
 
     output:
     tuple val(meta), path(filename_fasta)          , emit: fasta
@@ -36,7 +36,7 @@ process NCBI_DOWNLOAD {
     meta = [
         id : assembly_accession,
         assembly_name : assembly_name,
-        species_dir : species_dir,
+        outdir : outdir,
     ]
     def prefix = task.ext.prefix ?: "${meta.id}"
     filename_assembly_report = "${prefix}.assembly_report.txt"
@@ -45,8 +45,6 @@ process NCBI_DOWNLOAD {
     filename_accession = "ACCESSION"
 
     """
-    #export https_proxy=http://wwwcache.sanger.ac.uk:3128
-    #export http_proxy=http://wwwcache.sanger.ac.uk:3128
     wget ${ftp_path}/${remote_filename_stem}_assembly_report.txt
     wget ${ftp_path}/${remote_filename_stem}_assembly_stats.txt
     wget ${ftp_path}/${remote_filename_stem}_genomic.fna.gz

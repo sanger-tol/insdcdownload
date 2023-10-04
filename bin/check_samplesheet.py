@@ -28,7 +28,7 @@ class RowChecker:
 
     def __init__(
         self,
-        dir_col="species_dir",
+        dir_col="outdir",
         name_col="assembly_name",
         accession_col="assembly_accession",
         **kwargs,
@@ -38,7 +38,7 @@ class RowChecker:
 
         Args:
             dir_col (str): The name of the column that contains the species directory
-                (default "species_dir").
+                (default "outdir").
             name_col (str): The name of the column that contains the assembly name
                 (default "assembly_name").
             accession_col (str): The name of the column that contains the accession
@@ -142,12 +142,12 @@ def check_samplesheet(file_in, file_out):
     Example:
         This function checks that the samplesheet follows the following structure::
 
-            species_dir,assembly_name,assembly_accession
-            darwin/data/fungi/Laetiporus_sulphureus,gfLaeSulp1.1,GCA_927399515.1
-            darwin/data/mammals/Meles_meles,mMelMel3.2_paternal_haplotype,GCA_922984935.2
+            outdir,assembly_name,assembly_accession
+            Laetiporus_sulphureus/gfLaeSulp1.1,gfLaeSulp1.1,GCA_927399515.1
+            Meles_meles/mMelMel3.2_paternal_haplotype,mMelMel3.2_paternal_haplotype,GCA_922984935.2
     """
     required_columns = {
-        "species_dir",
+        "outdir",
         "assembly_name",
         "assembly_accession",
     }

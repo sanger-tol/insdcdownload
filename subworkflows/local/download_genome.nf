@@ -9,7 +9,7 @@ include { REMOVE_MASKING          } from '../../modules/local/remove_masking'
 workflow DOWNLOAD_GENOME {
 
     take:
-    assembly_params         // tuple(assembly_accession, assembly_name, species_dir)
+    assembly_params         // tuple(assembly_accession, assembly_name, outdir)
 
 
     main:

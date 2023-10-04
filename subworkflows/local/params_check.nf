@@ -21,13 +21,13 @@ workflow PARAMS_CHECK {
 
         SAMPLESHEET_CHECK ( file(samplesheet, checkIfExists: true) )
             .csv
-            // Provides species_dir, assembly_accession, and assembly_name
+            // Provides outdir, assembly_accession, and assembly_name
             .splitCsv ( header:true, sep:',' )
             // Convert to tuple, as required by the download subworkflow
             .map { [
                 it["assembly_accession"],
                 it["assembly_name"],
-                (it["species_dir"].startsWith("/") ? "" : outdir + "/") + it["species_dir"],
+                (it["outdir"].startsWith("/") ? "" : outdir + "/") + it["outdir"],
             ] }
             .set { ch_inputs }
 
@@ -41,7 +41,7 @@ workflow PARAMS_CHECK {
 
 
     emit:
-    assembly_params = ch_inputs        // channel: tuple(assembly_accession, assembly_name, species_dir)
+    assembly_params = ch_inputs        // channel: tuple(assembly_accession, assembly_name, outdir)
     versions        = ch_versions      // channel: versions.yml
 }
 
