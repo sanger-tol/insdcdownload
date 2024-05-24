@@ -20,9 +20,9 @@ This version supports the new FTP structure of Ensembl
 
 _In the samplesheet_
 
-| Old parameter | New parameter     |
-| ------------- | ----------------- |
-| species_dir   | outdir            |
+| Old parameter | New parameter |
+| ------------- | ------------- |
+| species_dir   | outdir        |
 
 > **NB:** Parameter has been **updated** if both old and new parameter information is present. </br> **NB:** Parameter has been **added** if just the new parameter information is present. </br> **NB:** Parameter has been **removed** if new parameter information isn't present.
 
