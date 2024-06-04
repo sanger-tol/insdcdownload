@@ -2,6 +2,8 @@
 // This file holds several functions specific to the workflow/insdcdownload.nf in the sanger-tol/insdcdownload pipeline
 //
 
+import nextflow.Nextflow
+
 class WorkflowInsdcdownload {
 
     //
@@ -13,14 +15,15 @@ class WorkflowInsdcdownload {
         if (params.input) {
             def f = new File(params.input);
             if (!f.exists()) {
-                log.error "'${params.input}' doesn't exist"
-                System.exit(1)
+                Nextflow.error "'${params.input}' doesn't exist"
             }
         } else {
-            if (!params.assembly_accession || !params.assembly_name || !params.outdir) {
-                log.error "Either --input, or --assembly_accession, --assembly_name, and --outdir must be provided"
-                System.exit(1)
+            if (!params.assembly_accession || !params.assembly_name) {
+                Nextflow.error "Either --input, or --assembly_accession and --assembly_name must be provided"
             }
+        }
+        if (!params.outdir) {
+            Nextflow.error "--outdir is mandatory"
         }
     }
 

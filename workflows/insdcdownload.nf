@@ -20,9 +20,9 @@ WorkflowInsdcdownload.initialise(params, log)
 //
 include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
 include { PARAMS_CHECK                                 } from '../subworkflows/local/params_check'
-include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/sanger-tol/prepare_fasta'
-include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
-include { PREPARE_REPEATS                              } from '../subworkflows/sanger-tol/prepare_repeats'
+include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_REPEATS                              } from '../subworkflows/local/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -33,7 +33,7 @@ include { PREPARE_REPEATS                              } from '../subworkflows/s
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,12 +46,14 @@ workflow INSDCDOWNLOAD {
     ch_versions = Channel.empty()
 
     PARAMS_CHECK (
-        [
-            params.input,
-            params.assembly_accession,
-            params.assembly_name,
-            params.outdir,
-        ]
+        params.input,
+        Channel.of(
+            [
+                params.assembly_accession,
+                params.assembly_name,
+            ]
+        ),
+        params.outdir,
     )
     ch_versions         = ch_versions.mix(PARAMS_CHECK.out.versions)
 
@@ -73,7 +75,7 @@ workflow INSDCDOWNLOAD {
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEAT_MASKED_FASTA.out.versions)
     PREPARE_REPEATS (
-        DOWNLOAD_GENOME.out.fasta_masked
+        PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEATS.out.versions)
 
@@ -93,6 +95,9 @@ workflow.onComplete {
         NfcoreTemplate.email(workflow, params, summary_params, projectDir, log)
     }
     NfcoreTemplate.summary(workflow, params, log)
+    if (params.hook_url) {
+        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
+    }
 }
 
 /*

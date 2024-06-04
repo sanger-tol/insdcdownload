@@ -4,9 +4,9 @@
 
 <!-- [![GitHub Actions Linting Status](https://github.com/sanger-tol/insdcdownload/workflows/nf-core%20linting/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions?query=workflow%3A%22nf-core+linting%22) -->
 
-[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7155119-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7155119)
+[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.6983932-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.6983932)
 
-[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A522.04.0-23aa62.svg)](https://www.nextflow.io/)
+[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A522.10.1-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
@@ -18,14 +18,6 @@
 ## Introduction
 
 **sanger-tol/insdcdownload** is a pipeline that downloads assemblies from INSDC into a Tree of Life directory structure.
-
-The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
-
-On release, automated continuous integration tests run the pipeline on a full-sized dataset on the GitHub CI infrastructure. This ensures that the pipeline runs in a third-party environment, and has sensible resource allocation defaults set to run on real-world datasets.
-
-## Pipeline summary
-
-## Overview
 
 The pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx`), and extracts the repeat-masking performed by the NCBI.
 
@@ -41,38 +33,34 @@ Steps involved:
 - Extract the coordinates of the masked regions into a BED file.
 - Compress and index the BED file with `bgzip` and `tabix`.
 
-## Quick Start
+## Usage
 
-1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=22.04.0`)
+> **Note**
+> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how
+> to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
+> with `-profile test` before running the workflow on actual data.
 
-2. Install any of [`Docker`](https://docs.docker.com/engine/installation/), [`Singularity`](https://www.sylabs.io/guides/3.0/user-guide/) (you can follow [this tutorial](https://singularity-tutorial.github.io/01-installation/)), [`Podman`](https://podman.io/), [`Shifter`](https://nersc.gitlab.io/development/shifter/how-to-use/) or [`Charliecloud`](https://hpc.github.io/charliecloud/) for full pipeline reproducibility _(you can use [`Conda`](https://conda.io/miniconda.html) both to install Nextflow itself and also to manage software within pipelines. Please only use it within pipelines as a last resort; see [docs](https://nf-co.re/usage/configuration#basic-configuration-profiles))_.
+The easiest is to provide the exact name and accession number of the assembly like this:
 
-3. Download the pipeline and test it on a minimal dataset with a single command:
+```console
+nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1
+```
 
-   ```bash
-   nextflow run sanger-tol/insdcdownload -profile test,YOURPROFILE --outdir <OUTDIR>
-   ```
+> **Warning:**
+> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those
+> provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
+> see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
-   Note that some form of configuration will be needed so that Nextflow knows how to fetch the required software. This is usually done in the form of a config profile (`YOURPROFILE` in the example command above). You can chain multiple config profiles in a comma-separated string.
-
-   > - The pipeline comes with config profiles called `docker`, `singularity`, `podman`, `shifter`, `charliecloud` and `conda` which instruct the pipeline to use the named tool for software management. For example, `-profile test,docker`.
-   > - Please check [nf-core/configs](https://github.com/nf-core/configs#documentation) to see if a custom config file to run nf-core pipelines already exists for your Institute. If so, you can simply use `-profile <institute>` in your command. This will enable either `docker` or `singularity` and set the appropriate execution settings for your local compute environment.
-   > - If you are using `singularity`, please use the [`nf-core download`](https://nf-co.re/tools/#downloading-pipelines-for-offline-use) command to download images first, before running the pipeline. Setting the [`NXF_SINGULARITY_CACHEDIR` or `singularity.cacheDir`](https://www.nextflow.io/docs/latest/singularity.html?#singularity-docker-hub) Nextflow options enables you to store and re-use the images from a central location for future pipeline runs.
-   > - If you are using `conda`, it is highly recommended to use the [`NXF_CONDA_CACHEDIR` or `conda.cacheDir`](https://www.nextflow.io/docs/latest/conda.html) settings to store the environments in a central location for future pipeline runs.
-
-4. Start running your own analysis!
-
-   ```console
-   nextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1 --outdir results
-   ```
-
-## Documentation
-
-The sanger-tol/insdcdownload pipeline comes with documentation about the pipeline [usage](docs/usage.md) and [output](docs/output.md).
+The pipeline also supports bulk downloads through a sample-sheet.
+More information about this mode on our [pipeline website](https://pipelines.tol.sanger.ac.uk/insdcdownload/usage).
 
 ## Credits
 
-sanger-tol/insdcdownload was mainly written by @muffato, with major borrowings from @priyanka-surana's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.
+sanger-tol/insdcdownload was mainly written by [Matthieu Muffato](https://github.com/muffato), with major borrowings from a's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.
+
+We thank the following people for their assistance in the development of this pipeline:
+
+- [Priyanka Surana](https://github.com/priyanka-surana) for providing reviews.
 
 ## Contributions and Support
 
@@ -82,7 +70,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-If you use sanger-tol/insdcdownload for your analysis, please cite it using the following doi: [10.5281/zenodo.7155119](https://doi.org/10.5281/zenodo.7155119)
+If you use sanger-tol/insdcdownload for your analysis, please cite it using the following doi: [10.5281/zenodo.6983932](https://doi.org/10.5281/zenodo.6983932)
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
