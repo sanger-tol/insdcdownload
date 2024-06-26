@@ -15,7 +15,12 @@ workflow DOWNLOAD_GENOME {
     main:
     ch_versions = Channel.empty()
 
+    // Download assembly
     ch_masked_fasta     = NCBI_DOWNLOAD ( assembly_params ).fasta
+
+    // Parse assembly to build header template
+    ch_assembly_report  = NCBI_DOWNLOAD.out.assembly_report
+
     ch_versions         = ch_versions.mix(NCBI_DOWNLOAD.out.versions.first())
     // Fix meta.id
     ch_masked_fasta_id  = ch_masked_fasta.map { [it[0] + [id: it[0]["id"] + ".masked.ncbi"], it[1]] }
@@ -28,5 +33,7 @@ workflow DOWNLOAD_GENOME {
     emit:
     fasta_unmasked  = ch_unmasked_fasta         // path: genome.unmasked.fa
     fasta_masked    = ch_masked_fasta_id        // path: genome.masked.ncbi.fa
+    assembly_report = ch_assembly_report        // path: genome.assembly_report.txt
+    source          = NCBI_DOWNLOAD.out.source  // path: SOURCE (contains URL)
     versions        = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
 }
