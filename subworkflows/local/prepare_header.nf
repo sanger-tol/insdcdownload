@@ -11,11 +11,8 @@ workflow PREPARE_HEADER {
     main:
     ch_versions = Channel.empty()
 
-    // Normalize the dict ID by removing .masked.ncbi if present and join
-    dict_mapped = dict.map { meta, path ->
-        def id = meta.id.replace('.masked.ncbi', '')
-        [id, [meta, path]]
-    }
+    // The meta maps differ, so join the channels by meta.id
+    dict_mapped = dict.map { meta, path -> [id, [meta, path]] }
     report_mapped = report.map { meta, path -> [meta.id, path] }
     source_mapped = source.map { meta, path -> [meta.id, path] }
 
