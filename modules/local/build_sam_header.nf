@@ -64,9 +64,9 @@ process BUILD_SAM_HEADER {
             }
         }
         if (sn in lookup) {
-            new_field = "AM:" lookup[sn];
+            new_field = "AN:" lookup[sn];
         } else {
-            new_field = "AM:na";
+            new_field = "AN:na";
         }
         new_sp = "SP:" species_name;
         print join(fields, OFS), AS, new_field, new_sp;
