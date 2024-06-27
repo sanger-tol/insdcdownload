@@ -19,6 +19,7 @@ process NCBI_DOWNLOAD {
     tuple val(meta), path(filename_assembly_report), emit: assembly_report
     tuple val(meta), path(filename_assembly_stats) , emit: assembly_stats
     tuple val(meta), path(filename_accession)      , emit: accession
+    tuple val(meta), path(filename_source)         , emit: source
     path  "versions.yml"                           , emit: versions
 
     when:
@@ -43,6 +44,7 @@ process NCBI_DOWNLOAD {
     filename_assembly_stats = "${prefix}.assembly_stats.txt"
     filename_fasta = "${prefix}.masked.ncbi.fa"  // NOTE: this channel eventually sees ".masked.ncbi" being added to meta.id
     filename_accession = "ACCESSION"
+    filename_source = "SOURCE"  // store URL
 
     """
     wget ${ftp_path}/${remote_filename_stem}_assembly_report.txt
@@ -56,6 +58,7 @@ process NCBI_DOWNLOAD {
     mv ${remote_filename_stem}_assembly_report.txt ${filename_assembly_report}
     mv ${remote_filename_stem}_assembly_stats.txt  ${filename_assembly_stats}
     echo "${assembly_accession}"                 > ${filename_accession}
+    echo "${ftp_path}/${remote_filename_stem}_genomic.fna.gz" > ${filename_source}
     zcat ${remote_filename_stem}_genomic.fna.gz  > ${filename_fasta}
 
     cat <<-END_VERSIONS > versions.yml

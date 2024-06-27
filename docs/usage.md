@@ -48,7 +48,7 @@ A samplesheet may contain:
 - only one row per assembly
 
 All samplesheet columns correspond exactly to their corresponding command-line parameter,
-except `outdir` which overrides or complements `--oudir`.
+except `outdir` which overrides or complements `--outdir`.
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -105,7 +105,7 @@ First, go to the [sanger-tol/insdcdownload releases page](https://github.com/san
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducbility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 > 💡 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
@@ -126,7 +126,7 @@ The pipeline also dynamically loads configurations from [https://github.com/nf-c
 Note that multiple profiles can be loaded, for example: `-profile test,docker` - the order of arguments is important!
 They are loaded in sequence, so later profiles can overwrite earlier profiles.
 
-If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the `PATH`. This is _not_ recommended, since it can lead to different results on different machines dependent on the computer enviroment.
+If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the `PATH`. This is _not_ recommended, since it can lead to different results on different machines dependent on the computer environment.
 
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)

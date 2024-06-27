@@ -18,11 +18,12 @@ WorkflowInsdcdownload.initialise(params, log)
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
-include { PARAMS_CHECK                                 } from '../subworkflows/local/params_check'
-include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/local/prepare_fasta'
-include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/local/prepare_fasta'
-include { PREPARE_REPEATS                              } from '../subworkflows/local/prepare_repeats'
+include { DOWNLOAD_GENOME                                } from '../subworkflows/local/download_genome'
+include { PARAMS_CHECK                                   } from '../subworkflows/local/params_check'
+include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA        } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA   } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_HEADER as PREPARE_UNMASKED_HEADER      } from '../subworkflows/local/prepare_header'
+include { PREPARE_REPEATS                                } from '../subworkflows/local/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,11 +70,20 @@ workflow INSDCDOWNLOAD {
     )
     ch_versions         = ch_versions.mix(PREPARE_UNMASKED_FASTA.out.versions)
 
+    // Header for unmasked fasta
+    PREPARE_UNMASKED_HEADER (
+        PREPARE_UNMASKED_FASTA.out.dict,
+        DOWNLOAD_GENOME.out.assembly_report,
+        DOWNLOAD_GENOME.out.source
+    )
+    ch_versions         = ch_versions.mix(PREPARE_UNMASKED_HEADER.out.versions)
+
     // Preparation of repeat-masking files
     PREPARE_REPEAT_MASKED_FASTA (
         DOWNLOAD_GENOME.out.fasta_masked
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEAT_MASKED_FASTA.out.versions)
+
     PREPARE_REPEATS (
         PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz
     )
