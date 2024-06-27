@@ -22,7 +22,7 @@ workflow PREPARE_HEADER {
         | map { it[1..-1] } // remove leading meta.id
 
     // Get header template
-    ch_header = BUILD_SAM_HEADER(formatted_joined).header
+    ch_header = BUILD_SAM_HEADER(joined).header
 
     ch_versions = ch_versions.mix(BUILD_SAM_HEADER.out.versions.first())
 
