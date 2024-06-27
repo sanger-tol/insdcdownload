@@ -58,7 +58,7 @@ process NCBI_DOWNLOAD {
     mv ${remote_filename_stem}_assembly_report.txt ${filename_assembly_report}
     mv ${remote_filename_stem}_assembly_stats.txt  ${filename_assembly_stats}
     echo "${assembly_accession}"                 > ${filename_accession}
-    echo "${ftp_path}"                           > ${filename_source}
+    echo "${ftp_path}/${remote_filename_stem}_genomic.fna.gz" > ${filename_source}
     zcat ${remote_filename_stem}_genomic.fna.gz  > ${filename_fasta}
 
     cat <<-END_VERSIONS > versions.yml
