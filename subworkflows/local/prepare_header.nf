@@ -12,7 +12,7 @@ workflow PREPARE_HEADER {
     ch_versions = Channel.empty()
 
     // The meta maps differ, so join the channels by meta.id
-    dict_mapped = dict.map { meta, path -> [id, [meta, path]] }
+    dict_mapped = dict.map { meta, path -> [meta.id, [meta, path]] }
     report_mapped = report.map { meta, path -> [meta.id, path] }
     source_mapped = source.map { meta, path -> [meta.id, path] }
 
