@@ -12,18 +12,14 @@ workflow PREPARE_HEADER {
     ch_versions = Channel.empty()
 
     // The meta maps differ, so join the channels by meta.id
-    dict_mapped = dict.map { meta, path -> [meta.id, [meta, path]] }
+    dict_mapped = dict.map { meta, path -> [meta.id, meta, path] }
     report_mapped = report.map { meta, path -> [meta.id, path] }
     source_mapped = source.map { meta, path -> [meta.id, path] }
 
-    joined = dict_mapped.join(report_mapped).join(source_mapped)
-
-    // Create input tuple with original meta.id
-    formatted_joined = joined.map { id, dict_tuple, report_path, source_path ->
-        def original_meta = dict_tuple[0] // Get the original ID with .masked.ncbi if present
-        def dict_path = dict_tuple[1]
-        return [original_meta, dict_path, report_path, source_path]
-    }
+    joined = dict_mapped
+        | join(report_mapped)
+        | join(source_mapped)
+        | map { it[1..-1] } // remove leading meta.id
 
     // Get header template
     ch_header = BUILD_SAM_HEADER(formatted_joined).header
