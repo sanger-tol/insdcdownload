@@ -24,12 +24,15 @@ process BUILD_SAM_HEADER {
     filename_header = "${prefix}.header.sam"
 
     // Use the supplied speciesRegex or default if not provided
-    def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^\\(]*)\s*\\(.*\\)'
+    def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^\\(]*)\s*(.*)'
 
     """
     sourcePath=\$(cat $source | tr -d '\\n')
     genBankAccession=\$(awk '/^# GenBank assembly accession:/ { gsub("\\r", ""); print \$NF }' $report)
-    awk -v species_regex='$speciesRegex' -v genBankAccession=\$genBankAccession -v sourcePath=\$sourcePath '
+
+    duplicate_found=0
+
+    awk -v species_regex='$speciesRegex' -v genBankAccession=\$genBankAccession -v sourcePath=\$sourcePath -v duplicate_found="duplicate_found" '
     BEGIN {
         OFS = "\\t";
         IFS = "\\t";
@@ -43,7 +46,11 @@ process BUILD_SAM_HEADER {
         }
         if (\$0 !~ /^#/) {
             split(\$0, fields, "\\t");
-            lookup[fields[5]] = fields[3];
+            if (fields[2] == "assembled-molecule") {
+                lookup[fields[5]] = fields[3];
+            } else {
+                lookup[fields[5]] = fields[1];
+            }
         }
         next;
     }
@@ -65,8 +72,6 @@ process BUILD_SAM_HEADER {
         }
         if (sn in lookup) {
             new_field = "AN:" lookup[sn];
-        } else {
-            new_field = "AN:na";
         }
         new_sp = "SP:" species_name;
         print join(fields, OFS), AS, new_field, new_sp;
@@ -90,7 +95,3 @@ process BUILD_SAM_HEADER {
     END_VERSIONS
     """
 }
-
-
-
-
