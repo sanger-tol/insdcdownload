@@ -16,10 +16,6 @@ Note, since the pipeline is using Nextflow DSL2, each process will be run with i
 
 | Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
-| multiqc    | 1.13        | 1.14        |
-
-| Dependency | Old version | New version |
-| ---------- | ----------- | ----------- |
 | `Python `  | 3.8.3,3.9.1 | 3.9.1       |
 | `samtools` | 1.17        | 1.21        |
 | `tabix`    | 1.11        | 1.20        |
