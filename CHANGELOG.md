@@ -3,6 +3,19 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [[2.0.1](https://github.com/sanger-tol/insdcdownload/releases/tag/2.0.1)] - Light elf (patch 1) - [2024-12-05]
+
+### Enhancements & fixes
+
+- Update module versions
+- Remove reference to Anaconda repositories
+
+| Dependency | Old version | New version |
+| ---------- | ----------- | ----------- |
+| `Python `  | 3.8.3,3.9.1 | 3.9.1       |
+| `samtools` | 1.17        | 1.21        |
+| `tabix`    | 1.11        | 1.20        |
+
 ## [[2.0.0](https://github.com/sanger-tol/insdcdownload/releases/tag/2.0.0)] – Light elf – [2024-06-04]
 
 This version supports the new FTP structure of Ensembl
