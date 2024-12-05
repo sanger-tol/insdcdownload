@@ -7,7 +7,7 @@
 [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.6983932-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.6983932)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A522.10.1-23aa62.svg)](https://www.nextflow.io/)
-[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
+[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=conda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
@@ -61,6 +61,7 @@ sanger-tol/insdcdownload was mainly written by [Matthieu Muffato](https://github
 We thank the following people for their assistance in the development of this pipeline:
 
 - [Priyanka Surana](https://github.com/priyanka-surana) for providing reviews.
+- [Tyler Chafin](https://github.com/tkchafin) for updates and maintenance.
 
 ## Contributions and Support
 
