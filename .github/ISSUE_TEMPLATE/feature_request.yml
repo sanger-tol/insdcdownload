@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest an idea for the sanger-tol/insdcdownload pipeline
+description: Suggest an idea for the nf-core/insdcdownload pipeline
 labels: enhancement
 body:
   - type: textarea
