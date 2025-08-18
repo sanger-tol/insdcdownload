@@ -19,11 +19,12 @@ lint:
   nextflow_config:
     - manifest.name
     - manifest.homePage
-nf_core_version: 2.8.0
+nf_core_version: 3.2.1
 repository_type: pipeline
 template:
   author: "@muffato"
-  description: Pipeline that downloads assemblies from INSDC into a Tree of Life directory structure
+  description: Pipeline that downloads assemblies from INSDC into a Tree of Life directory
+    structure
   force: false
   is_nfcore: false
   name: insdcdownload
