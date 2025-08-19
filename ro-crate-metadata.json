@@ -22,8 +22,8 @@
             "@id": "./",
             "@type": "Dataset",
             "creativeWorkStatus": "Stable",
-            "datePublished": "2025-05-15T00:13:54+00:00",
-            "description": "# sanger-tol/insdcdownload\n\n[![GitHub Actions CI Status](https://github.com/sanger-tol/insdcdownload/actions/workflows/ci.yml/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions/workflows/ci.yml)\n[![GitHub Actions Linting Status](https://github.com/sanger-tol/insdcdownload/actions/workflows/linting.yml/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions/workflows/linting.yml)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)\n[![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)\n\n[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)\n[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)\n[![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)\n[![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)\n[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/sanger-tol/insdcdownload)\n\n## Introduction\n\n**sanger-tol/insdcdownload** is a bioinformatics pipeline that ...\n\n<!-- TODO nf-core:\n   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the\n   major pipeline sections and the types of output it produces. You're giving an overview to someone new\n   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction\n-->\n\n<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core\n     workflows use the \"tube map\" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->\n<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->\n\n## Usage\n\n> [!NOTE]\n> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.\n\n<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.\n     Explain what rows and columns represent. For instance (please edit as appropriate):\n\nFirst, prepare a samplesheet with your input data that looks as follows:\n\n`samplesheet.csv`:\n\n```csv\nsample,fastq_1,fastq_2\nCONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz\n```\n\nEach row represents a fastq file (single-end) or a pair of fastq files (paired end).\n\n-->\n\nNow, you can run the pipeline using:\n\n<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->\n\n```bash\nnextflow run sanger-tol/insdcdownload \\\n   -profile <docker/singularity/.../institute> \\\n   --input samplesheet.csv \\\n   --outdir <OUTDIR>\n```\n\n> [!WARNING]\n> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).\n\n## Credits\n\nsanger-tol/insdcdownload was originally written by @muffato.\n\nWe thank the following people for their extensive assistance in the development of this pipeline:\n\n<!-- TODO nf-core: If applicable, make list of people who have also contributed -->\n\n## Contributions and Support\n\nIf you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).\n\n## Citations\n\n<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->\n<!-- If you use sanger-tol/insdcdownload for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->\n\n<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->\n\nAn extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.\n\nThis pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/main/LICENSE).\n\n> **The nf-core framework for community-curated bioinformatics pipelines.**\n>\n> Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.\n>\n> _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).\n",
+            "datePublished": "2025-08-19T10:45:39+00:00",
+            "description": "# ![sanger-tol/insdcdownload](docs/images/sanger-tol-insdcdownload_logo.png)\n\n[![GitHub Actions CI Status](https://github.com/sanger-tol/insdcdownload/actions/workflows/ci.yml/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions/workflows/ci.yml)\n[![GitHub Actions Linting Status](https://github.com/sanger-tol/insdcdownload/actions/workflows/linting.yml/badge.svg)](https://github.com/sanger-tol/insdcdownload/actions/workflows/linting.yml)\n[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.6983932-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.6983932)\n[![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)\n\n[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)\n[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)\n[![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)\n[![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)\n[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/sanger-tol/insdcdownload)\n\n[![Follow on Twitter](http://img.shields.io/badge/twitter-%40sangertol-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/sangertol)\n[![Watch on YouTube](http://img.shields.io/badge/youtube-tree--of--life-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/channel/UCFeDpvjU58SA9V0ycRXejhA)\n\n## Introduction\n\n**sanger-tol/insdcdownload** is a pipeline that downloads assemblies from INSDC into a Tree of Life directory structure.\n\nThe pipeline takes an assembly accession number, as well as the assembly name, and downloads it. It also builds a set of common indices (such as `samtools faidx`), and extracts the repeat-masking performed by the NCBI.\n\nSteps involved:\n\n- Download from the NCBI the genomic sequence (Fasta) and the assembly\n  stats and reports files.\n- Turn the masked Fasta file into an unmasked one.\n- Compress and index all Fasta files with `bgzip`, `samtools faidx`, and\n  `samtools dict`.\n- Generate the `.sizes` file usually required for conversion of data\n  files to UCSC's \"big\" formats, e.g. bigBed.\n- Extract the coordinates of the masked regions into a BED file.\n- Compress and index the BED file with `bgzip` and `tabix`.\n\n## Usage\n\n> [!NOTE]\n> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.\n\nThe easiest is to provide the exact name and accession number of the assembly like this:\n\n```console\nnextflow run sanger-tol/insdcdownload --assembly_accession GCA_927399515.1 --assembly_name gfLaeSulp1.1\n```\n\n> [!WARNING]\n> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).\n\nThe pipeline also supports bulk downloads through a sample-sheet.\nMore information about this mode on our [pipeline website](https://pipelines.tol.sanger.ac.uk/insdcdownload/usage).\n\n## Credits\n\nsanger-tol/insdcdownload was mainly written by [Matthieu Muffato](https://github.com/muffato), with major borrowings from a's [read-mapping](https://github.com/sanger-tol/readmapping) pipeline, e.g. the script to remove the repeat-masking, and the overall structure and layout of the sub-workflows.\n\nWe thank the following people for their extensive assistance in the development of this pipeline:\n\n- [Priyanka Surana](https://github.com/priyanka-surana) for providing reviews.\n\n## Contributions and Support\n\nIf you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).\n\n## Citations\n\nIf you use sanger-tol/insdcdownload for your analysis, please cite it using the following doi: [10.5281/zenodo.6983932](https://doi.org/10.5281/zenodo.6983932)\n\nAn extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.\n\nThis pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/main/LICENSE).\n\n> **The nf-core framework for community-curated bioinformatics pipelines.**\n>\n> Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.\n>\n> _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).\n",
             "hasPart": [
                 {
                     "@id": "main.nf"
@@ -32,10 +32,25 @@
                     "@id": "assets/"
                 },
                 {
+                    "@id": "bin/"
+                },
+                {
                     "@id": "conf/"
                 },
                 {
                     "@id": "docs/"
+                },
+                {
+                    "@id": "docs/images/"
+                },
+                {
+                    "@id": "modules/"
+                },
+                {
+                    "@id": "modules/local/"
+                },
+                {
+                    "@id": "modules/nf-core/"
                 },
                 {
                     "@id": "workflows/"
@@ -57,6 +72,9 @@
                 },
                 {
                     "@id": "LICENSE"
+                },
+                {
+                    "@id": "CODE_OF_CONDUCT.md"
                 },
                 {
                     "@id": "CITATIONS.md"
@@ -87,7 +105,7 @@
             },
             "mentions": [
                 {
-                    "@id": "#e2d0acab-7c49-4c10-858e-3f8917bd8ad0"
+                    "@id": "#7120a3d0-5f19-45c6-baf5-179a8e6909ef"
                 }
             ],
             "name": "sanger-tol/insdcdownload"
@@ -114,20 +132,39 @@
                 "SoftwareSourceCode",
                 "ComputationalWorkflow"
             ],
-            "creator": [
+            "author": [
                 {
                     "@id": "https://orcid.org/0000-0002-7860-3560"
                 }
             ],
+            "contributor": [
+                {
+                    "@id": "https://orcid.org/0000-0001-8687-5905"
+                },
+                {
+                    "@id": "https://orcid.org/0000-0003-1262-8973"
+                },
+                {
+                    "@id": "https://orcid.org/0000-0002-7167-0875"
+                }
+            ],
             "dateCreated": "",
-            "dateModified": "2025-05-15T01:13:54Z",
+            "dateModified": "2025-08-19T11:45:39Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
             "keywords": [
+                "nextflow",
                 "nf-core",
-                "nextflow"
+                "download",
+                "genomics",
+                "indexing"
             ],
             "license": [
                 "MIT"
+            ],
+            "maintainer": [
+                {
+                    "@id": "https://orcid.org/0000-0002-7860-3560"
+                }
             ],
             "name": [
                 "sanger-tol/insdcdownload"
@@ -136,14 +173,14 @@
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
             "sdPublisher": {
-                "@id": "https://nf-co.re/"
+                "@id": "https://pipelines.tol.sanger.ac.uk/"
             },
             "url": [
                 "https://github.com/sanger-tol/insdcdownload",
-                "https://nf-co.re/sanger-tol/insdcdownload/2.0.2/"
+                "https://pipelines.tol.sanger.ac.uk//insdcdownload/2.0.0/"
             ],
             "version": [
-                "2.0.2"
+                "2.0.0"
             ]
         },
         {
@@ -159,11 +196,11 @@
             "version": "!>=24.04.2"
         },
         {
-            "@id": "#e2d0acab-7c49-4c10-858e-3f8917bd8ad0",
+            "@id": "#7120a3d0-5f19-45c6-baf5-179a8e6909ef",
             "@type": "TestSuite",
             "instance": [
                 {
-                    "@id": "#bfaa2867-1c35-44b6-bd8f-26de999a2395"
+                    "@id": "#0afee581-1cd9-413b-8269-31b776a59ac2"
                 }
             ],
             "mainEntity": {
@@ -172,7 +209,7 @@
             "name": "Test suite for sanger-tol/insdcdownload"
         },
         {
-            "@id": "#bfaa2867-1c35-44b6-bd8f-26de999a2395",
+            "@id": "#0afee581-1cd9-413b-8269-31b776a59ac2",
             "@type": "TestInstance",
             "name": "GitHub Actions workflow for testing sanger-tol/insdcdownload",
             "resource": "repos/sanger-tol/insdcdownload/actions/workflows/ci.yml",
@@ -195,6 +232,11 @@
             "description": "Additional files"
         },
         {
+            "@id": "bin/",
+            "@type": "Dataset",
+            "description": "Scripts that must be callable from a pipeline process"
+        },
+        {
             "@id": "conf/",
             "@type": "Dataset",
             "description": "Configuration files"
@@ -203,6 +245,26 @@
             "@id": "docs/",
             "@type": "Dataset",
             "description": "Markdown files for documenting the pipeline"
+        },
+        {
+            "@id": "docs/images/",
+            "@type": "Dataset",
+            "description": "Images for the documentation files"
+        },
+        {
+            "@id": "modules/",
+            "@type": "Dataset",
+            "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/local/",
+            "@type": "Dataset",
+            "description": "Pipeline-specific modules"
+        },
+        {
+            "@id": "modules/nf-core/",
+            "@type": "Dataset",
+            "description": "nf-core modules"
         },
         {
             "@id": "workflows/",
@@ -240,6 +302,11 @@
             "description": "The license - should be MIT"
         },
         {
+            "@id": "CODE_OF_CONDUCT.md",
+            "@type": "File",
+            "description": "The nf-core code of conduct"
+        },
+        {
             "@id": "CITATIONS.md",
             "@type": "File",
             "description": "Citations needed when using the pipeline"
@@ -275,16 +342,41 @@
             "description": "Ignore file for prettier"
         },
         {
-            "@id": "https://nf-co.re/",
-            "@type": "Organization",
-            "name": "nf-core",
-            "url": "https://nf-co.re/"
+            "@id": "https://orcid.org/0000-0001-8687-5905",
+            "@type": "Person",
+            "affiliation": "Wellcome Sanger Institute",
+            "email": "tc25@sanger.ac.uk",
+            "name": "Chafin, Tyler",
+            "url": "https://github.com/tkchafin"
         },
         {
             "@id": "https://orcid.org/0000-0002-7860-3560",
             "@type": "Person",
+            "affiliation": "Wellcome Sanger Institute",
             "email": "mm49@sanger.ac.uk",
-            "name": "Matthieu Muffato"
+            "name": "Muffato, Matthieu",
+            "url": "https://github.com/muffato"
+        },
+        {
+            "@id": "https://orcid.org/0000-0003-1262-8973",
+            "@type": "Person",
+            "affiliation": "Wellcome Sanger Institute",
+            "email": "729395+gq1@users.noreply.github.com",
+            "name": "Qi, Guoying",
+            "url": "https://github.com/gq1"
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-7167-0875",
+            "@type": "Person",
+            "affiliation": "Wellcome Sanger Institute",
+            "name": "Surana, Priyanka",
+            "url": "https://github.com/priyanka-surana"
+        },
+        {
+            "@id": "https://pipelines.tol.sanger.ac.uk/",
+            "@type": "Organization",
+            "name": "Sanger Tree of Life programme",
+            "url": "https://pipelines.tol.sanger.ac.uk/"
         }
     ]
 }
