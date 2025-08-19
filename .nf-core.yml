@@ -12,10 +12,12 @@ lint:
     - LICENSE
     - .github/CONTRIBUTING.md
     - .github/ISSUE_TEMPLATE/bug_report.yml
+    - .github/PULL_REQUEST_TEMPLATE.md
     - .github/workflows/linting.yml
     - assets/sendmail_template.txt
     - lib/NfcoreTemplate.groovy
     - .github/workflows/branch.yml
+  multiqc_config: false
   nextflow_config:
     - manifest.name
     - manifest.homePage
