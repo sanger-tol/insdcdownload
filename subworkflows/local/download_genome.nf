@@ -35,5 +35,5 @@ workflow DOWNLOAD_GENOME {
     fasta_masked    = ch_masked_fasta_id        // path: genome.masked.ncbi.fa
     assembly_report = ch_assembly_report        // path: genome.assembly_report.txt
     source          = NCBI_DOWNLOAD.out.source  // path: SOURCE (contains URL)
-    versions        = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
+    versions        = ch_versions               // channel: [ versions.yml ]
 }
