@@ -80,10 +80,6 @@ workflow PIPELINE_INITIALISATION {
 
     } else {
 
-        if (!params.assembly_accession || !params.assembly_name) {
-            Nextflow.error "Either --input, or --assembly_accession and --assembly_name must be provided"
-        }
-
         Channel.of(
             [
                 params.outdir,
