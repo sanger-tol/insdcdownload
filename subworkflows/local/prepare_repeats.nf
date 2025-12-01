@@ -52,5 +52,5 @@ workflow PREPARE_REPEATS {
     bed_tbi  = ch_indexed_bed_tbi           // path: genome.bed.gz.tbi
     no_csi   = no_csi                       // (only meta)
     no_tbi   = no_tbi                       // (only meta)
-    versions = ch_versions.ifEmpty(null)    // channel: [ versions.yml ]
+    versions = ch_versions                  // channel: [ versions.yml ]
 }

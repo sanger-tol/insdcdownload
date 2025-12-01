@@ -28,5 +28,5 @@ workflow PREPARE_HEADER {
 
     emit:
     header = ch_header                   // path: genome.header.sam
-    versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
+    versions = ch_versions               // channel: [ versions.yml ]
 }
