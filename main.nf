@@ -28,7 +28,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_insd
 workflow SANGERTOL_INSDCDOWNLOAD {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+    inputs      // channel: tuple(assembly_accession, assembly_name, outdir)
 
     main:
 
@@ -36,7 +36,7 @@ workflow SANGERTOL_INSDCDOWNLOAD {
     // WORKFLOW: Run pipeline
     //
     INSDCDOWNLOAD (
-        samplesheet
+        inputs
     )
 }
 /*
@@ -67,7 +67,7 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     SANGERTOL_INSDCDOWNLOAD (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.inputs
     )
     //
     // SUBWORKFLOW: Run completion tasks
