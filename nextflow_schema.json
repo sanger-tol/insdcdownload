@@ -178,6 +178,14 @@
             }
         }
     },
+    "oneOf": [
+        {
+            "required": ["input"]
+        },
+        {
+            "required": ["assembly_accession", "assembly_name"]
+        }
+    ],
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
