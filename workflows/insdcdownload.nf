@@ -41,7 +41,7 @@ workflow INSDCDOWNLOAD {
     inputs      // channel: tuple(assembly_accession, assembly_name, outdir)
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // Actual download
     DOWNLOAD_GENOME (
@@ -77,7 +77,25 @@ workflow INSDCDOWNLOAD {
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
+    def topic_versions = Channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
             name:  'insdcdownload_software_'  + 'versions.yml',

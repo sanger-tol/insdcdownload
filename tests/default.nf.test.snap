@@ -2,7 +2,39 @@
     "-profile test": {
         "content": [
             13,
-            null,
+            {
+                "BUILD_SAM_HEADER": {
+                    "GNU Awk": "5.1.0"
+                },
+                "NCBI_DOWNLOAD": {
+                    "wget": 1.18,
+                    "BusyBox": "v1.32.1"
+                },
+                "REMOVE_MASKING": {
+                    "GNU Awk": "5.1.0"
+                },
+                "REPEATS_BED": {
+                    "repeats_bed.py": 1.1
+                },
+                "SAMTOOLS_DICT": {
+                    "samtools": "1.22.1"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.22.1"
+                },
+                "TABIX_BGZIP": {
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_CSI": {
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_TBI": {
+                    "tabix": 1.21
+                },
+                "Workflow": {
+                    "sanger-tol/insdcdownload": "v2.0.2"
+                }
+            },
             [
                 "assembly",
                 "assembly/ACCESSION",
@@ -51,6 +83,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2025-12-01T15:34:45.539705971"
+        "timestamp": "2025-12-01T20:09:45.535818663"
     }
 }
