@@ -40,9 +40,9 @@ workflow PREPARE_REPEATS {
     no_tbi              = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map {it[0]}
 
     // Do the indexing on the compatible Fasta files
-    ch_indexed_bed_csi  = TABIX_TABIX_CSI ( tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi) ).csi
+    ch_indexed_bed_csi  = TABIX_TABIX_CSI ( tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi) ).index
     ch_versions         = ch_versions.mix(TABIX_TABIX_CSI.out.versions)
-    ch_indexed_bed_tbi  = TABIX_TABIX_TBI ( tabix_selector.tbi_and_csi ).tbi
+    ch_indexed_bed_tbi  = TABIX_TABIX_TBI ( tabix_selector.tbi_and_csi ).index
     ch_versions         = ch_versions.mix(TABIX_TABIX_TBI.out.versions)
 
 
@@ -52,5 +52,5 @@ workflow PREPARE_REPEATS {
     bed_tbi  = ch_indexed_bed_tbi           // path: genome.bed.gz.tbi
     no_csi   = no_csi                       // (only meta)
     no_tbi   = no_tbi                       // (only meta)
-    versions = ch_versions.ifEmpty(null)    // channel: [ versions.yml ]
+    versions = ch_versions                  // channel: [ versions.yml ]
 }

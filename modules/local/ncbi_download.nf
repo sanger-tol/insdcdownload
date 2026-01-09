@@ -12,7 +12,7 @@ process NCBI_DOWNLOAD {
         'biocontainers/gnu-wget:1.18--h7132678_6' }"
 
     input:
-    tuple val(assembly_accession), val(assembly_name), val(outdir)
+    tuple val(outdir), val(assembly_name), val(assembly_accession)
 
     output:
     tuple val(meta), path(filename_fasta)          , emit: fasta
@@ -44,7 +44,7 @@ process NCBI_DOWNLOAD {
     filename_assembly_stats = "${prefix}.assembly_stats.txt"
     filename_fasta = "${prefix}.masked.ncbi.fa"  // NOTE: this channel eventually sees ".masked.ncbi" being added to meta.id
     filename_accession = "ACCESSION"
-    filename_source = "SOURCE"
+    filename_source = "SOURCE"  // store URL
 
     """
     wget ${ftp_path}/${remote_filename_stem}_assembly_report.txt

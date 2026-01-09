@@ -1,13 +1,8 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATE INPUTS
+    IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
-
-// Validate input parameters
-WorkflowInsdcdownload.initialise(params, log)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -18,11 +13,11 @@ WorkflowInsdcdownload.initialise(params, log)
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
-include { PARAMS_CHECK                                 } from '../subworkflows/local/params_check'
-include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/local/prepare_fasta'
-include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/local/prepare_fasta'
-include { PREPARE_REPEATS                              } from '../subworkflows/local/prepare_repeats'
+include { DOWNLOAD_GENOME                                } from '../subworkflows/local/download_genome'
+include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA        } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA   } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_HEADER as PREPARE_UNMASKED_HEADER      } from '../subworkflows/local/prepare_header'
+include { PREPARE_REPEATS                                } from '../subworkflows/local/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,10 +25,9 @@ include { PREPARE_REPEATS                              } from '../subworkflows/l
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-//
-// MODULE: Installed directly from nf-core/modules
-//
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { paramsSummaryMap       } from 'plugin/nf-schema'
+include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_insdcdownload_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,23 +37,15 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 
 workflow INSDCDOWNLOAD {
 
-    ch_versions = Channel.empty()
+    take:
+    inputs      // channel: tuple(assembly_accession, assembly_name, outdir)
+    main:
 
-    PARAMS_CHECK (
-        params.input,
-        Channel.of(
-            [
-                params.assembly_accession,
-                params.assembly_name,
-            ]
-        ),
-        params.outdir,
-    )
-    ch_versions         = ch_versions.mix(PARAMS_CHECK.out.versions)
+    ch_versions = channel.empty()
 
     // Actual download
     DOWNLOAD_GENOME (
-        PARAMS_CHECK.out.assembly_params
+        inputs
     )
     ch_versions         = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
 
@@ -69,35 +55,58 @@ workflow INSDCDOWNLOAD {
     )
     ch_versions         = ch_versions.mix(PREPARE_UNMASKED_FASTA.out.versions)
 
+    // Header for unmasked fasta
+    PREPARE_UNMASKED_HEADER (
+        PREPARE_UNMASKED_FASTA.out.dict,
+        DOWNLOAD_GENOME.out.assembly_report,
+        DOWNLOAD_GENOME.out.source
+    )
+    ch_versions         = ch_versions.mix(PREPARE_UNMASKED_HEADER.out.versions)
+
     // Preparation of repeat-masking files
     PREPARE_REPEAT_MASKED_FASTA (
         DOWNLOAD_GENOME.out.fasta_masked
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEAT_MASKED_FASTA.out.versions)
+
     PREPARE_REPEATS (
         PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz
     )
     ch_versions         = ch_versions.mix(PREPARE_REPEATS.out.versions)
 
-    CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
-    )
-}
+    //
+    // Collate and save software versions
+    //
+    def topic_versions = Channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    COMPLETION EMAIL AND SUMMARY
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
 
-workflow.onComplete {
-    if (params.email || params.email_on_fail) {
-        NfcoreTemplate.email(workflow, params, summary_params, projectDir, log)
-    }
-    NfcoreTemplate.summary(workflow, params, log)
-    if (params.hook_url) {
-        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
-    }
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
+        .collectFile(
+            storeDir: "${params.outdir}/pipeline_info",
+            name:  'insdcdownload_software_'  + 'versions.yml',
+            sort: true,
+            newLine: true
+        ).set { ch_collated_versions }
+
+
+    emit:
+    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+
 }
 
 /*
