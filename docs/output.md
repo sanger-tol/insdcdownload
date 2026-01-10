@@ -23,6 +23,7 @@ Here are the files you can expect in the `assembly/` sub-directory.
 ```text
 assembly
 ├── ACCESSION
+├── SOURCE
 ├── GCA_927399515.1.assembly_report.txt
 ├── GCA_927399515.1.assembly_stats.txt
 ├── GCA_927399515.1.fa.dict
@@ -40,7 +41,7 @@ All files are named after the assembly accession, e.g. `GCA_927399515.1`.
 - `GCA_*.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
 - `GCA_*.fa.gz.sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
 
-with the exception of `ACCESSION`, which contains a single line of text: the assembly accession.
+with the exception of `ACCESSION`, which contains a single line of text: the assembly accession, and `SOURCE`, which contains the URL to the genomic FASTA file on the NCBI FTP server.
 
 ### Primary analysis files
 
