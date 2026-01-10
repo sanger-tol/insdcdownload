@@ -41,7 +41,7 @@ All files are named after the assembly accession, e.g. `GCA_927399515.1`.
 - `GCA_*.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
 - `GCA_*.fa.gz.sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
 
-with the exception of `ACCESSION`, which contains a single line of text: the assembly accession, and `SOURCE`, which contains the FTP path to the directory on the NCBI FTP server.
+with the exception of `ACCESSION`, which contains a single line of text: the assembly accession, and `SOURCE`, which contains the URL to the genomic FASTA file on the NCBI FTP server.
 
 ### Primary analysis files
 
