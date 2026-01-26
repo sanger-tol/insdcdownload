@@ -28,7 +28,7 @@ workflow PREPARE_REPEATS {
 
     // Try indexing the BED file in two formats for maximum compatibility
     // but each has its own limitations
-    tabix_selector      = ch_compressed_bed.branch { meta, bed ->
+    tabix_selector      = ch_compressed_bed.branch { meta, _bed ->
         tbi_and_csi: meta.max_length < 2**29
         only_csi:    meta.max_length < 2**32
         no_tabix:    true
