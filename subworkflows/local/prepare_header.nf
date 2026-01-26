@@ -9,7 +9,7 @@ workflow PREPARE_HEADER {
     source  // file: /path/to/SOURCE (ftp path as string)
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // The meta maps differ, so join the channels by meta.id
     dict_mapped = dict.map { meta, path -> [meta.id, meta, path] }

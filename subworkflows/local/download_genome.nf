@@ -13,7 +13,7 @@ workflow DOWNLOAD_GENOME {
 
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // Download assembly
     ch_masked_fasta     = NCBI_DOWNLOAD ( assembly_params ).fasta

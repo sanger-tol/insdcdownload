@@ -16,7 +16,7 @@ workflow PREPARE_REPEATS {
 
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // BED file
     ch_bed              = REPEATS_BED ( fasta ).bed

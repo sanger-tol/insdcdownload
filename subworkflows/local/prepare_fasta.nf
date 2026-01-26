@@ -14,7 +14,7 @@ workflow PREPARE_FASTA {
 
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // Compress the Fasta file
     ch_compressed_fasta = TABIX_BGZIP (fasta).output
