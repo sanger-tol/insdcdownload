@@ -59,7 +59,7 @@ def get_sequence_map(fai_file) {
         def lspl   = line.split('\t')
         def chrom  = lspl[0]
         def length = lspl[1].toLong()
-        n_sequences ++
+        n_sequences += 1
         total_length += length
         if (length > max_length) {
             max_length = length
