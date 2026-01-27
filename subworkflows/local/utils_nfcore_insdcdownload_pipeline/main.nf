@@ -105,8 +105,8 @@ workflow PIPELINE_INITIALISATION {
         channel
             .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
             // Make the outdir relative to params.outdir if necessary
-            .map { outdir, assembly_name, assembly_accession -> [
-                (outdir.startsWith("/") ? "" : params.outdir + "/") + outdir,
+            .map { assembly_outdir, assembly_name, assembly_accession -> [
+                (assembly_outdir.startsWith("/") ? "" : outdir + "/") + assembly_outdir,
                 assembly_name,
                 assembly_accession,
             ] }
