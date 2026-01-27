@@ -23,7 +23,7 @@ workflow DOWNLOAD_GENOME {
 
     ch_versions         = ch_versions.mix(NCBI_DOWNLOAD.out.versions.first())
     // Fix meta.id
-    ch_masked_fasta_id  = ch_masked_fasta.map { [it[0] + [id: it[0]["id"] + ".masked.ncbi"], it[1]] }
+    ch_masked_fasta_id  = ch_masked_fasta.map { meta, fasta -> [meta + [id: meta["id"] + ".masked.ncbi"], fasta] }
 
     // Unmask the genome fasta as it is masked by default
     ch_unmasked_fasta   = REMOVE_MASKING ( ch_masked_fasta ).fasta

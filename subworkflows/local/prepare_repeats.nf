@@ -36,8 +36,8 @@ workflow PREPARE_REPEATS {
 
     // Output channels to tell the downstream subworkflows which indexes are missing
     // (therefore, only meta is available)
-    no_csi              = tabix_selector.no_tabix.map {it[0]}
-    no_tbi              = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map {it[0]}
+    no_csi              = tabix_selector.no_tabix.map { meta, _bed -> meta}
+    no_tbi              = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map { meta, _bed -> meta}
 
     // Do the indexing on the compatible Fasta files
     ch_indexed_bed_csi  = TABIX_TABIX_CSI ( tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi) ).index
