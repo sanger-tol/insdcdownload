@@ -29,11 +29,11 @@ workflow PREPARE_FASTA {
         meta, fai -> [meta, meta + get_sequence_map(fai)]
     }
     // Update all channels to use the extended meta map
-    fasta_gz            = ch_compressed_fasta.join(sequence_map).map { [it[2], it[1]]}
-    faidx               = ch_samtools_faidx.join(sequence_map).map { [it[2], it[1]]}
-    gzi                 = SAMTOOLS_FAIDX.out.gzi.join(sequence_map).map { [it[2], it[1]]}
-    sizes               = SAMTOOLS_FAIDX.out.sizes.join(sequence_map).map { [it[2], it[1]]}
-    expanded_fasta      = fasta.join(sequence_map).map { [it[2], it[1]]}
+    fasta_gz            = ch_compressed_fasta.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path]}
+    faidx               = ch_samtools_faidx.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path]}
+    gzi                 = SAMTOOLS_FAIDX.out.gzi.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path]}
+    sizes               = SAMTOOLS_FAIDX.out.sizes.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path]}
+    expanded_fasta      = fasta.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path]}
 
     // Generate Samtools dictionary
     ch_samtools_dict    = SAMTOOLS_DICT (expanded_fasta).dict
