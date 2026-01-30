@@ -10,9 +10,6 @@
                     "wget": 1.18,
                     "BusyBox": "v1.32.1"
                 },
-                "REMOVE_MASKING": {
-                    "GNU Awk": "5.1.0"
-                },
                 "REPEATS_BED": {
                     "repeats_bed.py": 1.1
                 },
@@ -30,6 +27,10 @@
                 },
                 "TABIX_TABIX_TBI": {
                     "tabix": 1.21
+                },
+                "UNMASK": {
+                    "gawk": "5.3.1",
+                    "unmask": 1.0
                 },
                 "Workflow": {
                     "sanger-tol/insdcdownload": "v2.0.2"
