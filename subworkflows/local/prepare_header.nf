@@ -17,10 +17,10 @@ workflow PREPARE_HEADER {
     source_mapped = source.map { meta, path -> [meta.id, path] }
 
     joined = dict_mapped
-        | join(report_mapped)
-        | join(source_mapped)
+        .join(report_mapped)
+        .join(source_mapped)
         // remove leading meta.id
-        | map { _meta_id, meta, dict_path, report_path, source_path -> [
+        .map { _meta_id, meta, dict_path, report_path, source_path -> [
             meta,
             dict_path,
             report_path,
