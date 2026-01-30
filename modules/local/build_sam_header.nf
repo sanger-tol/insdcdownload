@@ -5,9 +5,9 @@ process BUILD_SAM_HEADER {
     label 'process_single'
 
     conda "conda-forge::gawk=5.1.0"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gawk:5.1.0' :
-        'biocontainers/gawk:5.1.0'}"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://depot.galaxyproject.org/singularity/gawk:5.1.0'
+        : 'biocontainers/gawk:5.1.0'}"
 
     input:
     tuple val(meta), path(dict), path(report), path(source)
@@ -27,12 +27,12 @@ process BUILD_SAM_HEADER {
     def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^\\(]*)\s*(.*)'
 
     """
-    sourcePath=\$(cat $source | tr -d '\\n')
-    genBankAccession=\$(awk '/^# GenBank assembly accession:/ { gsub("\\r", ""); print \$NF }' $report)
+    sourcePath=\$(cat ${source} | tr -d '\\n')
+    genBankAccession=\$(awk '/^# GenBank assembly accession:/ { gsub("\\r", ""); print \$NF }' ${report})
 
     duplicate_found=0
 
-    awk -v species_regex='$speciesRegex' -v genBankAccession=\$genBankAccession -v sourcePath=\$sourcePath -v duplicate_found="duplicate_found" '
+    awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession -v sourcePath=\$sourcePath -v duplicate_found="duplicate_found" '
     BEGIN {
         OFS = "\\t";
         IFS = "\\t";
@@ -87,7 +87,7 @@ process BUILD_SAM_HEADER {
         }
         return result;
     }
-    ' $report $dict > $filename_header
+    ' ${report} ${dict} > ${filename_header}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
