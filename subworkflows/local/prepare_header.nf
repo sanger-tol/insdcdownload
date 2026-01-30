@@ -19,7 +19,13 @@ workflow PREPARE_HEADER {
     joined = dict_mapped
         | join(report_mapped)
         | join(source_mapped)
-        | map { it -> it[1..-1] } // remove leading meta.id
+        // remove leading meta.id
+        | map { _meta_id, meta, dict_path, report_path, source_path -> [
+            meta,
+            dict_path,
+            report_path,
+            source_path
+        ] }
 
     // Get header template
     ch_header = BUILD_SAM_HEADER(joined).header
