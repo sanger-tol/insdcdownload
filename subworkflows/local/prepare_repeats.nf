@@ -16,7 +16,7 @@ workflow PREPARE_REPEATS {
 
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // BED file
     ch_bed              = REPEATS_BED ( fasta ).bed
@@ -28,7 +28,7 @@ workflow PREPARE_REPEATS {
 
     // Try indexing the BED file in two formats for maximum compatibility
     // but each has its own limitations
-    tabix_selector      = ch_compressed_bed.branch { meta, bed ->
+    tabix_selector      = ch_compressed_bed.branch { meta, _bed ->
         tbi_and_csi: meta.max_length < 2**29
         only_csi:    meta.max_length < 2**32
         no_tabix:    true
@@ -36,8 +36,8 @@ workflow PREPARE_REPEATS {
 
     // Output channels to tell the downstream subworkflows which indexes are missing
     // (therefore, only meta is available)
-    no_csi              = tabix_selector.no_tabix.map {it[0]}
-    no_tbi              = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map {it[0]}
+    no_csi              = tabix_selector.no_tabix.map { meta, _bed -> meta}
+    no_tbi              = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map { meta, _bed -> meta}
 
     // Do the indexing on the compatible Fasta files
     ch_indexed_bed_csi  = TABIX_TABIX_CSI ( tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi) ).index

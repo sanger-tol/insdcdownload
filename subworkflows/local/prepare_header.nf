@@ -9,7 +9,7 @@ workflow PREPARE_HEADER {
     source  // file: /path/to/SOURCE (ftp path as string)
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // The meta maps differ, so join the channels by meta.id
     dict_mapped = dict.map { meta, path -> [meta.id, meta, path] }
@@ -17,9 +17,15 @@ workflow PREPARE_HEADER {
     source_mapped = source.map { meta, path -> [meta.id, path] }
 
     joined = dict_mapped
-        | join(report_mapped)
-        | join(source_mapped)
-        | map { it[1..-1] } // remove leading meta.id
+        .join(report_mapped)
+        .join(source_mapped)
+        // remove leading meta.id
+        .map { _meta_id, meta, dict_path, report_path, source_path -> [
+            meta,
+            dict_path,
+            report_path,
+            source_path
+        ] }
 
     // Get header template
     ch_header = BUILD_SAM_HEADER(joined).header

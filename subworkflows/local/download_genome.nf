@@ -2,8 +2,8 @@
 // Download all the files from the NCBI
 //
 
+include { UNMASK                  } from '../../modules/sanger-tol/unmask/main'
 include { NCBI_DOWNLOAD           } from '../../modules/local/ncbi_download'
-include { REMOVE_MASKING          } from '../../modules/local/remove_masking'
 
 
 workflow DOWNLOAD_GENOME {
@@ -13,27 +13,22 @@ workflow DOWNLOAD_GENOME {
 
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // Download assembly
     ch_masked_fasta     = NCBI_DOWNLOAD ( assembly_params ).fasta
-
-    // Parse assembly to build header template
-    ch_assembly_report  = NCBI_DOWNLOAD.out.assembly_report
-
     ch_versions         = ch_versions.mix(NCBI_DOWNLOAD.out.versions.first())
     // Fix meta.id
-    ch_masked_fasta_id  = ch_masked_fasta.map { [it[0] + [id: it[0]["id"] + ".masked.ncbi"], it[1]] }
+    ch_masked_fasta_id  = ch_masked_fasta.map { meta, fasta -> [meta + [id: meta["id"] + ".masked.ncbi"], fasta] }
 
     // Unmask the genome fasta as it is masked by default
-    ch_unmasked_fasta   = REMOVE_MASKING ( ch_masked_fasta ).fasta
-    ch_versions         = ch_versions.mix(REMOVE_MASKING.out.versions.first())
+    ch_unmasked_fasta   = UNMASK ( ch_masked_fasta ).unmasked
 
 
     emit:
     fasta_unmasked  = ch_unmasked_fasta         // path: genome.unmasked.fa
     fasta_masked    = ch_masked_fasta_id        // path: genome.masked.ncbi.fa
-    assembly_report = ch_assembly_report        // path: genome.assembly_report.txt
+    assembly_report = NCBI_DOWNLOAD.out.assembly_report // path: genome.assembly_report.txt
     source          = NCBI_DOWNLOAD.out.source  // path: SOURCE (contains URL)
     versions        = ch_versions               // channel: [ versions.yml ]
 }
