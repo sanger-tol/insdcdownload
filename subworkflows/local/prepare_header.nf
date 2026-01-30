@@ -2,11 +2,10 @@
 include { BUILD_SAM_HEADER } from '../../modules/local/build_sam_header'
 
 workflow PREPARE_HEADER {
-
     take:
-    dict    // file: /path/to/genome.dict
-    report  // file: /path/to/genome.assembly_report.txt
-    source  // file: /path/to/SOURCE (ftp path as string)
+    dict // file: /path/to/genome.dict
+    report // file: /path/to/genome.assembly_report.txt
+    source // file: /path/to/SOURCE (ftp path as string)
 
     main:
     ch_versions = channel.empty()
@@ -19,13 +18,14 @@ workflow PREPARE_HEADER {
     joined = dict_mapped
         .join(report_mapped)
         .join(source_mapped)
-        // remove leading meta.id
-        .map { _meta_id, meta, dict_path, report_path, source_path -> [
-            meta,
-            dict_path,
-            report_path,
-            source_path
-        ] }
+        .map { _meta_id, meta, dict_path, report_path, source_path ->
+            [
+                meta,
+                dict_path,
+                report_path,
+                source_path,
+            ]
+        }
 
     // Get header template
     ch_header = BUILD_SAM_HEADER(joined).header
@@ -33,6 +33,6 @@ workflow PREPARE_HEADER {
     ch_versions = ch_versions.mix(BUILD_SAM_HEADER.out.versions.first())
 
     emit:
-    header = ch_header                   // path: genome.header.sam
-    versions = ch_versions               // channel: [ versions.yml ]
+    header   = ch_header // path: genome.header.sam
+    versions = ch_versions // channel: [ versions.yml ]
 }
