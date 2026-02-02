@@ -1,0 +1,89 @@
+{
+    "-profile test": {
+        "content": [
+            13,
+            {
+                "BUILD_SAM_HEADER": {
+                    "GNU Awk": "5.1.0"
+                },
+                "NCBI_DOWNLOAD": {
+                    "wget": 1.18,
+                    "BusyBox": "v1.32.1"
+                },
+                "REPEATS_BED": {
+                    "repeats_bed.py": 1.1
+                },
+                "SAMTOOLS_DICT": {
+                    "samtools": "1.22.1"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.22.1"
+                },
+                "TABIX_BGZIP": {
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_CSI": {
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_TBI": {
+                    "tabix": 1.21
+                },
+                "UNMASK": {
+                    "gawk": "5.3.1",
+                    "unmask": 1.0
+                },
+                "Workflow": {
+                    "sanger-tol/insdcdownload": "v2.0.2"
+                }
+            },
+            [
+                "assembly",
+                "assembly/ACCESSION",
+                "assembly/GCA_927399515.1.assembly_report.txt",
+                "assembly/GCA_927399515.1.assembly_stats.txt",
+                "assembly/GCA_927399515.1.fa.gz",
+                "assembly/GCA_927399515.1.fa.gz.fai",
+                "assembly/GCA_927399515.1.fa.gz.gzi",
+                "assembly/GCA_927399515.1.fa.gz.sizes",
+                "assembly/GCA_927399515.1.header.sam",
+                "assembly/SOURCE",
+                "pipeline_info",
+                "pipeline_info/insdcdownload_software_versions.yml",
+                "repeats",
+                "repeats/ncbi",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz.csi",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz.gzi",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz.tbi",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz.fai",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz.gzi",
+                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz.sizes"
+            ],
+            [
+                "ACCESSION:md5,58bc6bcd2adc616f8ad1676140620fed",
+                "GCA_927399515.1.assembly_report.txt:md5,7b38ab3fd04bda6b539a6956b7134b98",
+                "GCA_927399515.1.assembly_stats.txt:md5,fb012863635d4f4cf58f1bff7f1700f9",
+                "GCA_927399515.1.fa.gz:md5,ff98400802da0754ba3bd834bc8ae229",
+                "GCA_927399515.1.fa.gz.fai:md5,777afc6f127bc41293df03ac06c3502d",
+                "GCA_927399515.1.fa.gz.gzi:md5,636c5f54fa81c99f6fc6d028afdf57a1",
+                "GCA_927399515.1.fa.gz.sizes:md5,018519e9aaae66647dac7f3c6d68cd4e",
+                "GCA_927399515.1.header.sam:md5,6915756c123db1e935aa936097912caf",
+                "SOURCE:md5,54793fc7a608fe426806bd85326688ae",
+                "GCA_927399515.1.masked.ncbi.bed.gz:md5,5c0fa9fe56323737f51a420e9790d5e8",
+                "GCA_927399515.1.masked.ncbi.bed.gz.csi:md5,d406c2ff0cb97ff3669fc976cc472fb2",
+                "GCA_927399515.1.masked.ncbi.bed.gz.gzi:md5,58e611a28c2fb2f31684975ea47bad51",
+                "GCA_927399515.1.masked.ncbi.bed.gz.tbi:md5,27fa24992b46da697e974d071d083686",
+                "GCA_927399515.1.masked.ncbi.fa.gz:md5,504c1cc0a6e5150d8bf00e1c12c7863d",
+                "GCA_927399515.1.masked.ncbi.fa.gz.fai:md5,777afc6f127bc41293df03ac06c3502d",
+                "GCA_927399515.1.masked.ncbi.fa.gz.gzi:md5,1498402842ac61a41afaac33130aa472",
+                "GCA_927399515.1.masked.ncbi.fa.gz.sizes:md5,018519e9aaae66647dac7f3c6d68cd4e"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.2"
+        },
+        "timestamp": "2025-12-01T20:09:45.535818663"
+    }
+}

@@ -13,7 +13,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { INSDCDOWNLOAD  } from './workflows/insdcdownload'
+include { INSDCDOWNLOAD           } from './workflows/insdcdownload'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_insdcdownload_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_insdcdownload_pipeline'
 /*
@@ -26,17 +26,16 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_insd
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
 workflow SANGERTOL_INSDCDOWNLOAD {
-
     take:
-    samplesheet // channel: samplesheet read in from --input
+    inputs // channel: tuple(assembly_accession, assembly_name, outdir)
 
     main:
 
     //
     // WORKFLOW: Run pipeline
     //
-    INSDCDOWNLOAD (
-        samplesheet
+    INSDCDOWNLOAD(
+        inputs
     )
 }
 /*
@@ -46,12 +45,10 @@ workflow SANGERTOL_INSDCDOWNLOAD {
 */
 
 workflow {
-
-    main:
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
-    PIPELINE_INITIALISATION (
+    PIPELINE_INITIALISATION(
         params.version,
         params.validate_params,
         params.monochrome_logs,
@@ -60,19 +57,19 @@ workflow {
         params.input,
         params.help,
         params.help_full,
-        params.show_hidden
+        params.show_hidden,
     )
 
     //
     // WORKFLOW: Run main workflow
     //
-    SANGERTOL_INSDCDOWNLOAD (
-        PIPELINE_INITIALISATION.out.samplesheet
+    SANGERTOL_INSDCDOWNLOAD(
+        PIPELINE_INITIALISATION.out.inputs
     )
     //
     // SUBWORKFLOW: Run completion tasks
     //
-    PIPELINE_COMPLETION (
+    PIPELINE_COMPLETION(
         params.email,
         params.email_on_fail,
         params.plaintext_email,
