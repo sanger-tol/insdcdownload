@@ -44,7 +44,7 @@ process BUILD_SAM_HEADER {
         if (\$0 !~ /^#/) {
             split(\$0, fields, "\\t");
             if (fields[2] == "assembled-molecule") {
-                lookup[fields[5]] = fields[3];
+                lookup[fields[5]] = fields[1] "," fields[3];
             } else {
                 lookup[fields[5]] = fields[1];
             }
