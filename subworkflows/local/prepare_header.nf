@@ -5,7 +5,6 @@ workflow PREPARE_HEADER {
     take:
     dict // file: /path/to/genome.dict
     report // file: /path/to/genome.assembly_report.txt
-    source // file: /path/to/SOURCE (ftp path as string)
 
     main:
     ch_versions = channel.empty()
@@ -13,17 +12,14 @@ workflow PREPARE_HEADER {
     // The meta maps differ, so join the channels by meta.id
     dict_mapped = dict.map { meta, path -> [meta.id, meta, path] }
     report_mapped = report.map { meta, path -> [meta.id, path] }
-    source_mapped = source.map { meta, path -> [meta.id, path] }
 
     joined = dict_mapped
         .join(report_mapped)
-        .join(source_mapped)
-        .map { _meta_id, meta, dict_path, report_path, source_path ->
+        .map { _meta_id, meta, dict_path, report_path ->
             [
                 meta,
                 dict_path,
                 report_path,
-                source_path,
             ]
         }
 

@@ -59,7 +59,6 @@ workflow INSDCDOWNLOAD {
     PREPARE_UNMASKED_HEADER(
         PREPARE_UNMASKED_FASTA.out.dict,
         DOWNLOAD_GENOME.out.assembly_report,
-        DOWNLOAD_GENOME.out.source,
     )
     ch_versions = ch_versions.mix(PREPARE_UNMASKED_HEADER.out.versions)
 

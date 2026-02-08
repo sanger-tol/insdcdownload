@@ -10,7 +10,7 @@ process BUILD_SAM_HEADER {
         : 'biocontainers/gawk:5.1.0'}"
 
     input:
-    tuple val(meta), path(dict), path(report), path(source)
+    tuple val(meta), path(dict), path(report)
 
     output:
     tuple val(meta), path(filename_header), emit: header
@@ -27,12 +27,11 @@ process BUILD_SAM_HEADER {
     def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^(]*)\s*(.*)'
 
     """
-    sourcePath=\$(cat ${source} | tr -d '\\n')
     genBankAccession=\$(awk '/^# GenBank assembly accession:/ { gsub("\\r", ""); print \$NF }' ${report})
 
     duplicate_found=0
 
-    awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession -v sourcePath=\$sourcePath -v duplicate_found="duplicate_found" '
+    awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession -v duplicate_found="duplicate_found" '
     BEGIN {
         OFS = "\\t";
         IFS = "\\t";
@@ -61,7 +60,7 @@ process BUILD_SAM_HEADER {
     /^@SQ/ {
         split(\$0, fields, "\\t");
 
-        fields[5] = "UR:" sourcePath
+        delete fields[5]
 
         split(fields[2], sn_field, ":");
         sn = sn_field[2];
