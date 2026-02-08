@@ -8,7 +8,7 @@ include { NCBI_DOWNLOAD } from '../../modules/local/ncbi_download'
 
 workflow DOWNLOAD_GENOME {
     take:
-    assembly_params // tuple(assembly_accession, assembly_name, outdir)
+    assembly_params // tuple(outdir, assembly_name, assembly_accession)
 
     main:
 
