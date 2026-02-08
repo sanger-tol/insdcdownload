@@ -1,8 +1,11 @@
 {
     "-profile test": {
         "content": [
-            12,
+            13,
             {
+                "BUILD_ACC_TABLE": {
+                    "GNU Awk": "5.1.0"
+                },
                 "BUILD_SAM_HEADER": {
                     "GNU Awk": "5.1.0"
                 },
@@ -46,6 +49,7 @@
                 "assembly/GCA_927399515.1.fa.gz.gzi",
                 "assembly/GCA_927399515.1.fa.gz.sizes",
                 "assembly/GCA_927399515.1.header.sam",
+                "assembly/GCA_927399515.1.name_mapping.tsv",
                 "assembly/SOURCE",
                 "pipeline_info",
                 "pipeline_info/insdcdownload_software_versions.yml",
@@ -69,6 +73,7 @@
                 "GCA_927399515.1.fa.gz.gzi:md5,636c5f54fa81c99f6fc6d028afdf57a1",
                 "GCA_927399515.1.fa.gz.sizes:md5,018519e9aaae66647dac7f3c6d68cd4e",
                 "GCA_927399515.1.header.sam:md5,dee48cb05294ab67a7e76f240d36861e",
+                "GCA_927399515.1.name_mapping.tsv:md5,4c1891e4b411fb6ec9da44b8b1cde1aa",
                 "SOURCE:md5,54793fc7a608fe426806bd85326688ae",
                 "GCA_927399515.1.masked.ncbi.bed.gz:md5,5c0fa9fe56323737f51a420e9790d5e8",
                 "GCA_927399515.1.masked.ncbi.bed.gz.csi:md5,d406c2ff0cb97ff3669fc976cc472fb2",
@@ -84,6 +89,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2026-02-08T17:38:28.51211607"
+        "timestamp": "2026-02-08T17:39:22.895624859"
     }
 }

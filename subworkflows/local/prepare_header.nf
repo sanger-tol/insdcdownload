@@ -1,5 +1,6 @@
 // Create a SAM header template from NCBI assembly report and SAMtools .dict
 include { SAMTOOLS_DICT    } from '../../modules/nf-core/samtools/dict/main'
+include { BUILD_ACC_TABLE  } from '../../modules/local/build_accession_table'
 include { BUILD_SAM_HEADER } from '../../modules/local/build_sam_header'
 
 workflow PREPARE_HEADER {
@@ -30,10 +31,14 @@ workflow PREPARE_HEADER {
 
     // Get header template
     ch_header = BUILD_SAM_HEADER(joined).header
-
     ch_versions = ch_versions.mix(BUILD_SAM_HEADER.out.versions.first())
 
+    // Get accession table
+    ch_acc_table = BUILD_ACC_TABLE(report).table
+    ch_versions = ch_versions.mix(BUILD_ACC_TABLE.out.versions.first())
+
     emit:
-    header   = ch_header // path: genome.header.sam
-    versions = ch_versions // channel: [ versions.yml ]
+    header    = ch_header // tuple(meta, path: genome.header.sam)
+    acc_table = ch_acc_table // tuple(meta, path: table)
+    versions  = ch_versions // channel: [ versions.yml ]
 }
