@@ -13,7 +13,6 @@ workflow PREPARE_HEADER {
 
     // Generate Samtools dictionary
     ch_samtools_dict = SAMTOOLS_DICT(fasta).dict
-    ch_versions = ch_versions.mix(SAMTOOLS_DICT.out.versions)
 
     // The meta maps differ, so join the channels by meta.id
     dict_mapped = ch_samtools_dict.map { meta, path -> [meta.id, meta, path] }

@@ -22,7 +22,6 @@ workflow PREPARE_REPEATS {
 
     // Compress the BED file
     ch_compressed_bed = TABIX_BGZIP(ch_bed).output
-    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions)
 
     // Try indexing the BED file in two formats for maximum compatibility
     // but each has its own limitations
@@ -39,9 +38,7 @@ workflow PREPARE_REPEATS {
 
     // Do the indexing on the compatible Fasta files
     ch_indexed_bed_csi = TABIX_TABIX_CSI(tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi)).index
-    ch_versions = ch_versions.mix(TABIX_TABIX_CSI.out.versions)
     ch_indexed_bed_tbi = TABIX_TABIX_TBI(tabix_selector.tbi_and_csi).index
-    ch_versions = ch_versions.mix(TABIX_TABIX_TBI.out.versions)
 
     emit:
     bed_gz   = ch_compressed_bed // path: genome.bed.gz

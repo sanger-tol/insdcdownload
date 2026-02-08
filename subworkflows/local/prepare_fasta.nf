@@ -15,11 +15,9 @@ workflow PREPARE_FASTA {
 
     // Compress the Fasta file
     ch_compressed_fasta = TABIX_BGZIP(fasta).output
-    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions)
 
     // Generate Samtools index and chromosome sizes file
     ch_samtools_faidx = SAMTOOLS_FAIDX(ch_compressed_fasta, [[], []], true).fai
-    ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
     // Read the .fai file, extract sequence statistics, and make an extended meta map
     sequence_map = ch_samtools_faidx.map { meta, fai ->
