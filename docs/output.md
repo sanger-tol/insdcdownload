@@ -40,7 +40,7 @@ All files are named after the assembly accession, e.g. `GCA_927399515.1`.
 - `GCA_*.fa.gz`: Unmasked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
 - `GCA_*.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
 - `GCA_*.fa.gz.sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
-- `GCA_*.header.sam`: SAM header file with `@SQ` entries for all sequences, with `SN` (sequence accession), `LN` (length), and `M5` (checksum), tags straight from samtools, and `AS` (assembly accession), `AN` (sequence name), `SP` (species name)
+- `GCA_*.header.sam`: SAM header file with `@SQ` entries for all sequences. Each `@SQ` line includes `SN` (sequence accession), `LN` (length), and `M5` (checksum) tags from samtools. The pipeline adds `AS` (assembly accession), `SP` (species name), and `AN` (sequence name and possibly the chromosome name too separated by a comma). No `UR` tag is included.
 - `GCA_*.name_mapping.tsv`: tab-separated mapping between sequence accessions (GenBank / ENA) and sequence names. Optionally there may be the name of the chromosome, when the sequence corresponds to the entire chromosome, and the name of the RefSeq accession, when there is one.
 
 with the exception of `ACCESSION`, which contains a single line of text: the assembly accession, and `SOURCE`, which contains the URL to the genomic FASTA file on the NCBI FTP server.
