@@ -23,23 +23,25 @@ Here are the files you can expect in the `assembly/` sub-directory.
 ```text
 assembly
 ├── ACCESSION
-├── SOURCE
+├── GCA_927399515.1.accessions.tsv
 ├── GCA_927399515.1.assembly_report.txt
 ├── GCA_927399515.1.assembly_stats.txt
-├── GCA_927399515.1.fa.dict
 ├── GCA_927399515.1.fa.gz
 ├── GCA_927399515.1.fa.gz.fai
 ├── GCA_927399515.1.fa.gz.gzi
-└── GCA_927399515.1.fa.gz.sizes
+├── GCA_927399515.1.fa.gz.sizes
+├── GCA_927399515.1.header.sam
+└── SOURCE
 ```
 
 All files are named after the assembly accession, e.g. `GCA_927399515.1`.
 
+- `GCA_*.accessions.tsv`: tab-separated mapping between sequence accessions (GenBank / ENA) and sequence names. Optionally there may be the name of the chromosome, when the sequence corresponds to the entire chromosome, and the name of the RefSeq accession, when there is one.
 - `GCA_*.assembly_report.txt` and `GCA_*.assembly_stats.txt`: report and statistics files, straight from the NCBI FTP
 - `GCA_*.fa.gz`: Unmasked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
 - `GCA_*.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
-- `GCA_*.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
 - `GCA_*.fa.gz.sizes`: Tabular file with the size of all sequences in the assembly. Typically used to build "big" files (bigBed, etc).
+- `GCA_*.header.sam`: SAM header file with `@SQ` entries for all sequences, with `SN` (sequence accession), `LN` (length), and `M5` (checksum), tags straight from samtools, and `AS` (assembly accession), `AN` (sequence name), `SP` (species name)
 
 with the exception of `ACCESSION`, which contains a single line of text: the assembly accession, and `SOURCE`, which contains the URL to the genomic FASTA file on the NCBI FTP server.
 
@@ -53,7 +55,6 @@ repeats
     ├── GCA_927399515.1.masked.ncbi.bed.gz
     ├── GCA_927399515.1.masked.ncbi.bed.gz.csi
     ├── GCA_927399515.1.masked.ncbi.bed.gz.tbi
-    ├── GCA_927399515.1.masked.ncbi.fa.dict
     ├── GCA_927399515.1.masked.ncbi.fa.gz
     ├── GCA_927399515.1.masked.ncbi.fa.gz.fai
     ├── GCA_927399515.1.masked.ncbi.fa.gz.gzi
@@ -65,7 +66,6 @@ all files are named after the assembly accession, e.g. `GCA_927399515.1`.
 
 - `GCA_*.masked.ncbi.fa.gz`: Masked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fa.gz.gzi`)
 - `GCA_*.masked.ncbi.fa.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
-- `GCA_*.masked.ncbi.fa.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
 - `GCA_*.masked.ncbi.bed.gz`: BED file with the coordinates of the regions masked by the NCBI pipeline, with accompanying `tabix` indices (`.csi` and `.tbi`), depending on the sequence lengths
 
 ### Pipeline information
