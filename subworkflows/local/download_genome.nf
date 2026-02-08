@@ -11,11 +11,9 @@ workflow DOWNLOAD_GENOME {
     assembly_params // tuple(assembly_accession, assembly_name, outdir)
 
     main:
-    ch_versions = channel.empty()
 
     // Download assembly
     ch_masked_fasta = NCBI_DOWNLOAD(assembly_params).fasta
-    ch_versions = ch_versions.mix(NCBI_DOWNLOAD.out.versions.first())
     // Fix meta.id
     ch_masked_fasta_id = ch_masked_fasta.map { meta, fasta -> [meta + [id: meta["id"] + ".repeats.ncbi"], fasta] }
 
@@ -29,5 +27,4 @@ workflow DOWNLOAD_GENOME {
     assembly_stats  = NCBI_DOWNLOAD.out.assembly_stats // path: genome.assembly_stats.txt
     accession       = NCBI_DOWNLOAD.out.accession // path: ACCESSION (contains accession number)
     source          = NCBI_DOWNLOAD.out.source // path: SOURCE (contains URL)
-    versions        = ch_versions // channel: [ versions.yml ]
 }

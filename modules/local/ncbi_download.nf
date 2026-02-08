@@ -20,7 +20,7 @@ process NCBI_DOWNLOAD {
     tuple val(meta), path(filename_assembly_stats), emit: assembly_stats
     tuple val(meta), path(filename_accession), emit: accession
     tuple val(meta), path(filename_source), emit: source
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('wget'), eval("wget --version | head -n 1 | cut -d' ' -f3"), topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -62,11 +62,5 @@ process NCBI_DOWNLOAD {
     echo "${assembly_accession}"                 > ${filename_accession}
     echo "${ftp_path}/${remote_filename_stem}_genomic.fna.gz" > ${filename_source}
     zcat ${remote_filename_stem}_genomic.fna.gz  > ${filename_fasta}
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        wget: \$(wget --version | head -n 1 | cut -d' ' -f3)
-        BusyBox: \$(busybox | head -1 | cut -d' ' -f2)
-    END_VERSIONS
     """
 }

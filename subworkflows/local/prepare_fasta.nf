@@ -11,7 +11,6 @@ workflow PREPARE_FASTA {
     fasta // file: /path/to/genome.fa
 
     main:
-    ch_versions = channel.empty()
 
     // Compress the Fasta file
     ch_compressed_fasta = TABIX_BGZIP(fasta).output
@@ -34,7 +33,6 @@ workflow PREPARE_FASTA {
     faidx    = faidx // path: genome.fa.gz.fai
     gzi      = gzi // path: genome.fa.gz.gzi
     sizes    = sizes // path: genome.fa.gz.sizes
-    versions = ch_versions // channel: [ versions.yml ]
 }
 
 // Read the .fai file to extract the number of sequences, the maximum and total sequence length

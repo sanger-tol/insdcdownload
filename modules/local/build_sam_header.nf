@@ -14,7 +14,8 @@ process BUILD_SAM_HEADER {
 
     output:
     tuple val(meta), path(filename_header), emit: header
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('BUILD_SAM_HEADER'), eval('echo 1.0'), topic: versions
+    tuple val("${task.process}"), val('gawk'), eval('gawk --version | grep -o -E "[0-9]+(.[0-9]+)+" | head -n1'), topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -85,10 +86,5 @@ process BUILD_SAM_HEADER {
         print;
     }
     ' ${report} ${dict} > ${filename_header}
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        GNU Awk: \$(echo \$(awk --version 2>&1) | grep -i awk | sed 's/GNU Awk //; s/,.*//')
-    END_VERSIONS
     """
 }

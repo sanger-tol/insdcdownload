@@ -14,11 +14,8 @@ workflow PREPARE_REPEATS {
     fasta // file: /path/to/genome.fa
 
     main:
-    ch_versions = channel.empty()
-
     // BED file
     ch_bed = REPEATS_BED(fasta).bed
-    ch_versions = ch_versions.mix(REPEATS_BED.out.versions)
 
     // Compress the BED file
     ch_compressed_bed = TABIX_BGZIP(ch_bed).output
@@ -46,5 +43,4 @@ workflow PREPARE_REPEATS {
     bed_tbi  = ch_indexed_bed_tbi // path: genome.bed.gz.tbi
     no_csi   = no_csi // (only meta)
     no_tbi   = no_tbi // (only meta)
-    versions = ch_versions // channel: [ versions.yml ]
 }
