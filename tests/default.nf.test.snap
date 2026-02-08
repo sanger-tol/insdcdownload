@@ -36,7 +36,7 @@
                     "unmask": 1.0
                 },
                 "Workflow": {
-                    "sanger-tol/insdcdownload": "v2.0.2"
+                    "sanger-tol/insdcdownload": "v3.0.0"
                 }
             },
             [
