@@ -3,7 +3,6 @@
 //
 
 include { SAMTOOLS_FAIDX } from '../../modules/nf-core/samtools/faidx/main'
-include { SAMTOOLS_DICT  } from '../../modules/nf-core/samtools/dict/main'
 include { TABIX_BGZIP    } from '../../modules/nf-core/tabix/bgzip/main'
 
 
@@ -31,16 +30,10 @@ workflow PREPARE_FASTA {
     faidx = ch_samtools_faidx.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path] }
     gzi = SAMTOOLS_FAIDX.out.gzi.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path] }
     sizes = SAMTOOLS_FAIDX.out.sizes.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path] }
-    expanded_fasta = fasta.join(sequence_map).map { _meta, path, extended_meta -> [extended_meta, path] }
-
-    // Generate Samtools dictionary
-    ch_samtools_dict = SAMTOOLS_DICT(expanded_fasta).dict
-    ch_versions = ch_versions.mix(SAMTOOLS_DICT.out.versions)
 
     emit:
     fasta_gz = fasta_gz // path: genome.fa.gz
     faidx    = faidx // path: genome.fa.gz.fai
-    dict     = ch_samtools_dict // path: genome.fa.dict
     gzi      = gzi // path: genome.fa.gz.gzi
     sizes    = sizes // path: genome.fa.gz.sizes
     versions = ch_versions // channel: [ versions.yml ]

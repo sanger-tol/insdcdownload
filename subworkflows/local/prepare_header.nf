@@ -1,16 +1,21 @@
 // Create a SAM header template from NCBI assembly report and SAMtools .dict
+include { SAMTOOLS_DICT    } from '../../modules/nf-core/samtools/dict/main'
 include { BUILD_SAM_HEADER } from '../../modules/local/build_sam_header'
 
 workflow PREPARE_HEADER {
     take:
-    dict // file: /path/to/genome.dict
-    report // file: /path/to/genome.assembly_report.txt
+    fasta // tuple(meta, file: /path/to/genome.fa.gz)
+    report // tuple(meta, file: /path/to/genome.assembly_report.txt)
 
     main:
     ch_versions = channel.empty()
 
+    // Generate Samtools dictionary
+    ch_samtools_dict = SAMTOOLS_DICT(fasta).dict
+    ch_versions = ch_versions.mix(SAMTOOLS_DICT.out.versions)
+
     // The meta maps differ, so join the channels by meta.id
-    dict_mapped = dict.map { meta, path -> [meta.id, meta, path] }
+    dict_mapped = ch_samtools_dict.map { meta, path -> [meta.id, meta, path] }
     report_mapped = report.map { meta, path -> [meta.id, path] }
 
     joined = dict_mapped
