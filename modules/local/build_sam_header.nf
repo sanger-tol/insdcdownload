@@ -29,9 +29,7 @@ process BUILD_SAM_HEADER {
     """
     genBankAccession=\$(awk '/^# GenBank assembly accession:/ { gsub("\\r", ""); print \$NF }' ${report})
 
-    duplicate_found=0
-
-    awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession -v duplicate_found="duplicate_found" '
+    awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession '
     BEGIN {
         OFS = "\\t";
         IFS = "\\t";
