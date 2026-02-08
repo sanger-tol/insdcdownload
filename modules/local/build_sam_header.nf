@@ -4,10 +4,10 @@ process BUILD_SAM_HEADER {
     tag "${meta.id}"
     label 'process_single'
 
-    conda "conda-forge::gawk=5.1.0"
+    conda "conda-forge::gawk=5.3.1"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-        ? 'https://depot.galaxyproject.org/singularity/gawk:5.1.0'
-        : 'biocontainers/gawk:5.1.0'}"
+        ? 'https://depot.galaxyproject.org/singularity/gawk:5.3.1'
+        : 'biocontainers/gawk:5.3.1'}"
 
     input:
     tuple val(meta), path(dict), path(report)

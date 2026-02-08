@@ -4,10 +4,10 @@
             13,
             {
                 "BUILD_ACC_TABLE": {
-                    "GNU Awk": "5.1.0"
+                    "GNU Awk": "5.3.1"
                 },
                 "BUILD_SAM_HEADER": {
-                    "GNU Awk": "5.1.0"
+                    "GNU Awk": "5.3.1"
                 },
                 "NCBI_DOWNLOAD": {
                     "wget": 1.18,
