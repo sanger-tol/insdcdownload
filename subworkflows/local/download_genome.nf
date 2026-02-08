@@ -26,6 +26,8 @@ workflow DOWNLOAD_GENOME {
     fasta_unmasked  = ch_unmasked_fasta // path: genome.unmasked.fa
     fasta_masked    = ch_masked_fasta_id // path: genome.masked.ncbi.fa
     assembly_report = NCBI_DOWNLOAD.out.assembly_report // path: genome.assembly_report.txt
+    assembly_stats  = NCBI_DOWNLOAD.out.assembly_stats // path: genome.assembly_stats.txt
+    accession       = NCBI_DOWNLOAD.out.accession // path: ACCESSION (contains accession number)
     source          = NCBI_DOWNLOAD.out.source // path: SOURCE (contains URL)
     versions        = ch_versions // channel: [ versions.yml ]
 }
