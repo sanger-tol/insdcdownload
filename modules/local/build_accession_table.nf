@@ -27,7 +27,7 @@ process BUILD_ACC_TABLE {
     awk '
     BEGIN {
         OFS = "\\t";
-        IFS = "\\t";
+        FS = "\\t";
     }
     /^[^#]/ {
         genbank = \$5

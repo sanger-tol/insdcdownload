@@ -32,7 +32,7 @@ process BUILD_SAM_HEADER {
     awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession '
     BEGIN {
         OFS = "\\t";
-        IFS = "\\t";
+        FS = "\\t";
         AS = "AS:" genBankAccession;
         species_name = "";
     }
