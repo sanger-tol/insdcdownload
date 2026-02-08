@@ -58,28 +58,31 @@ process BUILD_SAM_HEADER {
     /^@SQ/ {
         split(\$0, fields, "\\t");
 
-        delete fields[5]
-
-        split(fields[2], sn_field, ":");
-        sn = sn_field[2];
-        if (sn in lookup) {
-            AN = "AN:" lookup[sn];
+        out = fields[1];
+        sn = "";
+        for (i = 2; i <= length(fields); i++) {
+            # skip UR: fields
+            if (fields[i] ~ /^UR:/) continue;
+            if (fields[i] ~ /^SN:/) {
+                split(fields[i], sn_field, ":");
+                sn = sn_field[2];
+            }
+            out = out OFS fields[i];
         }
 
-        SP = "SP:" species_name;
+        # Optional AN: only when SN exists and maps in lookup
+        if (sn != "" && (sn in lookup)) {
+            out = out OFS "AN:" lookup[sn];
+        }
 
-        print join(fields, OFS), AS, AN, SP;
+        # Always add AS: and SP:
+        out = out OFS AS OFS "SP:" species_name;
+
+        print out;
         next;
     }
     {
         print;
-    }
-    function join(arr, sep) {
-        result = arr[1];
-        for (i = 2; i <= length(arr); i++) {
-            result = result sep arr[i];
-        }
-        return result;
     }
     ' ${report} ${dict} > ${filename_header}
 
