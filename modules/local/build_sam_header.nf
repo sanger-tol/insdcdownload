@@ -24,7 +24,7 @@ process BUILD_SAM_HEADER {
     filename_header = "${prefix}.header.sam"
 
     // Use the supplied speciesRegex or default if not provided
-    def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^\\(]*)\s*(.*)'
+    def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^(]*)\s*(.*)'
 
     """
     sourcePath=\$(cat ${source} | tr -d '\\n')
