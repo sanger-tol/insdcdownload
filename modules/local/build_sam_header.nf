@@ -60,21 +60,18 @@ process BUILD_SAM_HEADER {
     }
     /^@SQ/ {
         split(\$0, fields, "\\t");
-        sn = "";
-        for (i in fields) {
-            if (fields[i] ~ /^SN:/) {
-                split(fields[i], sn_field, ":");
-                sn = sn_field[2];
-            }
-            if (fields[i] ~ /^UR:/) {
-                fields[i] = "UR:" sourcePath;
-            }
-        }
+
+        fields[5] = "UR:" sourcePath
+
+        split(fields[2], sn_field, ":");
+        sn = sn_field[2];
         if (sn in lookup) {
-            new_field = "AN:" lookup[sn];
+            AN = "AN:" lookup[sn];
         }
-        new_sp = "SP:" species_name;
-        print join(fields, OFS), AS, new_field, new_sp;
+
+        SP = "SP:" species_name;
+
+        print join(fields, OFS), AS, AN, SP;
         next;
     }
     {
