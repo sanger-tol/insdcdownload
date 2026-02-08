@@ -55,14 +55,14 @@
                 "pipeline_info/insdcdownload_software_versions.yml",
                 "repeats",
                 "repeats/ncbi",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz.csi",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz.gzi",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.bed.gz.tbi",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz.fai",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz.gzi",
-                "repeats/ncbi/GCA_927399515.1.masked.ncbi.fa.gz.sizes"
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.bed.gz",
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.bed.gz.csi",
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.bed.gz.gzi",
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.bed.gz.tbi",
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.masked.fa.gz",
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.masked.fa.gz.fai",
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.masked.fa.gz.gzi",
+                "repeats/ncbi/GCA_927399515.1.repeats.ncbi.masked.fa.gz.sizes"
             ],
             [
                 "ACCESSION:md5,58bc6bcd2adc616f8ad1676140620fed",
@@ -75,14 +75,14 @@
                 "GCA_927399515.1.header.sam:md5,7674d44c222c4905f024af12e4b9bb3c",
                 "GCA_927399515.1.name_mapping.tsv:md5,4c1891e4b411fb6ec9da44b8b1cde1aa",
                 "SOURCE:md5,54793fc7a608fe426806bd85326688ae",
-                "GCA_927399515.1.masked.ncbi.bed.gz:md5,5c0fa9fe56323737f51a420e9790d5e8",
-                "GCA_927399515.1.masked.ncbi.bed.gz.csi:md5,d406c2ff0cb97ff3669fc976cc472fb2",
-                "GCA_927399515.1.masked.ncbi.bed.gz.gzi:md5,58e611a28c2fb2f31684975ea47bad51",
-                "GCA_927399515.1.masked.ncbi.bed.gz.tbi:md5,27fa24992b46da697e974d071d083686",
-                "GCA_927399515.1.masked.ncbi.fa.gz:md5,504c1cc0a6e5150d8bf00e1c12c7863d",
-                "GCA_927399515.1.masked.ncbi.fa.gz.fai:md5,777afc6f127bc41293df03ac06c3502d",
-                "GCA_927399515.1.masked.ncbi.fa.gz.gzi:md5,1498402842ac61a41afaac33130aa472",
-                "GCA_927399515.1.masked.ncbi.fa.gz.sizes:md5,018519e9aaae66647dac7f3c6d68cd4e"
+                "GCA_927399515.1.repeats.ncbi.bed.gz:md5,5c0fa9fe56323737f51a420e9790d5e8",
+                "GCA_927399515.1.repeats.ncbi.bed.gz.csi:md5,d406c2ff0cb97ff3669fc976cc472fb2",
+                "GCA_927399515.1.repeats.ncbi.bed.gz.gzi:md5,58e611a28c2fb2f31684975ea47bad51",
+                "GCA_927399515.1.repeats.ncbi.bed.gz.tbi:md5,27fa24992b46da697e974d071d083686",
+                "GCA_927399515.1.repeats.ncbi.masked.fa.gz:md5,504c1cc0a6e5150d8bf00e1c12c7863d",
+                "GCA_927399515.1.repeats.ncbi.masked.fa.gz.fai:md5,777afc6f127bc41293df03ac06c3502d",
+                "GCA_927399515.1.repeats.ncbi.masked.fa.gz.gzi:md5,1498402842ac61a41afaac33130aa472",
+                "GCA_927399515.1.repeats.ncbi.masked.fa.gz.sizes:md5,018519e9aaae66647dac7f3c6d68cd4e"
             ]
         ],
         "meta": {

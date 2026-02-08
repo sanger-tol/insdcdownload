@@ -42,8 +42,8 @@ process NCBI_DOWNLOAD {
     def prefix = task.ext.prefix ?: "${meta.id}"
     filename_assembly_report = "${prefix}.assembly_report.txt"
     filename_assembly_stats = "${prefix}.assembly_stats.txt"
-    filename_fasta = "${prefix}.masked.ncbi.fa"
-    // NOTE: this channel eventually sees ".masked.ncbi" being added to meta.id
+    filename_fasta = "${prefix}.repeats.ncbi.fa"
+    // NOTE: this channel eventually sees ".repeats.ncbi" being added to meta.id
     filename_accession = "ACCESSION"
     filename_source = "SOURCE"
     // store URL

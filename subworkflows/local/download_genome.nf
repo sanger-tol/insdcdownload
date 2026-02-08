@@ -17,14 +17,14 @@ workflow DOWNLOAD_GENOME {
     ch_masked_fasta = NCBI_DOWNLOAD(assembly_params).fasta
     ch_versions = ch_versions.mix(NCBI_DOWNLOAD.out.versions.first())
     // Fix meta.id
-    ch_masked_fasta_id = ch_masked_fasta.map { meta, fasta -> [meta + [id: meta["id"] + ".masked.ncbi"], fasta] }
+    ch_masked_fasta_id = ch_masked_fasta.map { meta, fasta -> [meta + [id: meta["id"] + ".repeats.ncbi"], fasta] }
 
     // Unmask the genome fasta as it is masked by default
     ch_unmasked_fasta = UNMASK(ch_masked_fasta).unmasked
 
     emit:
     fasta_unmasked  = ch_unmasked_fasta // path: genome.unmasked.fa
-    fasta_masked    = ch_masked_fasta_id // path: genome.masked.ncbi.fa
+    fasta_masked    = ch_masked_fasta_id // path: genome.repeats.ncbi.fa
     assembly_report = NCBI_DOWNLOAD.out.assembly_report // path: genome.assembly_report.txt
     assembly_stats  = NCBI_DOWNLOAD.out.assembly_stats // path: genome.assembly_stats.txt
     accession       = NCBI_DOWNLOAD.out.accession // path: ACCESSION (contains accession number)
