@@ -57,9 +57,8 @@ workflow INSDCDOWNLOAD {
 
     // Header for unmasked fasta
     PREPARE_UNMASKED_HEADER(
-        PREPARE_UNMASKED_FASTA.out.dict,
+        PREPARE_UNMASKED_FASTA.out.fasta_gz,
         DOWNLOAD_GENOME.out.assembly_report,
-        DOWNLOAD_GENOME.out.source,
     )
     ch_versions = ch_versions.mix(PREPARE_UNMASKED_HEADER.out.versions)
 

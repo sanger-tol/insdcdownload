@@ -10,7 +10,7 @@ process BUILD_SAM_HEADER {
         : 'biocontainers/gawk:5.1.0'}"
 
     input:
-    tuple val(meta), path(dict), path(report), path(source)
+    tuple val(meta), path(dict), path(report)
 
     output:
     tuple val(meta), path(filename_header), emit: header
@@ -24,18 +24,15 @@ process BUILD_SAM_HEADER {
     filename_header = "${prefix}.header.sam"
 
     // Use the supplied speciesRegex or default if not provided
-    def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^\\(]*)\s*(.*)'
+    def speciesRegex = task.ext.speciesRegex ?: '# Organism name:\s*([^(]*)\s*(.*)'
 
     """
-    sourcePath=\$(cat ${source} | tr -d '\\n')
     genBankAccession=\$(awk '/^# GenBank assembly accession:/ { gsub("\\r", ""); print \$NF }' ${report})
 
-    duplicate_found=0
-
-    awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession -v sourcePath=\$sourcePath -v duplicate_found="duplicate_found" '
+    awk -v species_regex='${speciesRegex}' -v genBankAccession=\$genBankAccession '
     BEGIN {
         OFS = "\\t";
-        IFS = "\\t";
+        FS = "\\t";
         AS = "AS:" genBankAccession;
         species_name = "";
     }
@@ -47,7 +44,7 @@ process BUILD_SAM_HEADER {
         if (\$0 !~ /^#/) {
             split(\$0, fields, "\\t");
             if (fields[2] == "assembled-molecule") {
-                lookup[fields[5]] = fields[3];
+                lookup[fields[5]] = fields[1] "," fields[3];
             } else {
                 lookup[fields[5]] = fields[1];
             }
@@ -60,32 +57,32 @@ process BUILD_SAM_HEADER {
     }
     /^@SQ/ {
         split(\$0, fields, "\\t");
+
+        out = fields[1];
         sn = "";
-        for (i in fields) {
+        for (i = 2; i <= length(fields); i++) {
+            # skip UR: fields
+            if (fields[i] ~ /^UR:/) continue;
             if (fields[i] ~ /^SN:/) {
                 split(fields[i], sn_field, ":");
                 sn = sn_field[2];
             }
-            if (fields[i] ~ /^UR:/) {
-                fields[i] = "UR:" sourcePath;
-            }
+            out = out OFS fields[i];
         }
-        if (sn in lookup) {
-            new_field = "AN:" lookup[sn];
+
+        # Optional AN: only when SN exists and maps in lookup
+        if (sn != "" && (sn in lookup)) {
+            out = out OFS "AN:" lookup[sn];
         }
-        new_sp = "SP:" species_name;
-        print join(fields, OFS), AS, new_field, new_sp;
+
+        # Always add AS: and SP:
+        out = out OFS AS OFS "SP:" species_name;
+
+        print out;
         next;
     }
     {
         print;
-    }
-    function join(arr, sep) {
-        result = arr[1];
-        for (i = 2; i <= length(arr); i++) {
-            result = result sep arr[i];
-        }
-        return result;
     }
     ' ${report} ${dict} > ${filename_header}
 
