@@ -47,31 +47,26 @@ workflow INSDCDOWNLOAD {
     DOWNLOAD_GENOME(
         inputs
     )
-    ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
 
     // Preparation of Fasta files
     PREPARE_UNMASKED_FASTA(
         DOWNLOAD_GENOME.out.fasta_unmasked
     )
-    ch_versions = ch_versions.mix(PREPARE_UNMASKED_FASTA.out.versions)
 
     // Header for unmasked fasta
     PREPARE_UNMASKED_HEADER(
         PREPARE_UNMASKED_FASTA.out.fasta_gz,
         DOWNLOAD_GENOME.out.assembly_report,
     )
-    ch_versions = ch_versions.mix(PREPARE_UNMASKED_HEADER.out.versions)
 
     // Preparation of repeat-masking files
     PREPARE_REPEAT_MASKED_FASTA(
         DOWNLOAD_GENOME.out.fasta_masked
     )
-    ch_versions = ch_versions.mix(PREPARE_REPEAT_MASKED_FASTA.out.versions)
 
     PREPARE_REPEATS(
         PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz
     )
-    ch_versions = ch_versions.mix(PREPARE_REPEATS.out.versions)
 
     //
     // Collate and save software versions
@@ -106,9 +101,3 @@ workflow INSDCDOWNLOAD {
     emit:
     versions = ch_collated_versions // channel: [ path(versions.yml) ]
 }
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    THE END
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/

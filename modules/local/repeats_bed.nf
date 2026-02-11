@@ -14,7 +14,7 @@ process REPEATS_BED {
 
     output:
     tuple val(meta), path("*.bed"), emit: bed
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('repeats_bed'), eval("repeats_bed.py --version | cut -d' ' -f2"), topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -23,10 +23,5 @@ process REPEATS_BED {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     repeats_bed.py ${genome} > ${prefix}.bed
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        repeats_bed.py: \$(repeats_bed.py --version | cut -d' ' -f2)
-    END_VERSIONS
     """
 }

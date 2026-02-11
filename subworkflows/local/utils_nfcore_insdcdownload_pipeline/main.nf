@@ -113,12 +113,12 @@ workflow PIPELINE_INITIALISATION {
     else {
 
         ch_inputs = channel.of(
-                [
-                    outdir,
-                    params.assembly_name,
-                    params.assembly_accession,
-                ]
-            )
+            [
+                outdir,
+                params.assembly_name,
+                params.assembly_accession,
+            ]
+        )
     }
 
     emit:
