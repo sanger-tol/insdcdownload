@@ -37,7 +37,7 @@ include { methodsDescriptionText                       } from '../subworkflows/l
 
 workflow INSDCDOWNLOAD {
     take:
-    inputs // channel: tuple(assembly_accession, assembly_name, outdir)
+    inputs // channel: tuple(outdir, assembly_name, assembly_accession)
 
     main:
 
