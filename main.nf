@@ -27,7 +27,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_insd
 //
 workflow SANGERTOL_INSDCDOWNLOAD {
     take:
-    inputs // channel: tuple(assembly_accession, assembly_name, outdir)
+    inputs // channel: tuple(outdir, assembly_name, assembly_accession)
 
     main:
 
