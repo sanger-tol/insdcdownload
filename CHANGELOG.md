@@ -28,7 +28,7 @@ Note, since the pipeline is using Nextflow DSL2, each process will be run with i
 
 ### Enhancements & fixes
 
-- Remove defaults from lib/Utils.groovy
+- Updated the default list of Conda channels checked when running pipelines.
 
 ## [[2.0.1](https://github.com/sanger-tol/insdcdownload/releases/tag/2.0.1)] – Light elf (patch 1) – [2024-12-05]
 
