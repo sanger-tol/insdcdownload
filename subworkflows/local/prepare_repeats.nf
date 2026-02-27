@@ -24,5 +24,5 @@ workflow PREPARE_REPEATS {
         .join(BGZIPTABIX.out.csi, by: 0, remainder: true)
 
     emit:
-    repeats = ch_repeats // channel: [ bed.gz, tbi?, csi? ]
+    repeats = ch_repeats // channel: [ meta, bed.gz, bed.gz.gzi, tbi?, csi? ]
 }
