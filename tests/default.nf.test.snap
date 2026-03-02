@@ -26,14 +26,14 @@
                 "NCBI_DOWNLOAD": {
                     "wget": 1.18
                 },
+                "SAMTOOLS_BGZIP": {
+                    "samtools": "1.22.1"
+                },
                 "SAMTOOLS_DICT": {
                     "samtools": "1.22.1"
                 },
                 "SAMTOOLS_FAIDX": {
                     "samtools": "1.22.1"
-                },
-                "TABIX_BGZIP": {
-                    "tabix": 1.21
                 },
                 "Workflow": {
                     "sanger-tol/insdcdownload": "v3.0.0"
@@ -89,6 +89,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2026-02-27T11:32:56.117946967"
+        "timestamp": "2026-03-02T13:43:59.2591893"
     }
 }
