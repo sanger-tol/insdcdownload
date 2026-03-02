@@ -13,11 +13,11 @@
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { DOWNLOAD_GENOME                              } from '../subworkflows/local/download_genome'
-include { PREPARE_FASTA as PREPARE_UNMASKED_FASTA      } from '../subworkflows/local/prepare_fasta'
-include { PREPARE_FASTA as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/local/prepare_fasta'
-include { PREPARE_HEADER as PREPARE_UNMASKED_HEADER    } from '../subworkflows/local/prepare_header'
-include { PREPARE_REPEATS                              } from '../subworkflows/local/prepare_repeats'
+include { DOWNLOAD_GENOME                                     } from '../subworkflows/local/download_genome'
+include { FASTA_COMPRESS_INDEX as PREPARE_UNMASKED_FASTA      } from '../subworkflows/sanger-tol/fasta_compress_index/main'
+include { FASTA_COMPRESS_INDEX as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/sanger-tol/fasta_compress_index/main'
+include { PREPARE_HEADER as PREPARE_UNMASKED_HEADER           } from '../subworkflows/local/prepare_header'
+include { SOFT_MASKED_FASTA_REPEATS                           } from '../subworkflows/sanger-tol/soft_masked_fasta_repeats/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -25,9 +25,9 @@ include { PREPARE_REPEATS                              } from '../subworkflows/l
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { paramsSummaryMap                             } from 'plugin/nf-schema'
-include { softwareVersionsToYAML                       } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText                       } from '../subworkflows/local/utils_nfcore_insdcdownload_pipeline'
+include { paramsSummaryMap                                    } from 'plugin/nf-schema'
+include { softwareVersionsToYAML                              } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText                              } from '../subworkflows/local/utils_nfcore_insdcdownload_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,7 +50,8 @@ workflow INSDCDOWNLOAD {
 
     // Preparation of Fasta files
     PREPARE_UNMASKED_FASTA(
-        DOWNLOAD_GENOME.out.fasta_unmasked
+        DOWNLOAD_GENOME.out.fasta_unmasked,
+        false,
     )
 
     // Header for unmasked fasta
@@ -61,11 +62,13 @@ workflow INSDCDOWNLOAD {
 
     // Preparation of repeat-masking files
     PREPARE_REPEAT_MASKED_FASTA(
-        DOWNLOAD_GENOME.out.fasta_masked
+        DOWNLOAD_GENOME.out.fasta_masked,
+        false,
     )
 
-    PREPARE_REPEATS(
-        PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz
+    ch_fasta_sequence_length = PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz.map { meta, fasta -> [meta, fasta, meta.max_length] }
+    SOFT_MASKED_FASTA_REPEATS(
+        ch_fasta_sequence_length
     )
 
     //
