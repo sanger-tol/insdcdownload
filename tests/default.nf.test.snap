@@ -1,8 +1,12 @@
 {
     "-profile test": {
         "content": [
-            13,
+            11,
             {
+                "BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
                 "BUILD_ACC_TABLE": {
                     "BUILD_ACC_TABLE": 1.0,
                     "gawk": "5.3.1"
@@ -11,30 +15,25 @@
                     "BUILD_SAM_HEADER": 1.0,
                     "gawk": "5.3.1"
                 },
+                "MASK_SOFTMASK2BED": {
+                    "seqtk": "1.4-r122",
+                    "softmask2bed": 1.0
+                },
+                "MASK_UNMASK": {
+                    "gawk": "5.3.1",
+                    "unmask": 1.0
+                },
                 "NCBI_DOWNLOAD": {
                     "wget": 1.18
                 },
-                "REPEATS_BED": {
-                    "repeats_bed": 1.1
+                "SAMTOOLS_BGZIP": {
+                    "samtools": "1.22.1"
                 },
                 "SAMTOOLS_DICT": {
                     "samtools": "1.22.1"
                 },
                 "SAMTOOLS_FAIDX": {
                     "samtools": "1.22.1"
-                },
-                "TABIX_BGZIP": {
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX_CSI": {
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX_TBI": {
-                    "tabix": 1.21
-                },
-                "UNMASK": {
-                    "gawk": "5.3.1",
-                    "unmask": 1.0
                 },
                 "Workflow": {
                     "sanger-tol/insdcdownload": "v3.0.0"
@@ -90,6 +89,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2026-02-08T21:46:36.964807408"
+        "timestamp": "2026-03-02T13:43:59.2591893"
     }
 }

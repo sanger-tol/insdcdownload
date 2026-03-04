@@ -2,7 +2,7 @@
 // Download all the files from the NCBI
 //
 
-include { UNMASK        } from '../../modules/sanger-tol/unmask/main'
+include { MASK_UNMASK   } from '../../modules/sanger-tol/mask/unmask/main'
 include { NCBI_DOWNLOAD } from '../../modules/local/ncbi_download'
 
 
@@ -18,7 +18,7 @@ workflow DOWNLOAD_GENOME {
     ch_masked_fasta_id = ch_masked_fasta.map { meta, fasta -> [meta + [id: meta["id"] + ".repeats.ncbi"], fasta] }
 
     // Unmask the genome fasta as it is masked by default
-    ch_unmasked_fasta = UNMASK(ch_masked_fasta).unmasked
+    ch_unmasked_fasta = MASK_UNMASK(ch_masked_fasta).unmasked
 
     emit:
     fasta_unmasked  = ch_unmasked_fasta // path: genome.unmasked.fa
