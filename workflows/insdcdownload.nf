@@ -3,9 +3,31 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_insdcdownload_pipeline'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT LOCAL MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
+//
+include { DOWNLOAD_GENOME                                     } from '../subworkflows/local/download_genome'
+include { FASTA_COMPRESS_INDEX as PREPARE_UNMASKED_FASTA      } from '../subworkflows/sanger-tol/fasta_compress_index/main'
+include { FASTA_COMPRESS_INDEX as PREPARE_REPEAT_MASKED_FASTA } from '../subworkflows/sanger-tol/fasta_compress_index/main'
+include { PREPARE_HEADER as PREPARE_UNMASKED_HEADER           } from '../subworkflows/local/prepare_header'
+include { SOFT_MASKED_FASTA_REPEATS                           } from '../subworkflows/sanger-tol/soft_masked_fasta_repeats/main'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT NF-CORE MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+include { paramsSummaryMap                                    } from 'plugin/nf-schema'
+include { softwareVersionsToYAML                              } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText                              } from '../subworkflows/local/utils_nfcore_insdcdownload_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -14,14 +36,41 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_insd
 */
 
 workflow INSDCDOWNLOAD {
-
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
+    inputs // channel: samplesheet read in from --input
     outdir
 
     main:
 
     def ch_versions = channel.empty()
+
+    // Actual download
+    DOWNLOAD_GENOME(
+        inputs
+    )
+
+    // Preparation of Fasta files
+    PREPARE_UNMASKED_FASTA(
+        DOWNLOAD_GENOME.out.fasta_unmasked,
+        false,
+    )
+
+    // Header for unmasked fasta
+    PREPARE_UNMASKED_HEADER(
+        PREPARE_UNMASKED_FASTA.out.fasta_gz,
+        DOWNLOAD_GENOME.out.assembly_report,
+    )
+
+    // Preparation of repeat-masking files
+    PREPARE_REPEAT_MASKED_FASTA(
+        DOWNLOAD_GENOME.out.fasta_masked,
+        false,
+    )
+
+    ch_fasta_sequence_length = PREPARE_REPEAT_MASKED_FASTA.out.fasta_gz.map { meta, fasta -> [meta, fasta, meta.max_length] }
+    SOFT_MASKED_FASTA_REPEATS(
+        ch_fasta_sequence_length
+    )
 
     //
     // Collate and save software versions
@@ -35,9 +84,9 @@ workflow INSDCDOWNLOAD {
 
     def topic_versions_string = topic_versions.versions_tuple
         .map { process, tool, version ->
-            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+            [process[process.lastIndexOf(':') + 1..-1], "  ${tool}: ${version}"]
         }
-        .groupTuple(by:0)
+        .groupTuple(by: 0)
         .map { process, tool_versions ->
             tool_versions.unique().sort()
             "${process}:\n${tool_versions.join('\n')}"
