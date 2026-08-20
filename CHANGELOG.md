@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [[3.1.0dev](https://github.com/sanger-tol/insdcdownload/releases/tag/3.1.0dev)] – 3.1.0dev – [release-date]
+
+### Enhancements & fixes
+
+- Upgraded to the nf-core template v4.1.0
+- Slack / Teams functionality now moved to Nextflow plugins ([nf-slack](https://github.com/seqeralabs/nf-slack), [nf-teams](https://github.com/nvnieuwk/nf-teams))
+
 ## [[3.0.0](https://github.com/sanger-tol/insdcdownload/releases/tag/3.0.0)] – Stout-hearted hobbit – [2026-02-12]
 
 ### Enhancements & fixes
