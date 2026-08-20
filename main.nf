@@ -34,8 +34,9 @@ workflow SANGERTOL_INSDCDOWNLOAD {
     //
     // WORKFLOW: Run pipeline
     //
-    INSDCDOWNLOAD(
-        inputs
+    INSDCDOWNLOAD (
+        inputs,
+        params.outdir,
     )
 }
 /*
@@ -75,6 +76,5 @@ workflow {
         params.plaintext_email,
         params.outdir,
         params.monochrome_logs,
-        params.hook_url,
     )
 }

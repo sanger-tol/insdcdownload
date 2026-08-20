@@ -37,11 +37,12 @@ include { methodsDescriptionText                              } from '../subwork
 
 workflow INSDCDOWNLOAD {
     take:
-    inputs // channel: tuple(outdir, assembly_name, assembly_accession)
+    inputs // channel: samplesheet read in from --input
+    outdir
 
     main:
 
-    ch_versions = channel.empty()
+    def ch_versions = channel.empty()
 
     // Actual download
     DOWNLOAD_GENOME(
@@ -91,16 +92,20 @@ workflow INSDCDOWNLOAD {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    def ch_collated_versions = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
-            name: 'insdcdownload_software_' + 'versions.yml',
+            storeDir: "${outdir}/pipeline_info",
+            name:  'insdcdownload_software_'  + 'versions.yml',
             sort: true,
-            newLine: true,
+            newLine: true
         )
-        .set { ch_collated_versions }
-
     emit:
-    versions = ch_collated_versions // channel: [ path(versions.yml) ]
+    versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    THE END
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
