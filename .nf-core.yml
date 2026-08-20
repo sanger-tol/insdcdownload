@@ -27,8 +27,7 @@ nf_core_version: 4.1.0
 repository_type: pipeline
 template:
   author: "@muffato"
-  description: Pipeline that downloads assemblies from INSDC into a Tree of Life directory
-    structure
+  description: Pipeline that downloads assemblies from INSDC into a Tree of Life directory structure
   force: false
   is_nfcore: false
   name: insdcdownload
@@ -38,4 +37,4 @@ template:
     - igenomes
     - multiqc
     - fastqc
-  version: 3.0.0
+  version: 3.1.0dev

@@ -34,7 +34,7 @@ license: MIT
 message: If you use this software, please cite it using the metadata from this file
   and all references from CITATIONS.md .
 repository-code: https://github.com/sanger-tol/insdcdownload
-title: sanger-tol/insdcdownload v3.0.0 - Stout-hearted hobbit
+title: sanger-tol/insdcdownload v3.1.0dev - 3.1.0dev
 type: software
 url: https://pipelines.tol.sanger.ac.uk/insdcdownload
-version: 3.0.0
+version: 3.1.0dev

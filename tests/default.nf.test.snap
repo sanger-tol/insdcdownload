@@ -36,7 +36,7 @@
                     "samtools": "1.22.1"
                 },
                 "Workflow": {
-                    "sanger-tol/insdcdownload": "v3.0.0"
+                    "sanger-tol/insdcdownload": "v3.1.0dev"
                 }
             },
             [
