@@ -10,8 +10,27 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["ftp_root", "outdir"],
             "properties": {
+                "assembly_accession": {
+                    "type": "string",
+                    "description": "Accession number of the assembly to download. Typically of the form `GCA_*.*`",
+                    "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
+                    "fa_icon": "fas fa-font"
+                },
+                "assembly_name": {
+                    "type": "string",
+                    "description": "Name of the assembly, as on the NCBI website, e.g. `gfLaeSulp1.1`.",
+                    "pattern": "^\\S+$",
+                    "fa_icon": "fas fa-italic"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where the results will be saved. Not considered for sample-sheet entries that have an absolute path.",
+                    "default": "results",
+                    "fa_icon": "fas fa-folder-open"
+                },
                 "input": {
                     "type": "string",
                     "format": "file-path",
@@ -19,15 +38,16 @@
                     "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
+                    "description": "Path to comma-separated file containing information about the assemblies to download. Used for bulk download of many assemblies.",
+                    "help_text": "You will need to create a file with information about the assemblies you want to download. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
                     "fa_icon": "fas fa-file-csv"
                 },
-                "outdir": {
+                "ftp_root": {
                     "type": "string",
-                    "format": "directory-path",
-                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-                    "fa_icon": "fas fa-folder-open"
+                    "description": "Root location of the NCBI FTP, in which all assemblies can be found. Access protocol is actually not limited to FTP, and we use HTTPS by default.",
+                    "default": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA",
+                    "hidden": true,
+                    "fa_icon": "fas fa-link"
                 },
                 "email": {
                     "type": "string",
@@ -163,6 +183,14 @@
             }
         }
     },
+    "oneOf": [
+        {
+            "required": ["input"]
+        },
+        {
+            "required": ["assembly_accession", "assembly_name"]
+        }
+    ],
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
